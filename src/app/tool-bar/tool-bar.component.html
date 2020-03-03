@@ -1,6 +1,6 @@
 <mat-toolbar>
   <span>Accountant Application</span>
-  <div *ngIf="showFilters" >
+  <div *ngIf="!showFilters" >
   <select class="customer">
     <option *ngFor="let customer of customers">{{customer.companyName}} </option> 
   </select>
