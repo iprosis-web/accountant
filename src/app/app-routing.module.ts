@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ReportsComponent } from './reports/reports.component';
-import { CreateNewCustomerComponent } from './create-new-customer/create-new-customer.component';
+import { CreateNewCustomerComponent } from './customers/create-new-customer/create-new-customer.component';
 import { CustomerMonthlyReportComponent } from './customer-monthly-report/customer-monthly-report.component';
 
 const routes: Routes = [
