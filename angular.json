@@ -132,5 +132,8 @@
       }
     }
   },
-  "defaultProject": "AccountantApp"
+  "defaultProject": "AccountantApp",
+  "cli": {
+    "analytics": "8193d424-04b2-4cc1-ba99-9330622eac86"
+  }
 }
