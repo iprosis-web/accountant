@@ -13,17 +13,17 @@ export class ReportsService {
   // customersModelSubject = new Subject<>();
   private customers: customer[] = [{
     id: "1",
-    companyName: "company",
+    companyName: "חברת בצפון",
     contactID: 1
   },
   {
     id: "2",
-    companyName: "aminBeitCom",
+    companyName: "אמין בע''ם",
     contactID: 2
   },
   {
     id: "3",
-    companyName: "evgenyLTD",
+    companyName: "קודידו בע''ם",
     contactID: 3
   }
   ];
@@ -72,10 +72,13 @@ export class ReportsService {
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: string){
     //bring all reports
+    
     let filteredReports = this.reports.filter(report => 
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate))&&
-      (report.status == status || status == undefined || status == null));
+      (report.status == status || status == undefined || status == null)).sort((a, b) => {
+        return <any>new Date(b.reportDate) - <any>new Date(a.reportDate);
+      });
     
     return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
   }

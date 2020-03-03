@@ -5,6 +5,6 @@ export class contact {
     street: string;
     building: string;
     phone: string;
-    email: string
+    email: string;
 
 }
