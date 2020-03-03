@@ -7,17 +7,10 @@ import { DateFilterModel } from './models/dateFilterModel';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'AccountantApp';
   
-  constructor(private reportService: ReportsService){
+  constructor(){
     
-  }
-
-  ngOnInit(){
-    let datefilter: DateFilterModel = { startDate: null, endDate : null };
-    
-    let test = this.reportService.getCustomersReports(datefilter,"1",null);
-    console.log(test);
   }
 }
