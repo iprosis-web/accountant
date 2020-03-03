@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ReportsService } from './services/reports.service';
+import { DateFilterModel } from './models/dateFilterModel';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'AccountantApp';
+  
+  constructor(){
+    
+  }
 }

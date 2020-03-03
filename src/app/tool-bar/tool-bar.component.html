@@ -1,3 +1,11 @@
 <mat-toolbar>
-  <span>My Application</span>
+  <span>Accountant Application</span>
+  <div *ngIf="showFilters" >
+  <select class="customer">
+    <option *ngFor="let customer of customers">{{customer.companyName}} </option> 
+  </select>
+  <select class="status">
+    <option *ngFor="let status of statuses">{{status}} </option> 
+  </select>
+</div>
 </mat-toolbar>
