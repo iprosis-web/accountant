@@ -1,12 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-import { FormsModule } from '@angular/forms';
-=======
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { MatCardModule,MatGridListModule } from '@angular/material';
-
->>>>>>> 8e42a795f03197f501d7fd90429d81401e4a1d0c
+import { MatCardModule,MatGridListModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -17,6 +13,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreateNewCustomerComponent } from './customers/create-new-customer/create-new-customer.component';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 
 @NgModule({
@@ -35,7 +32,13 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     BrowserAnimationsModule,
     MatToolbarModule,
     MatCardModule,
-    MatGridListModule
+    MatGridListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MomentDateModule
   ],
   providers: [],
   bootstrap: [AppComponent]

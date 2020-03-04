@@ -1,15 +1,29 @@
 <mat-toolbar>
   <span>Accountant Application</span>
-  <div *ngIf="!showFilters">
+  <div *ngIf="showFilters">
 
-    <select [(ngModel)]="selectedCustomer" class="customer">
+    <select  [(ngModel)]="selectedCustomer" class="customer" >
       <option *ngFor="let customer of customers">{{customer.companyName}} </option>
     </select>
 
-    <select  class="status">
-      <option *ngFor="let status of statuses">{{status}} </option>
+    <select [(ngModel)]="selectedStatus" class="status">
+      <option *ngFor="let status of statuses" >{{status}} </option>
     </select>
 
-    <button class="btn btn-primary" (click)="onFilterSubmitted()" >סנן</button>
+    <mat-form-field class="stratDate">
+      <input  matInput [matDatepicker]="picker"  placeholder="Choose start date" [formControl]="dateStart">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker  #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
+      (monthSelected)="chosenStartMonthHandler($event, picker)" panelClass="example-month-picker">></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field class="endDate">
+      <input  matInput [min]="minDate" [matDatepicker]="picker2" placeholder="Choose end date" [formControl]="dateEnd">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
+      (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">></mat-datepicker>
+    </mat-form-field>
+
+    <button class="btn btn-primary" (click)="onFilterSubmitted([selectedCustomer])">OK</button>
   </div>
 </mat-toolbar>
