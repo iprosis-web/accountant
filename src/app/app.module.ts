@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatCardModule, MatGridListModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule,MatGridListModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { CustomerMonthlyReportComponent } from './customer-monthly-report/customer-monthly-report.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreateNewCustomerComponent } from './customers/create-new-customer/create-new-customer.component';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
+import { MomentDateModule } from '@angular/material-moment-adapter';
+import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
 
 
 @NgModule({
@@ -23,6 +25,7 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     ReportsComponent,
     CreateNewCustomerComponent,
     CustomerMonthlyReportComponent,
+    CustomerEditComponent,
     CustomerDetailsComponent
   ],
   imports: [
@@ -33,8 +36,18 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     MatToolbarModule,
     MatCardModule,
     MatGridListModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    ReactiveFormsModule,
+    MomentDateModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CustomerEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
