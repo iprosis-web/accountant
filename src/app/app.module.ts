@@ -1,12 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
 
-import { MatCardModule,MatGridListModule,MatDialogModule } from '@angular/material';
-=======
->>>>>>> 64a94fd28a25352cb1948228c5f3694973314436
+import { MatCardModule,MatGridListModule,MatDialogModule,
+         MatFormFieldModule,MatButtonModule,MatInputModule,MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
-import { MatCardModule, MatGridListModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -42,7 +39,11 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     MatGridListModule,
     FormsModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule
   ],
   entryComponents: [
     CustomerEditComponent

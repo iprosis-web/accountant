@@ -23,3 +23,11 @@
 .icon-left {
     float: left;
 }
+
+.row{
+    display: flex;
+    margin: 10px;
+}
+.col {
+    padding: 5px;
+}
