@@ -1,3 +1,14 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<app-tool-bar></app-tool-bar>
+<div class="sidebar-container">
+    <app-tool-bar></app-tool-bar>
+
+    <div class="sidebar" (click)="routeSidebar($event)">
+        <a href="reports">מסך ניהולי</a>
+        <a href="monthlyreport">הזנת דיווח חודשי ללקוח</a>
+        <a href="contact">מסך ניתוח ללקוח</a>
+        <a href="about">תחזוקת נתוני הלקוח</a>
+    </div>
+</div>
+
 <router-outlet></router-outlet>
