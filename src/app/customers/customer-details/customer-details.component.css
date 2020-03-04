@@ -1,0 +1,21 @@
+.main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-card{
+   width: 85%;
+   text-align:center;
+}
+
+.mat-card-content {
+    margin-right: 15px;
+    text-align: right;
+}
+
+.profile-init {
+    float: left;
+    text-align: center;
+    font: bold;
+}
