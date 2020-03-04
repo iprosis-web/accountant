@@ -10,9 +10,9 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
 const routes: Routes = [
   {path:'',component:ReportsComponent},
   {path:'reports',component:ReportsComponent},
-  {path:'createNewCustomer',component:CreateNewCustomerComponent},
-  {path: 'customerDetails', component:CustomerDetailsComponent},
-  {path:'customerMonthlyReport',component:CustomerMonthlyReportComponent},
+  {path:'createcustomer',component:CreateNewCustomerComponent},
+  {path:'monthlyreport',component:CustomerMonthlyReportComponent},
+  {path: 'customerdetails', component:CustomerDetailsComponent},
   {path:'**',redirectTo: '/'}
 ];
 

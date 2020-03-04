@@ -1,9 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+<<<<<<< HEAD
+import { FormsModule } from '@angular/forms';
+=======
 
 import { MatCardModule,MatGridListModule } from '@angular/material';
 
+>>>>>>> 8e42a795f03197f501d7fd90429d81401e4a1d0c
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { CustomerMonthlyReportComponent } from './customer-monthly-report/customer-monthly-report.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
@@ -25,6 +30,7 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,

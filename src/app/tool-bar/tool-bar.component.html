@@ -1,11 +1,15 @@
 <mat-toolbar>
   <span>Accountant Application</span>
-  <div *ngIf="!showFilters" >
-  <select class="customer">
-    <option *ngFor="let customer of customers">{{customer.companyName}} </option> 
-  </select>
-  <select class="status">
-    <option *ngFor="let status of statuses">{{status}} </option> 
-  </select>
-</div>
+  <div *ngIf="!showFilters">
+
+    <select [(ngModel)]="selectedCustomer" class="customer">
+      <option *ngFor="let customer of customers">{{customer.companyName}} </option>
+    </select>
+
+    <select  class="status">
+      <option *ngFor="let status of statuses">{{status}} </option>
+    </select>
+
+    <button class="btn btn-primary" (click)="onFilterSubmitted()" >סנן</button>
+  </div>
 </mat-toolbar>
