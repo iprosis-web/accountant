@@ -5,6 +5,8 @@ export class CustomerReportModel{
     companyEmail: string
     date: Date
     status: string
+    statusNum: number
     indication: number
+    indicationStr: string
     comment: string
 }

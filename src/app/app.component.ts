@@ -10,7 +10,8 @@ import { DateFilterModel } from './models/dateFilterModel';
 export class AppComponent {
   title = 'AccountantApp';
   
-  constructor(){
-    
+  constructor(private reportService: ReportsService){
+    let test = this.reportService.getCustomersReports(null,"1",null);
+    console.log(test);
   }
 }

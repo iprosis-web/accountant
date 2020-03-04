@@ -3,7 +3,7 @@ export class reports {
     customerId: string;
     reportDate: Date;
     creatDate: Date;
-    status: string;
+    status: number;
     indication: number;
     comment: string;
 }

@@ -4,6 +4,7 @@ import { CustomerReportModel } from '../models/customerReportModel';
 import { DateFilterModel } from '../models/dateFilterModel';
 import { customer } from '../models/customer';
 import { reports } from '../models/report';
+import { Indications, Statuses } from '../Utils/Enums'
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class ReportsService {
     customerId: "1",
     reportDate: new Date,
     creatDate: new Date,
-    status: "בעבודה",
+    status: +Statuses.working,
     indication: 1,
     comment: "חסרים דיווחי משכורות"
   },
@@ -42,7 +43,7 @@ export class ReportsService {
     customerId: "2",
     reportDate: new Date,
     creatDate: new Date,
-    status: "בעבודה",
+    status: +Statuses.working,
     indication: 1,
     comment: "חסרים דיווחי משכורות"
   },
@@ -51,7 +52,7 @@ export class ReportsService {
     customerId: "3",
     reportDate: new Date,
     creatDate: new Date,
-    status: "בעבודה",
+    status: +Statuses.notStarted,
     indication: 1,
     comment: "חסרים דיווחי משכורות"
   },
@@ -60,19 +61,33 @@ export class ReportsService {
     customerId: "1",
     reportDate: new Date,
     creatDate: new Date,
-    status: "בחופש",
-    indication: 1,
+    status: +Statuses.finished,
+    indication: 3,
     comment: "חסרים דיווחי משכורות"
   }
   ];
 
-  statuses = ["בעבודה","הסתיים","לא הותחל"]
+  statuses = [
+    {
+      id: 1,
+      name: "בעבודה"
+    },
+    {
+      id: 2,
+      name: "לר הותחל"
+    },
+    {
+      id: 3,
+      name:"הסתיים"
+    }];
 
   constructor() { }
 
-  getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: string){
+  getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number){
     //bring all reports
-    
+    if(!dateFilter)
+      dateFilter = new DateFilterModel();
+    console.log(Statuses.working);
     let filteredReports = this.reports.filter(report => 
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate))&&
@@ -95,8 +110,10 @@ export class ReportsService {
             companyName: currentUser.companyName,
             companyEmail: null,
             date: report.reportDate,
-            status: report.status,
+            statusNum: report.status,
+            status: this.statuses.find(s => s.id == report.status).name,
             indication: report.indication,
+            indicationStr: report.indication == 3 ? "חרג בזמן": "",
             comment: report.comment
           });
         }
