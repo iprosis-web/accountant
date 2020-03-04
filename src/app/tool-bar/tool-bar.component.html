@@ -1,6 +1,6 @@
+<div class="navbar">
 <mat-toolbar>
-  <span>Accountant Application</span>
-  <div *ngIf="showFilters">
+  <div *ngIf="!showFilters">
 
     <select  [(ngModel)]="selectedCustomer" class="customer" >
       <option *ngFor="let customer of customers">{{customer.companyName}} </option>
@@ -27,3 +27,4 @@
     <button class="btn btn-primary" (click)="onFilterSubmitted([selectedCustomer])">OK</button>
   </div>
 </mat-toolbar>
+</div>
