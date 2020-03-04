@@ -9,8 +9,8 @@ import { CustomerMonthlyReportComponent } from './customer-monthly-report/custom
 const routes: Routes = [
   {path:'',component:ReportsComponent},
   {path:'reports',component:ReportsComponent},
-  {path:'createNewCustomer',component:CreateNewCustomerComponent},
-  {path:'customerMonthlyReport',component:CustomerMonthlyReportComponent},
+  {path:'createcustomer',component:CreateNewCustomerComponent},
+  {path:'monthlyreport',component:CustomerMonthlyReportComponent},
   {path:'**',redirectTo: '/'}
 ];
 

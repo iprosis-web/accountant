@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-import { MatCardModule } from '@angular/material/card';
-
+import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { CustomerMonthlyReportComponent } from './customer-monthly-report/customer-monthly-report.component';
 import { ToolBarComponent } from './tool-bar/tool-bar.component';
@@ -25,6 +24,7 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule
