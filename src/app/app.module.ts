@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { MatCardModule,MatGridListModule } from '@angular/material';
+import { MatCardModule,MatGridListModule,MatDialogModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -15,6 +15,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CreateNewCustomerComponent } from './customers/create-new-customer/create-new-customer.component';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
+import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     ReportsComponent,
     CreateNewCustomerComponent,
     CustomerMonthlyReportComponent,
+    CustomerEditComponent,
     CustomerDetailsComponent
   ],
   imports: [
@@ -34,7 +36,11 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
     MatCardModule,
     MatGridListModule,
     FormsModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
+  ],
+  entryComponents: [
+    CustomerEditComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
