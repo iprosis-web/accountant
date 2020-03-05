@@ -11,25 +11,21 @@
             <td mat-cell *matCellDef="let element"><a href="www.google.com"> {{element.companyName}}</a> </td>
         </ng-container>
 
-        <!-- Weight Column -->
         <ng-container matColumnDef="חודש">
             <th mat-header-cell *matHeaderCellDef> חודש </th>
             <td mat-cell *matCellDef="let element"> {{element.date}} </td>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="סטטוס">
             <th mat-header-cell *matHeaderCellDef> סטטוס </th>
             <td mat-cell *matCellDef="let element"> {{element.status}} </td>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="אינדיקציות">
             <th mat-header-cell *matHeaderCellDef> אינדיקציות </th>
             <td mat-cell *matCellDef="let element" [style.background]="element.color"> {{element.indicationStr}} </td>
         </ng-container>
 
-        <!-- Symbol Column -->
         <ng-container matColumnDef="הערות">
             <th mat-header-cell *matHeaderCellDef> הערות </th>
             <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
