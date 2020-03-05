@@ -52,7 +52,16 @@ export class ToolBarComponent implements OnInit {
 
   customers = [];
   statuses = [];
+<<<<<<< HEAD
   @Input() showFilters: boolean=false;
+=======
+  selectedCustomer: string;
+  selectedStatus: string;
+  startDate: Date;
+  endDate: Date;
+  @Input() showFilters: boolean = false;
+  
+>>>>>>> 8cb84ad53e375cb6c913796262f14e71df89a06b
   @Output() dataFilter = new EventEmitter<filtersDataModel>();
   selectedCustomer: string;
   selectedStatus: string;
@@ -72,6 +81,7 @@ export class ToolBarComponent implements OnInit {
   }
 
   onFilterSubmitted() {
+<<<<<<< HEAD
     this.filtersDataObject.company = this.selectedCustomer;
     this.filtersDataObject.status = this.selectedStatus;
     this.dataFilter.emit(this.filtersDataObject);
@@ -79,6 +89,13 @@ export class ToolBarComponent implements OnInit {
     console.log(this.filtersDataObject.status);
     console.log(this.filtersDataObject.startDate);
     console.log(this.filtersDataObject.endDate);
+=======
+    this.model.companyName = this.selectedCustomer;
+    this.model.status = this.selectedStatus;
+    this.model.chosenStartDate = this.startDate;
+    this.model.chosenEndDate = this.endDate;
+    this.dataFilter.emit(this.model);
+>>>>>>> 8cb84ad53e375cb6c913796262f14e71df89a06b
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {
@@ -91,8 +108,14 @@ export class ToolBarComponent implements OnInit {
   chosenStartMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
+<<<<<<< HEAD
     this.selectedStartDate.setValue(ctrlValue);
     this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
+=======
+    this.dateStart.setValue(ctrlValue);
+    this.startDate = normalizedMonth.toDate();
+    this.minDate = this.startDate;
+>>>>>>> 8cb84ad53e375cb6c913796262f14e71df89a06b
     datepicker.close();
 
   }
