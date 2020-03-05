@@ -7,7 +7,7 @@
     </select>
 
     <select [(ngModel)]="selectedStatus" class="status">
-      <option *ngFor="let status of statuses" >{{status}} </option>
+      <option *ngFor="let status of statuses" >{{status.name}} </option>
     </select>
 
     <mat-form-field class="stratDate">
