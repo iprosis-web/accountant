@@ -28,10 +28,10 @@ export const MY_FORMATS = {
 };
 
 export interface filtersDataModel {
-  companyName: string,
+  company: string,
   status: string,
-  chosenStartDate: Date,
-  chosenEndDate: Date
+  startDate: Date,
+  endDate: Date
 }
 
 @Component({
@@ -52,78 +52,64 @@ export class ToolBarComponent implements OnInit {
 
   customers = [];
   statuses = [];
-  selectedCustomer: string;
-  selectedStatus: string;
-  startDate;
-  endDate: Date;
   @Input() showFilters: boolean=false;
   @Output() dataFilter = new EventEmitter<filtersDataModel>();
-  model: filtersDataModel = {
-    companyName: this.selectedCustomer,
-    status: this.selectedStatus,
-    chosenStartDate: this.startDate,
-    chosenEndDate: this.endDate
-  };
-
-  dateStart = new FormControl(moment());
-  dateEnd = new FormControl(moment());
-  minDate: Date;
-  maxDate: Date;
+  selectedCustomer: string;
+  selectedStatus: string;
+  selectedStartDate = new FormControl(moment());
+  selectedEndDate = new FormControl(moment());
 
   constructor(private reportsService: ReportsService) { }
-
+  filtersDataObject: filtersDataModel = {
+    company: this.selectedCustomer,
+    status: this.selectedStatus,
+    startDate: new Date(),
+    endDate: new Date()
+  };
   ngOnInit() {
-    this.startDate = new Date();
-    this.endDate = new Date();
     this.customers = this.reportsService.getAllCustomers();
     this.statuses = this.reportsService.getAllStatuses();
-    this.selectedCustomer = this.customers[0].companyName;
-    this.selectedStatus = this.statuses[0].name;
   }
 
   onFilterSubmitted() {
-    this.model.companyName = this.selectedCustomer;
-    this.model.status = this.selectedStatus;
-    this.model.chosenStartDate = this.startDate;
-    this.model.chosenEndDate = this.endDate;
-    this.dataFilter.emit(this.model);
-    // console.log(this.model.companyName);
-    // console.log(this.model.status);
-    // console.log(this.model.chosenStartDate);
-    // console.log(this.model.chosenEndDate);
+    this.filtersDataObject.company = this.selectedCustomer;
+    this.filtersDataObject.status = this.selectedStatus;
+    this.dataFilter.emit(this.filtersDataObject);
+    console.log(this.filtersDataObject.company);
+    console.log(this.filtersDataObject.status);
+    console.log(this.filtersDataObject.startDate);
+    console.log(this.filtersDataObject.endDate);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.dateStart.value;
+    const ctrlValue = this.selectedStartDate.value;
     ctrlValue.year(normalizedYear.year());
-    this.dateStart.setValue(ctrlValue);
+    this.selectedStartDate.setValue(ctrlValue);
 
   }
 
   chosenStartMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.dateStart.value;
+    const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
-    this.dateStart.setValue(ctrlValue);
-    this.startDate = normalizedMonth.toDate();
-    this.minDate=this.startDate;
+    this.selectedStartDate.setValue(ctrlValue);
+    this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
     datepicker.close();
 
   }
 
   chosenEndYearHandler(normalizedYear: Moment) {
-    const ctrlValue = this.dateEnd.value;
+    const ctrlValue = this.selectedEndDate.value;
     ctrlValue.year(normalizedYear.year());
-    this.dateEnd.setValue(ctrlValue);
+    this.selectedEndDate.setValue(ctrlValue);
 
   }
 
   chosenEndMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
-    const ctrlValue = this.dateEnd.value;
+    const ctrlValue = this.selectedEndDate.value;
     ctrlValue.month(normalizedMonth.month());
-    this.dateEnd.setValue(ctrlValue);
-    this.endDate = normalizedMonth.toDate();
+    this.selectedEndDate.setValue(ctrlValue);
+    this.filtersDataObject.endDate  = this.selectedEndDate.value.toDate();
     datepicker.close();
 
   }
 }
-

@@ -1,32 +1,44 @@
 <div class="navbar">
+
   <mat-toolbar>
-    <div *ngIf="showFilters">
-      <mat-form-field>
-        <select matNativeControl [(ngModel)]="selectedCustomer" class="customer" placeholder="בחר חברה">
-          <option *ngFor="let customer of customers">{{customer.companyName}} </option>
-        </select>
-      </mat-form-field>
-      <mat-form-field >
-        <select matNativeControl [(ngModel)]="selectedStatus" class="status" placeholder="בחר סטטוס">
-          <option *ngFor="let status of statuses">{{status.name}} </option>
-        </select>
-      </mat-form-field>
+    <form #f="ngForm">
+      <div *ngIf="showFilters">
 
-      <mat-form-field class="stratDate">
-        <input matInput [matDatepicker]="picker" placeholder=" מתאריך" [formControl]="dateStart">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
-          (monthSelected)="chosenStartMonthHandler($event, picker)" panelClass="example-month-picker">></mat-datepicker>
-      </mat-form-field>
+        <mat-form-field>
+          <mat-label>בחר חברה</mat-label>
+          <select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" required>
+            <option [value]=null>הכל</option>
+            <option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </option>
+          </select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>בחר סטטוס</mat-label>
+          <select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" required>
+            <option [value]=null>הכל</option>
+            <option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </option>
+          </select>
+        </mat-form-field>
 
-      <mat-form-field class="endDate">
-        <input matInput [min]="minDate" [matDatepicker]="picker2" placeholder="עד תאריך" [formControl]="dateEnd">
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-        <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
-          (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">></mat-datepicker>
-      </mat-form-field>
-      
-      <button mat-icon-button  (click)="onFilterSubmitted([selectedCustomer])">סנן</button>
-    </div>
+        <mat-form-field class="stratDate">
+          <input matInput [matDatepicker]="picker" placeholder=" מתאריך" [formControl]="selectedStartDate">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
+            (monthSelected)="chosenStartMonthHandler($event, picker)" panelClass="example-month-picker">>
+          </mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="endDate">
+          <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" placeholder="עד תאריך" [formControl]="selectedEndDate">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
+            (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>
+          </mat-datepicker>
+        </mat-form-field>
+
+        <button class="toolbarButton" mat-button type="submit" [disabled]="!f.valid"
+          (click)="onFilterSubmitted()">סנן</button>
+      </div>
+    </form>
   </mat-toolbar>
+
 </div>
