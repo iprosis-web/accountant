@@ -35,16 +35,11 @@ export class ReportsComponent implements OnInit {
   }
 
   setTableData(date, customerId, statusId) {
-    if (customerId == null) {
-    
-      this.reports = this.reportsService.getCustomersReports(date, customerId, statusId);
-      this.fillDataTableArray();
-    }
-
-    else{
       this.dataTableArray=[];
       this.indications=[];      
+      console.log(statusId);
       this.reports = this.reportsService.getCustomersReports(date, customerId, statusId);
+    
       if(this.reports.length <= 0){
         alert('לא נמצאו רושומות לפי סינון');
         this.reports = this.reportsService.getCustomersReports(null, null, null);
@@ -53,8 +48,6 @@ export class ReportsComponent implements OnInit {
       else{
         this.fillDataTableArray();
       }
-
-    }
     this.setIndicationColors();
   }
 
@@ -101,10 +94,15 @@ export class ReportsComponent implements OnInit {
 
   showFilterData(event) {
 
-    this.customerId = event.companyName;
+    this.customerId = event.company;
     this.statusId = event.status;
-    this.date.startDate = new Date(event.chosenStartDate.getFullYear(),event.chosenStartDate.getMonth(), 1);
-    this.date.endDate = new Date(event.chosenEndDate.getFullYear(),event.chosenEndDate.getMonth()+1, -1);
+    this.date.startDate = new Date(event.startDate.getFullYear(),event.startDate.getMonth(), 1);
+    this.date.endDate = new Date(event.endDate.getFullYear(),event.endDate.getMonth()+1, -1);
+    if(this.statusId == "null")
+      this.statusId = null;
+    if(this.customerId == "null"){
+      this.customerId = null;
+    }
     this.setTableData(this.date,this.customerId , this.statusId);
   
   }

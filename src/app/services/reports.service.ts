@@ -112,7 +112,7 @@ export class ReportsService {
     },
     {
       id: 2,
-      name: "לר הותחל"
+      name: "לא הותחל"
     },
     {
       id: 3,
@@ -123,8 +123,10 @@ export class ReportsService {
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number){
     //bring all reports
-    if(!dateFilter)
+    console.log(dateFilter);
+    if(dateFilter == null || dateFilter == undefined){
       dateFilter = new DateFilterModel();
+    }
     let filteredReports = this.reports.filter(report => 
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate))&&
