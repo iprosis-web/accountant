@@ -87,7 +87,6 @@ export class ReportsService {
     //bring all reports
     if(!dateFilter)
       dateFilter = new DateFilterModel();
-    console.log(Statuses.working);
     let filteredReports = this.reports.filter(report => 
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate))&&

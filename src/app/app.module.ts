@@ -16,7 +16,7 @@ import { CreateNewCustomerComponent } from './customers/create-new-customer/crea
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
-
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,9 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     MomentDateModule,
     FormsModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSelectModule,
+    
   ],
   entryComponents: [
     CustomerEditComponent

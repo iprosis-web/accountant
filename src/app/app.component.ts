@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Renderer } from '@angular/core';
 import { ReportsService } from './services/reports.service';
 import { DateFilterModel } from './models/dateFilterModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,8 +9,14 @@ import { DateFilterModel } from './models/dateFilterModel';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'AccountantApp';
-  
-  constructor(){
+  constructor(private render: Renderer){
+  }
+
+  routeSidebar(event:any){
+    console.log(event.target);
+    
+    // event.preventDefault();
+    this.render.setElementClass(event.target, "active", true);
+
   }
 }

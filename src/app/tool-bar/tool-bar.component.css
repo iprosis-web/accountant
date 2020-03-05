@@ -1,7 +1,24 @@
-.example-month-picker .mat-calendar-period-button {
-    pointer-events: none;
-  }
+.navbar{
+  position: absolute;
+  /* right:180px; */
+  /* padding-top: 0%; */
   
-  .example-month-picker .mat-calendar-arrow {
+  top:0;
+  padding: 0;
+  width:85%;
+  direction:rtl;
+
+}
+/* .example-month-picker .mat-calendar-period-button {
+    pointer-events: none;
+  } */
+  
+  /* .example-month-picker .mat-calendar-arrow {
     display: none;
+  } */
+
+  .mat-toolbar-single-row{
+      height: 100px;
+      background-color: darkturquoise;
+
   }
