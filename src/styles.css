@@ -3,7 +3,7 @@ body{
  display: hidden;   
 }
 
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+/* @import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; */
 
 
 html, body { height: 100%; }

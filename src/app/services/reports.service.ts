@@ -5,6 +5,8 @@ import { DateFilterModel } from '../models/dateFilterModel';
 import { customer } from '../models/customer';
 import { reports } from '../models/report';
 import { Indications, Statuses } from '../Utils/Enums'
+import { contact } from '../models/contact';
+import { FullCustomerModel } from '../models/fullCustomerModel';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,7 @@ export class ReportsService {
   // customersModelSubject = new Subject<>();
   private customers: customer[] = [{
     id: "1",
-    companyName: "חברת בצפון",
+    companyName: "חברה בצפון",
     contactID: 1
   },
   {
@@ -28,6 +30,36 @@ export class ReportsService {
     contactID: 3
   }
   ];
+
+  private contacts: contact[] = [
+      {
+        id: 1,
+        customerId: "1",
+        city: "חיפה",
+        street: "רחוב נשר",
+        building: "14",
+        phone: "05234454677",
+        email: "tsafon@tsafon.com"
+      },
+      {
+        id: 2,
+        customerId: "2",
+        city: "תל אביב",
+        street: "רחוב תל",
+        building: "7",
+        phone: "0526154677",
+        email: "merkaz@merka.com"
+      },
+      {
+        id: 3,
+        customerId: "3",
+        city: "אילת",
+        street: "רחוב אילת",
+        building: "2",
+        phone: "05234454677",
+        email: "eilat@ee.com"
+      },
+  ]
 
   private reports: reports[] = [{
     id: 1,
@@ -124,6 +156,35 @@ export class ReportsService {
   getAllCustomers(){
     if(this.customers){
       return this.customers.slice();
+    }
+  }
+
+  getFullCustomersDetails(){
+    if(this.customers){
+      if(this.contacts){
+        let fullModel: FullCustomerModel[] = [];
+        for(let customer of this.customers){
+          fullModel.push(
+            {
+              customer: customer,
+              contact: this.contacts.find(c => c.customerId == customer.id)
+            }
+          );
+        }
+        return fullModel;
+      }
+      else{
+        let fullModel: FullCustomerModel[] = [];
+        for(let customer of this.customers){
+          fullModel.push(
+            {
+              customer: customer,
+              contact: null
+            }
+          );
+        }
+        return fullModel;
+      }
     }
   }
 
