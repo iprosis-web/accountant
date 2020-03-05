@@ -1,14 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-<<<<<<< HEAD
-
-import { MatCardModule,MatGridListModule,MatDialogModule,
-         MatFormFieldModule,MatButtonModule,MatInputModule,MatSelectModule } from '@angular/material';
-import { FormsModule } from '@angular/forms';
-=======
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule,MatGridListModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
->>>>>>> ab1d09c722d0048a70d016fcfaead373cb0b3ae2
+import { MatCardModule,MatGridListModule, MatFormFieldModule,
+   MatInputModule, MatDatepickerModule, MatNativeDateModule,
+  MatButtonModule,MatSelectModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import {MatDialogModule} from '@angular/material/dialog';
