@@ -8,8 +8,6 @@ import { DateFilterModel } from './models/dateFilterModel';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-items = ['מסך ניהולי', 'הזנת דיווח חודשי ללקוח' , 'מסך ניתוח ללקוח' , 'תחזוקת נתוני לקוח' ]
-hrefItems = ['reports' , 'monthly_customer_report' , 'customer_report' , 'maintenace_report']
   constructor(private render: Renderer){
   }
 
