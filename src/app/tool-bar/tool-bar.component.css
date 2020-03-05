@@ -1,16 +1,21 @@
 /* .navbar{
   position: absolute;
-  right:205px;
-  width:100%;
+  /* right:180px; */
+  /* padding-top: 0%; */
+  
+  top:0;
+  padding: 0;
+  width:85%;
   direction:rtl;
 
 } */
 :host {
   direction: rtl;
 }
-/* .example-month-picker .mat-calendar-period-button {
+
+.example-month-picker .mat-calendar-period-button {
     pointer-events: none;
-  } */
+  }
   
   /* .example-month-picker .mat-calendar-arrow {
     display: none;
@@ -20,4 +25,26 @@
       height: 100px;
       background-color: darkturquoise;
 
+  }
+
+  
+  .toolbarButton {
+    background-color: rgb(43,38,38);
+    color: white;
+    margin-right: 20px;
+    
+  }
+  .toolbarButton[disabled] {
+    background-color: rgb(43,38,38);
+    color: gray;
+    margin-right: 20px;
+    
+  }
+
+  .mat-datepicker-toggle {
+    direction:rtl;
+  }
+
+  .mat-form-field {
+    padding: 10px;
   }

@@ -21,7 +21,6 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

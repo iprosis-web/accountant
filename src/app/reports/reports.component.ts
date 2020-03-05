@@ -1,67 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ReportsService } from '../services/reports.service';
+import { Router } from '@angular/router';
+import { ToolBarComponent } from '../tool-bar/tool-bar.component';
+import { Indications } from '../Utils/Enums';
+
+
+
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
+
   customers;
-  customerName;
   reports;
-  dataTable: { companyName: string, date: string, status: string, color: string, indicationStr: string, comment: string } =
-    { companyName: null, date: null, status: null, color: null, indicationStr: null, comment: null };
-  dataTableArray = [];
+  dataTableArray: any = [];
   indications = [];
   indicationsColors = [];
   displayedColumns: string[] = ['לקוח', 'חודש', 'סטטוס', 'אינדיקציות', 'הערות'];
   dataSource;
+  currDate = new Date();
+  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
+  date = { startDate: this.firstDay, endDate: this.currDate };
+  customerId = null;
+  statusId = null;
 
-  constructor(private reportsService: ReportsService) { }
+  constructor(private reportsService: ReportsService,
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.customers = this.reportsService.getAllCustomers();
-    for (var i = 0; i < this.customers.length; i++) {
-
-      if (this.reportsService.getCustomersReports(null, this.customers[i].id, null) != null) {
-        this.reports = this.reportsService.getCustomersReports(null, this.customers[i].id, null);
-        for (var j = 0; j < this.reports.length; j++) {
-          this.dataTable.companyName = this.customers[i].companyName;
-          this.dataTable.date = this.reports[j].date.getMonth() + 1 + '.' + this.reports[j].date.getFullYear();
-          this.dataTable.status = this.reports[j].status;
-          this.indications.push(this.reports[j].indication);
-          this.dataTable.indicationStr = this.reports[j].indicationStr;
-          this.dataTable.comment = this.reports[j].comment;
-          this.dataTableArray.push(this.dataTable);
-        }
-      }
-      else {
-        this.dataTable.companyName = this.customers[i].companyName;
-        this.dataTable.date = null;
-        this.dataTable.status = null;
-        this.dataTable.indicationStr = null;
-        this.dataTable.comment = null;
-        this.dataTableArray.push(this.dataTable);
-
-      }
-    }
-    this.setIndicationColors();
-
+    this.setTableData(this.date, this.customerId, this.statusId);
 
   }
 
+  setTableData(date, customerId, statusId) {
+    if (customerId == null) {
+    
+      this.reports = this.reportsService.getCustomersReports(date, customerId, statusId);
+      this.fillDataTableArray();
+    }
+
+    else{
+      this.dataTableArray=[];
+      this.indications=[];      
+      this.reports = this.reportsService.getCustomersReports(date, customerId, statusId);
+      if(this.reports.length <= 0){
+        alert('לא נמצאו רושומות לפי סינון');
+        this.reports = this.reportsService.getCustomersReports(null, null, null);
+        this.fillDataTableArray();
+      }
+      else{
+        this.fillDataTableArray();
+      }
+
+    }
+    this.setIndicationColors();
+  }
+
+  fillDataTableArray(){
+    for (var j = 0; j < this.reports.length; j++) {
+      let dataTable: any = { companyName: '', date: '', status: '', color: '', indicationStr: '', comment: '' };
+      dataTable.companyName = this.reports[j].companyName;
+      dataTable.date = this.reports[j].date.getMonth() + 1 + '.' + this.reports[j].date.getFullYear();
+      dataTable.status = this.reports[j].status;
+      dataTable.color = "green";
+      this.indications.push(this.reports[j].indication);
+      dataTable.indicationStr = this.reports[j].indicationStr;
+      dataTable.comment = this.reports[j].comment;
+      this.dataTableArray.push(dataTable);
+    }
+  }
+
+
   setIndicationColors() {
     for (var i = 0; i < this.indications.length; i++) {
-      switch (this, this.indications[i]) {
-        case 1:
+      switch (this.indications[i]) {
+        case Indications.successfull:
           this.dataTableArray[i].color = 'green';
           break;
 
-        case 2:
+        case Indications.pending:
           this.dataTableArray[i].color = 'yellow';
           break;
 
-        case 3:
+        case Indications.fail:
           this.dataTableArray[i].color = 'red';
           break;
 
@@ -71,10 +94,19 @@ export class ReportsComponent implements OnInit {
 
       }
     }
-    console.log(this.dataTableArray);
-    
     this.dataSource = this.dataTableArray;
 
+  }
+
+
+  showFilterData(event) {
+
+    this.customerId = event.companyName;
+    this.statusId = event.status;
+    this.date.startDate = new Date(event.chosenStartDate.getFullYear(),event.chosenStartDate.getMonth(), 1);
+    this.date.endDate = new Date(event.chosenEndDate.getFullYear(),event.chosenEndDate.getMonth()+1, -1);
+    this.setTableData(this.date,this.customerId , this.statusId);
+  
   }
 
 }

@@ -1,4 +1,8 @@
+<div class="nav-container">
+    <app-tool-bar showFilters="true" (dataFilter)="showFilterData($event)">  </app-tool-bar>
+
 <div class="container">
+    
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <!-- Name Column -->
@@ -34,4 +38,5 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
+</div>
 </div>

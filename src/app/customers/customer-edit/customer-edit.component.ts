@@ -25,7 +25,6 @@ export class CustomerEditComponent implements OnInit {
     if(this.data.customerId){
       this.editFlag = true;
       this.currentCustomerId = this.data.customerId;
-      console.log(this.currentCustomerId);
       this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
       this.setEditFormValues();
     }
