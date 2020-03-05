@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatCardModule,MatGridListModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
+import { MatCardModule,MatGridListModule, MatFormFieldModule,
+   MatInputModule, MatDatepickerModule, MatNativeDateModule,
+  MatButtonModule,MatSelectModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -16,7 +18,6 @@ import { CreateNewCustomerComponent } from './customers/create-new-customer/crea
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
-
 
 @NgModule({
   declarations: [
@@ -44,7 +45,11 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     MomentDateModule,
     FormsModule,
     FontAwesomeModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule
   ],
   entryComponents: [
     CustomerEditComponent

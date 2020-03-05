@@ -1,6 +1,7 @@
 import { Component, OnInit , Renderer } from '@angular/core';
 import { ReportsService } from './services/reports.service';
 import { DateFilterModel } from './models/dateFilterModel';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',

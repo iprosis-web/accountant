@@ -1,28 +1,52 @@
-
+<app-tool-bar></app-tool-bar>
   <h1 mat-dialog-title >עריכת לקוח</h1>
-  <div mat-dialog-content >
-    <form>
-      <div class="form-group">
-        <label for="companyname">שם לקוח</label>
-        <input type="text" name="companyname" class="form-control" id="companyname" required>
-      </div>
+  <div mat-dialog-content>
+    <form #cf="ngForm" (ngSubmit)="onSubmit(customerForm)" class="customer-form-container">
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס שם חברה</mat-label>
+        <input matInput name="companyName" id="companyName" ngModel required minlength="3" #companyName="ngModel">
+        <mat-error *ngIf="!companyName.valid"> שם חברה חייב להכיל לפחות 3 אוטיות </mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס כתובת מייל</mat-label>
+        <input type="email" matInput placeholder="mail@example.com" name="customerEmail" id="customerEmail" ngModel email required #customerEmail="ngModel">
+        <mat-error *ngIf="!customerEmail.valid">חובה להכניס מייל תקין</mat-error>
+      </mat-form-field>
 
-      <div class="form-group">
-        <label for="companyname">שם לקוח</label>
-        <input type="text" name="companyname" class="form-control" id="companyname" required>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס מספר פלאפון</mat-label>
+        <input matInput name="customerPhone" id="customerPhone" ngModel required pattern="^((\+|00)?972\-?|0)(([23489]|[57]\d)\-?\d{7})$" #customerPhone="ngModel">
+        <mat-error *ngIf="!customerPhone.valid">חובה להכניס מספר פלאפון תקין</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס עיר</mat-label>
+        <input matInput name="customerCity" id="customerCity" ngModel required #customerCity="ngModel">
+        <mat-error *ngIf="!customerCity.valid">חובה להכניס שם עיר</mat-error>
+      </mat-form-field>
 
-      <div class="form-group">
-        <label for="companyname">שם לקוח</label>
-        <input type="text" name="companyname" class="form-control" id="companyname" required>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס כתובת</mat-label>
+        <input matInput name="customerAddress" id="customerAddress" ngModel required  minlength="3" #customerAddress="ngModel">
+        <mat-error *ngIf="!customerAddress.valid">חובה להכניס לפחות 3 אוטיות</mat-error>
+      </mat-form-field>
 
-      <div class="form-group">
-        <label for="companyname">שם לקוח</label>
-        <input type="text" name="companyname" class="form-control" id="companyname" required>
-      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>הכנס מספר בניין</mat-label>
+        <input matInput name="customerBuilding" id="customerBuilding" ngModel>
+        <mat-error></mat-error>
+      </mat-form-field>
 
-      <button type="submit" class="btn btn-primary" style="margin: 5px;">שמור</button>
-      <button type="button" class="btn btn-danger" mat-dialog-close>סגור</button>
+      <mat-form-field appearance="fill">
+        <mat-label>סטטוס</mat-label>
+        <mat-select>
+          <mat-option value="1">פעיל</mat-option>
+          <mat-option value="0">לא פעיל</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+      <button type="submit" mat-raised-button color="primary" style="margin: 5px;" [disabled]="!customerForm.valid">שמור</button>
+      <button type="button" mat-dialog-close mat-raised-button color="danger">ביטול</button>
     </form>
   </div>

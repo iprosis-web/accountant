@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReportsService } from '../services/reports.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-reports',
   templateUrl: './reports.component.html',
@@ -15,7 +16,8 @@ export class ReportsComponent implements OnInit {
   displayedColumns: string[] = ['לקוח', 'חודש', 'סטטוס', 'אינדיקציות', 'הערות'];
   dataSource = [];
 
-  constructor(private reportsService: ReportsService) { }
+  constructor(private reportsService: ReportsService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
