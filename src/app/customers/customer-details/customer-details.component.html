@@ -1,7 +1,9 @@
+<app-tool-bar></app-tool-bar>
 <br>
 <div class="main-div" dir="rtl">
   <mat-card>
-    <button class="icon-left" mat-raised-button (click)="openDialog()"><fa-icon [icon]="faEdit"></fa-icon></button>
+    <button class="icon-left" mat-raised-button (click)="openDialogForEdit()" style="margin: 5px;"><fa-icon [icon]="faEdit"></fa-icon></button>
+    <button class="icon-left" mat-raised-button (click)="openDialogForNew()" style="margin: 5px;"><fa-icon [icon]="faAdd"></fa-icon></button>
     <mat-card-header>
       <mat-card-title>
         <p>
@@ -29,7 +31,7 @@
           <p>סטאטוס:</p>
         </div>
         <div class="col">
-          <p>סטאטוס נכנס כאן</p>
+          <p>{{ currentCustomerModel.customer.isActive == true ? 'פעיל' : 'לא פעיל' }}</p>
         </div>
       </div>
       <div class="row">
@@ -53,7 +55,7 @@
           <p>תאריך הצטרפות:</p>
         </div>
         <div class="col">
-          <p>תאריך הצטרפות נכנס כאן</p>
+          <p>{{ currentCustomerModel.customer.createdDate.getDate() + '/' + (currentCustomerModel.customer.createdDate.getMonth() + 1) + '/' + currentCustomerModel.customer.createdDate.getFullYear()  }}</p>
         </div>
       </div>
     </mat-card-content>

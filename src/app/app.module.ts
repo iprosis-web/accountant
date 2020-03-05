@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule,MatGridListModule, MatFormFieldModule,
    MatInputModule, MatDatepickerModule, MatNativeDateModule,
   MatButtonModule,MatSelectModule } from '@angular/material';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -50,7 +52,8 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    FlexLayoutModule
   ],
   entryComponents: [
     CustomerEditComponent

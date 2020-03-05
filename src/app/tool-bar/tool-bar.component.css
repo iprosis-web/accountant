@@ -1,9 +1,12 @@
-.navbar{
+/* .navbar{
   position: absolute;
   right:205px;
   width:100%;
   direction:rtl;
 
+} */
+:host {
+  direction: rtl;
 }
 /* .example-month-picker .mat-calendar-period-button {
     pointer-events: none;

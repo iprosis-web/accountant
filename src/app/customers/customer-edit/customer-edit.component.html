@@ -1,5 +1,6 @@
 
-  <h1 mat-dialog-title >עריכת לקוח</h1>
+  <h1 mat-dialog-title *ngIf="currentCustomerId">עריכת לקוח</h1>
+  <h1 mat-dialog-title *ngIf="currentCustomerId == null">הוספת לקוח</h1>
   <div mat-dialog-content>
     <form #cf="ngForm" (ngSubmit)="onSubmit(customerForm)" class="customer-form-container">
       <mat-form-field appearance="fill">
@@ -38,7 +39,7 @@
         <mat-error></mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="fill">
+      <mat-form-field appearance="fill" style="display: none;">
         <mat-label>סטטוס</mat-label>
         <mat-select>
           <mat-option value="1">פעיל</mat-option>
