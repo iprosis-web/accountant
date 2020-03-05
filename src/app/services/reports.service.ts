@@ -123,7 +123,6 @@ export class ReportsService {
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number){
     //bring all reports
-    console.log(dateFilter);
     if(dateFilter == null || dateFilter == undefined){
       dateFilter = new DateFilterModel();
     }

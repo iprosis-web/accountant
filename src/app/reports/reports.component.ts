@@ -37,13 +37,19 @@ export class ReportsComponent implements OnInit {
   setTableData(date, customerId, statusId) {
       this.dataTableArray=[];
       this.indications=[];      
-      console.log(statusId);
       this.reports = this.reportsService.getCustomersReports(date, customerId, statusId);
-    
+      this.customers = this.reportsService.getAllCustomers();
       if(this.reports.length <= 0){
-        alert('לא נמצאו רושומות לפי סינון');
-        this.reports = this.reportsService.getCustomersReports(null, null, null);
-        this.fillDataTableArray();
+        alert('לא נמצאו דיווחים לפי הסינון');
+        for(var i=0 ; i<this.customers.length ; i++)
+        {
+          if(this.customers[i].id == customerId)
+          {
+           this.dataTableArray.push({companyName:this.customers[i].companyName});
+          }
+        // this.reports = this.reportsService.getCustomersReports(null, null, null);
+        // this.fillDataTableArray();
+        }
       }
       else{
         this.fillDataTableArray();

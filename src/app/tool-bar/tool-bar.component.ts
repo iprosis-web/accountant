@@ -74,11 +74,6 @@ export class ToolBarComponent implements OnInit {
   onFilterSubmitted() {
     this.filtersDataObject.company = this.selectedCustomer;
     this.filtersDataObject.status = this.selectedStatus;
-    console.log(this.filtersDataObject);
-    console.log(this.filtersDataObject.company);
-    console.log(this.filtersDataObject.status);
-    console.log(this.filtersDataObject.startDate);
-    console.log(this.filtersDataObject.endDate);
     this.dataFilter.emit(this.filtersDataObject);
   }
 
