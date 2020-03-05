@@ -3,12 +3,12 @@
     <div *ngIf="showFilters">
       <mat-form-field>
         <select matNativeControl [(ngModel)]="selectedCustomer" class="customer" placeholder="בחר חברה">
-          <option *ngFor="let customer of customers">{{customer.companyName}} </option>
+          <option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </option>
         </select>
       </mat-form-field>
       <mat-form-field >
         <select matNativeControl [(ngModel)]="selectedStatus" class="status" placeholder="בחר סטטוס">
-          <option *ngFor="let status of statuses">{{status.name}} </option>
+          <option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </option>
         </select>
       </mat-form-field>
 
@@ -26,7 +26,7 @@
           (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">></mat-datepicker>
       </mat-form-field>
       
-      <button mat-icon-button  (click)="onFilterSubmitted([selectedCustomer])">סנן</button>
+      <button mat-icon-button  (click)="onFilterSubmitted()">סנן</button>
     </div>
   </mat-toolbar>
 </div>

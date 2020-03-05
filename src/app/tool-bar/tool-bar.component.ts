@@ -54,9 +54,10 @@ export class ToolBarComponent implements OnInit {
   statuses = [];
   selectedCustomer: string;
   selectedStatus: string;
-  startDate;
+  startDate: Date;
   endDate: Date;
-  @Input() showFilters: boolean=false;
+  @Input() showFilters: boolean = false;
+  
   @Output() dataFilter = new EventEmitter<filtersDataModel>();
   model: filtersDataModel = {
     companyName: this.selectedCustomer,
@@ -87,10 +88,6 @@ export class ToolBarComponent implements OnInit {
     this.model.chosenStartDate = this.startDate;
     this.model.chosenEndDate = this.endDate;
     this.dataFilter.emit(this.model);
-    // console.log(this.model.companyName);
-    // console.log(this.model.status);
-    // console.log(this.model.chosenStartDate);
-    // console.log(this.model.chosenEndDate);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {
@@ -105,7 +102,7 @@ export class ToolBarComponent implements OnInit {
     ctrlValue.month(normalizedMonth.month());
     this.dateStart.setValue(ctrlValue);
     this.startDate = normalizedMonth.toDate();
-    this.minDate=this.startDate;
+    this.minDate = this.startDate;
     datepicker.close();
 
   }

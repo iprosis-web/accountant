@@ -12,9 +12,7 @@ export class AppComponent {
   constructor(private render: Renderer){
   }
 
-  routeSidebar(event:any){
-    console.log(event.target);
-    
+  routeSidebar(event:any){    
     // event.preventDefault();
     this.render.setElementClass(event.target, "active", true);
 
