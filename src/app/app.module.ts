@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule,MatGridListModule, MatFormFieldModule,
    MatInputModule, MatDatepickerModule, MatNativeDateModule,
-  MatButtonModule,MatSelectModule } from '@angular/material';
+  MatButtonModule,MatSelectModule, MatIconModule, MatMenuModule } from '@angular/material';
+
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
@@ -60,8 +61,9 @@ import { MatPaginatorModule , MatSortModule} from '@angular/material';
     MatSelectModule,
     FlexLayoutModule,
     MatPaginatorModule,
-    MatSortModule
-
+    MatSortModule,
+    MatIconModule, 
+    MatMenuModule,
   ],
   entryComponents: [
     CustomerEditComponent
