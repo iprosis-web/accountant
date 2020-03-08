@@ -1,10 +1,5 @@
-body{
- width: 100%;
- display: hidden;   
-}
-
-/* @import '../node_modules/bootstrap/dist/css/bootstrap.min.css'; */
-
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+    width: 100%;}

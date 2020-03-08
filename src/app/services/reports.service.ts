@@ -7,6 +7,9 @@ import { reports } from '../models/report';
 import { Indications, Statuses } from '../Utils/Enums'
 import { contact } from '../models/contact';
 import { FullCustomerModel } from '../models/fullCustomerModel';
+import { customersData } from '../mock-data/customersData';
+import { contactsData } from '../mock-data/contactData';
+import { reportsData } from '../mock-data/reportsData';
 
 @Injectable({
   providedIn: 'root'
@@ -14,96 +17,11 @@ import { FullCustomerModel } from '../models/fullCustomerModel';
 export class ReportsService {
   customersReportsModelSubject = new Subject<CustomerReportModel[]>();
   // customersModelSubject = new Subject<>();
-  private customers: customer[] = [{
-    id: "1",
-    companyName: "חברה בצפון",
-    contactID: 1,
-    isActive: true,
-    createdDate: new Date()
-  },
-  {
-    id: "2",
-    companyName: "אמין בע''ם",
-    contactID: 2,
-    isActive: true,
-    createdDate: new Date()
-  },
-  {
-    id: "3",
-    companyName: "קודידו בע''ם",
-    contactID: 3,
-    isActive: true,
-    createdDate: new Date()
-  }
-  ];
+  private customers: customer[] = new customersData().customers;
 
-  private contacts: contact[] = [
-    {
-      id: 1,
-      customerId: "1",
-      city: "חיפה",
-      street: "רחוב נשר",
-      building: "14",
-      phone: "05234454677",
-      email: "tsafon@tsafon.com"
-    },
-    {
-      id: 2,
-      customerId: "2",
-      city: "תל אביב",
-      street: "רחוב תל",
-      building: "7",
-      phone: "0526154677",
-      email: "merkaz@merka.com"
-    },
-    {
-      id: 3,
-      customerId: "3",
-      city: "אילת",
-      street: "רחוב אילת",
-      building: "2",
-      phone: "05234454677",
-      email: "eilat@ee.com"
-    },
-  ]
+  private contacts: contact[] = new contactsData().contacts;
 
-  private reports: reports[] = [{
-    id: 1,
-    customerId: "1",
-    reportDate: new Date,
-    creatDate: new Date,
-    status: +Statuses.working,
-    indication: 1,
-    comment: "חסרים דיווחי משכורות"
-  },
-  {
-    id: 2,
-    customerId: "2",
-    reportDate: new Date,
-    creatDate: new Date,
-    status: +Statuses.working,
-    indication: 1,
-    comment: "חסרים דיווחי משכורות"
-  },
-  {
-    id: 3,
-    customerId: "3",
-    reportDate: new Date,
-    creatDate: new Date,
-    status: +Statuses.notStarted,
-    indication: 1,
-    comment: "חסרים דיווחי משכורות"
-  },
-  {
-    id: 4,
-    customerId: "1",
-    reportDate: new Date,
-    creatDate: new Date,
-    status: +Statuses.finished,
-    indication: 3,
-    comment: "חסרים דיווחי משכורות"
-  }
-  ];
+  private reports: reports[] = new reportsData().reports;
 
   statuses = [
     {
