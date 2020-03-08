@@ -75,10 +75,6 @@ export class ToolBarComponent implements OnInit {
     this.filtersDataObject.company = this.selectedCustomer;
     this.filtersDataObject.status = this.selectedStatus;
     this.dataFilter.emit(this.filtersDataObject);
-    console.log(this.filtersDataObject.company);
-    console.log(this.filtersDataObject.status);
-    console.log(this.filtersDataObject.startDate);
-    console.log(this.filtersDataObject.endDate);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {

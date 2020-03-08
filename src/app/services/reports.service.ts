@@ -17,17 +17,23 @@ export class ReportsService {
   private customers: customer[] = [{
     id: "1",
     companyName: "חברה בצפון",
-    contactID: 1
+    contactID: 1,
+    isActive: true,
+    createdDate: new Date()
   },
   {
     id: "2",
     companyName: "אמין בע''ם",
-    contactID: 2
+    contactID: 2,
+    isActive: true,
+    createdDate: new Date()
   },
   {
     id: "3",
     companyName: "קודידו בע''ם",
-    contactID: 3
+    contactID: 3,
+    isActive: true,
+    createdDate: new Date()
   }
   ];
 
@@ -106,7 +112,7 @@ export class ReportsService {
     },
     {
       id: 2,
-      name: "לר הותחל"
+      name: "לא הותחל"
     },
     {
       id: 3,
@@ -117,8 +123,9 @@ export class ReportsService {
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number){
     //bring all reports
-    if(!dateFilter)
+    if(dateFilter == null || dateFilter == undefined){
       dateFilter = new DateFilterModel();
+    }
     let filteredReports = this.reports.filter(report => 
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate))&&
@@ -191,6 +198,47 @@ export class ReportsService {
   getAllStatuses(){
     if(this.statuses){
       return this.statuses.slice();
+    }
+  }
+
+  updateCustomer(customer: customer, contact: contact){
+    let currentCustomer = this.customers.find(c => c.id == customer.id);
+    if(currentCustomer){
+      currentCustomer.companyName = customer.companyName;
+      let currentCustomerContact = this.contacts.find(c => c.id == customer.contactID);
+      if(currentCustomerContact){
+        currentCustomerContact.email = contact.email;
+        currentCustomerContact.city = contact.city;
+        currentCustomerContact.building = contact.building;
+        currentCustomerContact.phone = contact.phone;
+        currentCustomerContact.street = contact.street;
+      }
+      else{
+        //get latest contact id and increment by one to add contact
+        let newContactId = Math.max.apply(Math, this.contacts.map(function(e) { return e.id })) + 1;
+        let newContact: contact = { id: newContactId,building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: customer.id };
+        this.contacts.push(newContact);
+      }
+      return { data: {customer: customer, contact: contact}, message: "לקוח עודכן בהצלחה"};
+    }
+    else{
+      return { data: {customer: customer, contact: contact}, message: "לקוח לא קיים במערכת"};
+      return "לקוח לא קיים במערכת";
+    }
+  }
+
+  addCustomer(customer: customer, contact: contact){
+    let newCustomerId = (Math.max.apply(Math, this.customers.map(function(e) { return +e.id })) + 1) + '';
+    let newContactId = Math.max.apply(Math, this.contacts.map(function(e) { return e.id })) + 1;
+    if(newCustomerId && newContactId){
+      let newCustomer: customer = { id: newCustomerId, contactID: newContactId, companyName: customer.companyName, isActive: true, createdDate: new Date() };
+      let newContact: contact = { id: newContactId, customerId: newCustomerId,city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
+      this.customers.push(newCustomer);
+      this.contacts.push(newContact);
+      return { data: {customer: newCustomer, contact: newContact}, message: "לקוח נשמר בהצלחה"};
+    }
+    else{
+      return { data: null, message: "אירעה שגיאה בשמירת לקוח חדש"};
     }
   }
 }

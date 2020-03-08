@@ -1,14 +1,17 @@
- /* .navbar{
+/* .navbar{
   position: absolute;
-  /* right:180px; */
-  /* padding-top: 0%; */
+  /* right:180px; 
+  /* padding-top: 0%; 
   
   /* top:0;
   padding: 0;
   width:85%;
   direction:rtl;
 
-}  */
+} */
+:host {
+  direction: rtl;
+}
 
 /* .example-month-picker .mat-calendar-period-button {
     pointer-events: none;

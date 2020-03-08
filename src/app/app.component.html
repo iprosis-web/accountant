@@ -1,12 +1,14 @@
-<!-- <app-tool-bar showFilters={{showfilters}}></app-tool-bar> -->
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<div class="sidebar-container">
-    <div class="sidebar" (click)="routeSidebar($event)">
-        <a href="reports">מסך ניהולי</a>
-        <a href="monthlyreport">הזנת דיווח חודשי ללקוח</a>
-        <a href="contact">מסך ניתוח ללקוח</a>
-        <a href="about">תחזוקת נתוני הלקוח</a>
+<div fxLayout="row" style="max-height: 100%;">
+    <div class="sidebar-container sidebar" fxFlex="20%" fxFill="100">
+        <div class="sidebar" (click)="routeSidebar($event)">
+            <a routerLinkActive="active" routerLink="/reports">מסך ניהולי</a>
+            <a routerLinkActive="active" routerLink="/monthlyreport">הזנת דיווח חודשי ללקוח</a>
+            <a>מסך ניתוח ללקוח</a>
+            <a routerLinkActive="active" routerLink="/customerdetails">תחזוקת נתוני הלקוח</a>
+        </div>
+    </div>
+    <div fxLayout="column" fxFlex="80%" style="max-height: 100%;">
+            <!-- <app-tool-bar></app-tool-bar> -->
+            <router-outlet></router-outlet>
     </div>
 </div>
-
-<router-outlet></router-outlet>
