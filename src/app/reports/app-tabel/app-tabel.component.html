@@ -1,0 +1,34 @@
+<div class="example-container mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <ng-container matColumnDef="companyName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> לקוח </th>
+        <td mat-cell *matCellDef="let element">{{element.companyName}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateStr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> חודש </th>
+        <td mat-cell *matCellDef="let element"> {{element.dateStr}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס </th>
+        <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="indicationStr">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> אינדיקציות </th>
+        <td mat-cell *matCellDef="let element" [style.background]="element.indicationColor"> {{element.indicationStr}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> הערות </th>
+        <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
