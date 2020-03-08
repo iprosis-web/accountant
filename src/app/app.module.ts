@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule,MatGridListModule, MatFormFieldModule,
    MatInputModule, MatDatepickerModule, MatNativeDateModule,
-  MatButtonModule,MatSelectModule } from '@angular/material';
+  MatButtonModule,MatSelectModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AppRoutingModule } from './app-routing.module';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -49,7 +49,13 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     MatFormFieldModule,
     MatButtonModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    BrowserModule, 
+    BrowserAnimationsModule,
+    MatButtonModule, 
+    MatIconModule, 
+    MatMenuModule,
+    MatToolbarModule
   ],
   entryComponents: [
     CustomerEditComponent
