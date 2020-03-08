@@ -1,7 +1,7 @@
 import { customer } from '../models/customer';
 
 export class customersData {
-    customers: customer[] = 
+    public customers: customer[] = 
     [
         {
             id: "318854125",

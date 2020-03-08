@@ -1,8 +1,8 @@
 import { contact } from '../models/contact';
 
 
-export class contactData {
-    customers: contact[] = 
+export class contactsData {
+    contacts: contact[] = 
     [
         {
             id: 1,
