@@ -22,6 +22,10 @@ import { CustomerDetailsComponent } from './customers/customer-details/customer-
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
 import { CustomersListComponent } from './customers/customers-list/customers-list.component';
+import { AppTabelComponent } from './reports/app-tabel/app-tabel.component';
+import { AppHeaderComponent } from './reports/app-header/app-header.component';
+import { MatPaginatorModule , MatSortModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +36,9 @@ import { CustomersListComponent } from './customers/customers-list/customers-lis
     CustomerMonthlyReportComponent,
     CustomerEditComponent,
     CustomerDetailsComponent,
-    CustomersListComponent
+    CustomersListComponent,
+    AppTabelComponent,
+    AppHeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -55,13 +61,11 @@ import { CustomersListComponent } from './customers/customers-list/customers-lis
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-    BrowserModule, 
-    BrowserAnimationsModule,
-    MatButtonModule, 
+    FlexLayoutModule,
+    MatPaginatorModule,
+    MatSortModule,
     MatIconModule, 
     MatMenuModule,
-    MatToolbarModule,
-    FlexLayoutModule
   ],
   entryComponents: [
     CustomerEditComponent

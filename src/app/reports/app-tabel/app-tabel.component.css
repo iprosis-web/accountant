@@ -1,0 +1,46 @@
+.nav-container{
+    top:0;
+}
+
+._ngcontent-ova-c3{
+    width: 100%;
+    display: hidden;
+    direction: rtl;  
+}
+.example-container {
+    height: 400px;
+    overflow: auto;
+  }
+  
+.container {
+    width: 50%;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,50%);
+
+  }
+
+table {
+    width: 100%;
+    direction: rtl;
+
+
+}
+
+th{
+
+    text-align:center !important;
+    color: black;
+    
+}
+
+
+td {
+
+    display: table-cell;
+    vertical-align: initial;
+    padding-top:15px !important;
+    text-align:center !important;
+}
+
+

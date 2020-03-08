@@ -1,38 +1,7 @@
 <div class="nav-container">
     <!-- <app-tool-bar showFilters="true" (dataFilter)="showFilterData($event)">  </app-tool-bar> -->
 
-<div class="container">
-    
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-        <!-- Name Column -->
-        <ng-container matColumnDef="לקוח">
-            <th mat-header-cell *matHeaderCellDef> לקוח </th>
-            <td mat-cell *matCellDef="let element"><a href="www.google.com"> {{element.companyName}}</a> </td>
-        </ng-container>
-
-        <ng-container matColumnDef="חודש">
-            <th mat-header-cell *matHeaderCellDef> חודש </th>
-            <td mat-cell *matCellDef="let element"> {{element.date}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="סטטוס">
-            <th mat-header-cell *matHeaderCellDef> סטטוס </th>
-            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="אינדיקציות">
-            <th mat-header-cell *matHeaderCellDef> אינדיקציות </th>
-            <td mat-cell *matCellDef="let element" [style.background]="element.color"> {{element.indicationStr}} </td>
-        </ng-container>
-
-        <ng-container matColumnDef="הערות">
-            <th mat-header-cell *matHeaderCellDef> הערות </th>
-            <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-</div>
+    <div class="container">
+        <app-app-tabel></app-app-tabel>
+    </div>
 </div>
