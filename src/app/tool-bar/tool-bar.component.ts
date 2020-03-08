@@ -108,4 +108,5 @@ export class ToolBarComponent implements OnInit {
     datepicker.close();
 
   }
+  
 }

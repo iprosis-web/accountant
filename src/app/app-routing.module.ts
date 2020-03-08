@@ -6,6 +6,7 @@ import { ReportsComponent } from './reports/reports.component';
 import { CreateNewCustomerComponent } from './customers/create-new-customer/create-new-customer.component';
 import { CustomerMonthlyReportComponent } from './customer-monthly-report/customer-monthly-report.component';
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
+import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 
 const routes: Routes = [
   {path:'',component:ReportsComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path:'createcustomer',component:CreateNewCustomerComponent},
   {path:'monthlyreport',component:CustomerMonthlyReportComponent},
   {path: 'customerdetails', component:CustomerDetailsComponent},
+  {path: 'customers', component:CustomersListComponent},
   {path:'**',redirectTo: '/'}
 ];
 
