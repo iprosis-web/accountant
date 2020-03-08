@@ -21,6 +21,7 @@ import { CreateNewCustomerComponent } from './customers/create-new-customer/crea
 import { CustomerDetailsComponent } from './customers/customer-details/customer-details.component';
 import { MomentDateModule } from '@angular/material-moment-adapter';
 import { CustomerEditComponent } from './customers/customer-edit/customer-edit.component';
+import { CustomersListComponent } from './customers/customers-list/customers-list.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { CustomerEditComponent } from './customers/customer-edit/customer-edit.c
     CreateNewCustomerComponent,
     CustomerMonthlyReportComponent,
     CustomerEditComponent,
-    CustomerDetailsComponent
+    CustomerDetailsComponent,
+    CustomersListComponent
   ],
   imports: [
     BrowserModule,

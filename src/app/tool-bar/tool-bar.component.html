@@ -47,24 +47,24 @@
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
-    <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button mat-menu-item>
-        <mat-icon>home</mat-icon>
-        <span>Home</span>
+    <mat-menu class="menuclass" #menu="matMenu" [overlapTrigger]="false" (click)="routeSidebar($event)">
+      <button mat-menu-item routerLinkActive="active" routerLink="/reports">
+        <span>דוחות</span>
+        <mat-icon>assignment</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>people_outline</mat-icon>
-        <span>Connecting</span>
+      <button mat-menu-item routerLinkActive="active" routerLink="/customers">
+        <span>לקוחות שלי</span>
+        <mat-icon>people</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>videocam</mat-icon>
-        <span>Let's talk</span>
+      <button mat-menu-item routerLinkActive="active" routerLink="/monthlyreport">
+        <span>הזנת דיווח חודשי ללקוח</span>
+        <mat-icon>note_add</mat-icon>
       </button>
-      <button mat-menu-item>
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
+      <button mat-menu-item routerLinkActive="active" routerLink="/customerdetails">
+        <span>תחזוקת נתוני הלקוח</span>
+        <mat-icon>account_box</mat-icon>
       </button>
     </mat-menu>
   </span>
-  <span class="fill-remaining-space">Application Title</span>
+  <span class="fill-remaining-space">Accountant App</span>
 </mat-toolbar>

@@ -9,9 +9,9 @@
   direction:rtl;
 
 } */
-:host {
+/* :host {
   direction: rtl;
-}
+} */
 
 /* .example-month-picker .mat-calendar-period-button {
     pointer-events: none;
@@ -49,19 +49,17 @@
     padding: 10px;
   } */
 
-   .fill-remaining-space { 
-    /* This fills the remaining space, by using flexbox. 
-       Every toolbar row uses a flexbox row layout. */
-     /* flex: 1 1 auto; */
-  } 
 
   .fill-remaining-space {
-    /* //position: absolute; */
-    /* right:180px; */
-    /* padding-top: 0%; */
-    
-     top:0;
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto; 
+    top:0;
     padding: 0;
-    /* width:85%; */
     direction:rtl;
   }
+
+  .mat-menu-item {
+    text-align: right;
+  }
+
