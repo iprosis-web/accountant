@@ -1,16 +1,10 @@
-<app-tool-bar></app-tool-bar>
-<div fxLayout="row" style="max-height: 100%;">
-    
-    <!-- <div class="sidebar-container sidebar" fxFlex="20%" fxFill="100">
-        <div class="sidebar" >
-            <a routerLinkActive="active" routerLink="/reports">מסך ניהולי</a>
-            <a routerLinkActive="active" routerLink="/monthlyreport">הזנת דיווח חודשי ללקוח</a>
-            <a>מסך ניתוח ללקוח</a>
-            <a routerLinkActive="active" routerLink="/customerdetails">תחזוקת נתוני הלקוח</a>
-        </div>
-    </div> -->
-    <div fxLayout="column" fxFlex="100%" style="max-height: 90%;">
-            <!-- <app-tool-bar></app-tool-bar> -->
-            <router-outlet></router-outlet>
+<div style="max-height: 100%;">
+ 
+    <div class="toolbar-container" fxLayout="column" fxFlexFill>
+        <app-tool-bar></app-tool-bar>
+    </div>
+
+    <div fxLayout="column"  fxFlexFill>
+        <router-outlet></router-outlet>
     </div>
 </div>
