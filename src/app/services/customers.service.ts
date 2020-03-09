@@ -16,8 +16,8 @@ export class CustomersService {
     return customer;
     }
 
-    updateCustomer(customer: customer, contact: contact){
-      return this.reportService.updateCustomer(customer,contact);
+    updateCustomer(customer: customer, contact: contact,newCustomerId: string = null){
+      return this.reportService.updateCustomer(customer,contact,newCustomerId);
     }
 
     addNewCustomer(newCustomer: customer, newContact: contact){
