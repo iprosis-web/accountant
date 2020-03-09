@@ -38,12 +38,8 @@ export class CustomerDetailsComponent implements OnInit {
 
     this.editDialog.afterClosed().subscribe(result => {
       if(result != undefined && result != null && result.message != '' && result.message != undefined){
-<<<<<<< HEAD
-        new Helpers().displaySnackBar(this.snackBar,result.message);
-=======
         new Helpers().displaySnackBar(this.snackBar,result.message,"");
         console.log(result.data);
->>>>>>> cc0f131bb092156eebcd46f54c666974120c5e3a
         this.currentCustomerModel.customer = result.data.customer;
         this.currentCustomerModel.contact = result.data.contact;
         this.currentCustomerId = result.data.customer.id;
