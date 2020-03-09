@@ -1,12 +1,13 @@
 .navbar{
   position: absolute;
-  direction:rtl;
+  /* direction:rtl; */
   width: 100%;
+  
 } 
 
-:host {
+/* :host {
   direction: rtl;
-}
+} */
 
 .example-month-picker .mat-calendar-period-button {
     pointer-events: none;
@@ -18,7 +19,14 @@
 
 .mat-toolbar-single-row{
       background-color: rgb(206, 234, 245);
+      display: inline-block;
 }
+
+/* .mat-form-field {
+  /* margin: 40px; */
+  /* margin-right: 8px; 
+  
+} */
 
 .toolbarButton {
     background-color: rgb(43,38,38);
@@ -37,6 +45,10 @@
     direction:rtl;
 }
 
-.mat-form-field {
-    padding: 10px;
-}
+.filter-nav {
+    /* padding: 10px; */
+    /* margin: 5px;
+    padding-left: 10px;
+    text-align: right; */
+    padding:0;
+  }

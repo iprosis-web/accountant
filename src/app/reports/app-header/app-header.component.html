@@ -4,14 +4,15 @@
     <form #f="ngForm">
       <div >
         <!-- *ngIf="showFilters" -->
-        <mat-form-field>
+        <mat-form-field appearance="outline" class="filter-nav">
           <mat-label>בחר חברה</mat-label>
+          <input matInput>
           <select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" required>
             <option [value]=null>הכל</option>
             <option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </option>
           </select>
         </mat-form-field>
-        <mat-form-field>
+        <mat-form-field appearance="outline">
           <mat-label>בחר סטטוס</mat-label>
           <select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" required>
             <option [value]=null>הכל</option>
@@ -19,7 +20,7 @@
           </select>
         </mat-form-field>
 
-        <mat-form-field class="stratDate">
+        <mat-form-field class="stratDate" appearance="outline">
           <input matInput [matDatepicker]="picker" placeholder=" מתאריך" [formControl]="selectedStartDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
@@ -27,7 +28,7 @@
           </mat-datepicker>
         </mat-form-field>
 
-        <mat-form-field class="endDate">
+        <mat-form-field class="endDate" appearance="outline">
           <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" placeholder="עד תאריך" [formControl]="selectedEndDate">
           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
           <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
