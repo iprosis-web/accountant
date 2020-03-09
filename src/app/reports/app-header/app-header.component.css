@@ -1,4 +1,6 @@
 .navbar{
+  display:flex;
+  justify-content: center;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -18,7 +20,6 @@
   direction: ltr;
 }
 ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
-::ng-deep .mat-option { direction: rtl;text-align: left; }
 ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
 
 
