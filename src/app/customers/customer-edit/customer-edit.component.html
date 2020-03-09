@@ -1,65 +1,81 @@
-  
-  <h1 mat-dialog-title *ngIf="currentCustomerId">עריכת לקוח</h1>
-  <h1 mat-dialog-title *ngIf="currentCustomerId == null">הוספת לקוח</h1>
-  <div mat-dialog-content>
-    <form #cf="ngForm" (ngSubmit)="onSubmit(customerForm)" class="customer-form-container">
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס מספר חברה</mat-label>
-        <input matInput name="companyId" id="companyId" ngModel required minlength="9" maxlength="9" pattern="[0-9]+" #companyId="ngModel" autocomplete="off">
-        <mat-error *ngIf="!companyId.valid"> מספר עסק חייב להכיל 9 מספרים </mat-error>
-      </mat-form-field>
+  <div >
+    <h1 mat-dialog-title *ngIf="editFlag == true">עריכת לקוח</h1>
+    <h1 mat-dialog-title *ngIf="editFlag == false && deleteFlag == false">הוספת לקוח</h1>
+    <h1 mat-dialog-title *ngIf="deleteFlag == true">מחיקת לקוח</h1>
+    <div mat-dialog-content>
+      <form #cf="ngForm" (ngSubmit)="onSubmit(customerForm)" class="customer-form-container">
+        <div *ngIf="editFlag == true || (editFlag == false && deleteFlag == false)">
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס מספר חברה</mat-label>
+          <input matInput name="companyId" id="companyId" ngModel required minlength="9" maxlength="9" pattern="[0-9]+" #companyId="ngModel" autocomplete="off">
+          <mat-error *ngIf="!companyId.valid"> מספר עסק חייב להכיל 9 מספרים </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס שם חברה</mat-label>
-        <input matInput name="companyName" id="companyName" ngModel required minlength="3" #companyName="ngModel" autocomplete="off">
-        <mat-error *ngIf="!companyName.valid"> שם חברה חייב להכיל לפחות 3 אוטיות </mat-error>
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס כתובת מייל</mat-label>
-        <input type="email" matInput placeholder="mail@example.com" name="customerEmail" id="customerEmail" ngModel email required #customerEmail="ngModel" autocomplete="off">
-        <mat-error *ngIf="!customerEmail.valid">חובה להכניס מייל תקין</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס שם חברה</mat-label>
+          <input matInput name="companyName" id="companyName" ngModel required minlength="3" #companyName="ngModel" autocomplete="off">
+          <mat-error *ngIf="!companyName.valid"> שם חברה חייב להכיל לפחות 3 אוטיות </mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס כתובת מייל</mat-label>
+          <input type="email" matInput placeholder="mail@example.com" name="customerEmail" id="customerEmail" ngModel email required #customerEmail="ngModel" autocomplete="off">
+          <mat-error *ngIf="!customerEmail.valid">חובה להכניס מייל תקין</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס מספר פלאפון</mat-label>
-        <input matInput name="customerPhone" id="customerPhone" ngModel required pattern="^((\+|00)?972\-?|0)(([23489]|[57]\d)\-?\d{7})$" #customerPhone="ngModel" autocomplete="off">
-        <mat-error *ngIf="!customerPhone.valid">חובה להכניס מספר פלאפון תקין</mat-error>
-      </mat-form-field>
-    
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס עיר</mat-label>
-        <input matInput name="customerCity" id="customerCity" ngModel required #customerCity="ngModel" autocomplete="off">
-        <mat-error *ngIf="!customerCity.valid">חובה להכניס שם עיר</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס מספר פלאפון</mat-label>
+          <input matInput name="customerPhone" id="customerPhone" ngModel required pattern="^((\+|00)?972\-?|0)(([23489]|[57]\d)\-?\d{7})$" #customerPhone="ngModel" autocomplete="off">
+          <mat-error *ngIf="!customerPhone.valid">חובה להכניס מספר פלאפון תקין</mat-error>
+        </mat-form-field>
+      
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס עיר</mat-label>
+          <input matInput name="customerCity" id="customerCity" ngModel required #customerCity="ngModel" autocomplete="off">
+          <mat-error *ngIf="!customerCity.valid">חובה להכניס שם עיר</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס כתובת</mat-label>
-        <input matInput name="customerAddress" id="customerAddress" ngModel required  minlength="3" #customerAddress="ngModel" autocomplete="off">
-        <mat-error *ngIf="!customerAddress.valid">חובה להכניס לפחות 3 אוטיות</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס כתובת</mat-label>
+          <input matInput name="customerAddress" id="customerAddress" ngModel required  minlength="3" #customerAddress="ngModel" autocomplete="off">
+          <mat-error *ngIf="!customerAddress.valid">חובה להכניס לפחות 3 אוטיות</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>הכנס מספר בניין</mat-label>
-        <input matInput name="customerBuilding" id="customerBuilding" ngModel autocomplete="off" #customerBuilding="ngModel" pattern="[0-9]+">
-        <mat-error *ngIf="!customerBuilding.valid">נתון חייב להיות מספר</mat-error>
-      </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>הכנס מספר בניין</mat-label>
+          <input matInput name="customerBuilding" id="customerBuilding" ngModel autocomplete="off" #customerBuilding="ngModel" pattern="[0-9]+">
+          <mat-error *ngIf="!customerBuilding.valid">נתון חייב להיות מספר</mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" style="display: none;">
-        <mat-label>סטטוס</mat-label>
-        <mat-select>
-          <mat-option value="1">פעיל</mat-option>
-          <mat-option value="0">לא פעיל</mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="outline" style="display: none;">
+          <mat-label>סטטוס</mat-label>
+          <mat-select>
+            <mat-option value="1">פעיל</mat-option>
+            <mat-option value="0">לא פעיל</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <div *ngIf="editFlag">
-        <mat-label for="customerImg" mat-raised-button color="primary">העלה תמונה</mat-label>
-        <input name="customerImg" id="customerImg" #customerImg multiple type="file" (change)="fileChange($event)">
-        <mat-error *ngIf="!fileUploadFlag && currentCustomerImg == null">תמונה חייבת להיות מסוגים: jpg,png,gif</mat-error>
+        <div *ngIf="editFlag">
+          <mat-label for="customerImg" mat-raised-button color="primary"> העלה תמונה: </mat-label>
+          <input name="customerImg" id="customerImg" #customerImg multiple type="file" (change)="fileChange($event)">
+          <mat-error *ngIf="!fileUploadFlag && currentCustomerImg == null">תמונה חייבת להיות מסוגים: jpg,png,gif</mat-error>
+        </div>
+        <br>
+        <button type="submit" mat-raised-button color="primary" style="margin: 5px;" [disabled]="!customerForm.valid || (!fileUploadFlag && currentCustomerImg == null)">שמור</button>
+        <button type="button" mat-dialog-close mat-raised-button color="danger">ביטול</button>
       </div>
-      <br>
-      <button type="submit" mat-raised-button color="primary" style="margin: 5px;" [disabled]="!customerForm.valid || (!fileUploadFlag && currentCustomerImg == null)">שמור</button>
-      <button type="button" mat-dialog-close mat-raised-button color="danger">ביטול</button>
-    </form>
+      </form>
+    </div>
+  </div>
+
+  <div *ngIf="deleteFlag == true">
+    <mat-dialog-content>
+      <p>
+        האם אתה בטוח שאתה רוצה למחוק את הלקוח 
+      </p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button mat-raised-button color="primary" (click)="onDelete()" tabindex="1">מחק</button>
+      <button mat-raised-button mat-dialog-close tabindex="-1">ביטול</button>
+    </mat-dialog-actions>
   </div>

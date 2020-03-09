@@ -6,6 +6,7 @@ export class reports {
     status: number;
     indication: number;
     comment: string;
+    isActive?: boolean;
 }
 
 

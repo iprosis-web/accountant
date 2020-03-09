@@ -12,7 +12,8 @@ export class reportsData {
             creatDate: new Date('2019-01-16'),
             status: +Statuses.working,
             indication: Indications.fail,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 2,
@@ -21,7 +22,8 @@ export class reportsData {
             creatDate: new Date('2019-02-16'),
             status: +Statuses.working,
             indication: Indications.fail,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 3,
@@ -30,7 +32,8 @@ export class reportsData {
             creatDate: new Date('2019-03-16'),
             status: +Statuses.notStarted,
             indication: Indications.successfull,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 4,
@@ -39,7 +42,8 @@ export class reportsData {
             creatDate: new Date('2019-01-14'),
             status: +Statuses.finished,
             indication: Indications.successfull,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 5,
@@ -48,7 +52,8 @@ export class reportsData {
             creatDate: new Date('2019-02-14'),
             status: +Statuses.working,
             indication: Indications.pending,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 6,
@@ -57,7 +62,8 @@ export class reportsData {
             creatDate: new Date('2019-03-14'),
             status: +Statuses.working,
             indication: Indications.pending,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 7,
@@ -66,7 +72,8 @@ export class reportsData {
             creatDate: new Date('2019-01-10'),
             status: +Statuses.notStarted,
             indication: Indications.pending,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 8,
@@ -75,7 +82,8 @@ export class reportsData {
             creatDate: new Date('2019-02-10'),
             status: +Statuses.finished,
             indication: Indications.successfull,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 9,
@@ -84,7 +92,8 @@ export class reportsData {
             creatDate: new Date('2019-03-10'),
             status: +Statuses.working,
             indication: Indications.pending,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 10,
@@ -93,7 +102,8 @@ export class reportsData {
             creatDate: new Date('2019-02-15'),
             status: +Statuses.working,
             indication: Indications.pending,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 11,
@@ -102,7 +112,8 @@ export class reportsData {
             creatDate: new Date('2019-03-15'),
             status: +Statuses.notStarted,
             indication: Indications.fail,
-            comment: "חסרים דיווחי משכורות"
+            comment: "חסרים דיווחי משכורות",
+            isActive: true
           },
           {
             id: 12,

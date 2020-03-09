@@ -8,4 +8,5 @@ export class contact {
     phone: string;
     email: string;
     imgUrl: string;
+    isActive?: boolean = true;
 }

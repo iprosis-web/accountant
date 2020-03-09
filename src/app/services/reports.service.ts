@@ -155,7 +155,7 @@ export class ReportsService {
       else {
         //get latest contact id and increment by one to add contact
         let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.id : newCustomerId };
+        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.id : newCustomerId,isActive: true };
         this.contacts.push(newContact);
       }
       return { data: { customer: currentCustomer, contact: contact }, message: "לקוח עודכן בהצלחה" };
@@ -178,6 +178,30 @@ export class ReportsService {
     }
     else {
       return { data: null, message: "אירעה שגיאה בשמירת לקוח חדש" };
+    }
+  }
+
+  deleteCustomer(customer: customer){
+    let currentCustomer = this.customers.find(c => c.id == customer.id);
+    if(currentCustomer){
+      //set contact to inactive
+      let customerContact = this.contacts.find(c => c.customerId == currentCustomer.id);
+      if(customerContact){
+        customerContact.isActive = false;
+      }
+      //set all reports to inactive
+      let customerReports = this.reports.filter(r => r.customerId == currentCustomer.id);
+      if(customerReports){
+        for(let report of customerReports){
+          report.isActive = false;
+        }
+      }
+      //set user to inactive
+      currentCustomer.isActive = false;
+      return { data: null, message: "לקוח נמחק בהצלחה" };
+    }
+    else{
+      return { data: null, message: "אירעה שגיאה בעת מחיקת לקוח" };
     }
   }
 }

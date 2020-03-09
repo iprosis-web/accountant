@@ -13,3 +13,14 @@ export enum Statuses{
     //הסתיים
     finished
 }
+
+export enum CustomerCRUD {
+    add = 0,
+    edit,
+    delete
+}
+
+export enum ResultStatus {
+    fail = 0,
+    successful
+}

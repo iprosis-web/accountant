@@ -6,6 +6,7 @@ import { CustomersService } from 'src/app/services/customers.service';
 import { customer } from 'src/app/models/customer';
 import { contact } from 'src/app/models/contact';
 import { Helpers } from 'src/app/Utils/Helpers';
+import { CustomerCRUD } from 'src/app/Utils/Enums';
 
 @Component({
   selector: 'app-customer-edit',
@@ -16,7 +17,7 @@ export class CustomerEditComponent implements OnInit {
   @ViewChild('cf') customerForm: NgForm;
   editFlag = false;
   deleteFlag = false;
-  currentCustomerId: string;
+  currentCustomerId: string = "318854125";
   currentCustomer: FullCustomerModel;
   currentCustomerImg: string;
   fileUploadFlag = false;
@@ -28,25 +29,37 @@ export class CustomerEditComponent implements OnInit {
 
   ngOnInit() {
     //if this is edit
-    if(this.data.customerId){
-      this.editFlag = true;
-      this.currentCustomerId = this.data.customerId;
-      this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
-      if(this.currentCustomer){
-        if(this.currentCustomer.contact){
-          console.log(this.currentCustomer.contact);
-          this.fileUploadFlag = true;
-          this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
-
+    if(this.data.flag && this.data.customerModel){
+      if(this.data.flag == CustomerCRUD.edit){
+        this.editFlag = true;
+        this.deleteFlag = false;
+        this.currentCustomerId = this.data.customerModel.customer.id;
+        this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
+        if(this.currentCustomer){
+          console.log(this.currentCustomer);
+          if(this.currentCustomer.contact){
+            this.fileUploadFlag = true;
+            this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
+            
+          }
+          this.setEditFormValues();
         }
-        this.setEditFormValues();
       }
-    }
-    else{
-      this.editFlag = false;
-      this.fileUploadFlag = true;
-      this.currentCustomerImg = "";
-      this.currentCustomerId = this.data.customerId;
+      //delete
+      else if(this.data.flag == CustomerCRUD.delete){
+        this.editFlag = false;
+        this.deleteFlag = true;
+        this.currentCustomerId = this.data.customerModel.customer.id;
+        this.currentCustomer = this.data.customerModel;
+      }
+      //add
+      else{
+        this.editFlag = false;
+        this.deleteFlag = false;
+        this.fileUploadFlag = true;
+        this.currentCustomerImg = "";
+        this.currentCustomerId = this.data.customerId;
+      }
     }
   }
 
@@ -129,6 +142,14 @@ export class CustomerEditComponent implements OnInit {
     }
     else{
       let res = { data: {customer: null, contact: null}, message: "נתונים שהוכנסו לא תקינים" };
+      this.dialogRef.close(result);
+    }
+  }
+
+  onDelete(){
+    let result = this.customerService.deleteCustomer(this.currentCustomer.customer);
+    console.log(result);
+    if(result.message != ''){
       this.dialogRef.close(result);
     }
   }

@@ -24,4 +24,8 @@ export class CustomersService {
       return this.reportService.addCustomer(newCustomer, newContact);
     }
 
+    deleteCustomer(customer: customer){
+      return this.reportService.deleteCustomer(customer);
+    }
+
   }
