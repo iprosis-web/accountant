@@ -25,7 +25,7 @@ import { CustomersListComponent } from './customers/customers-list/customers-lis
 import { AppTabelComponent } from './reports/app-tabel/app-tabel.component';
 import { AppHeaderComponent } from './reports/app-header/app-header.component';
 import { MatPaginatorModule , MatSortModule} from '@angular/material';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -67,7 +67,8 @@ import { MatPaginatorModule , MatSortModule} from '@angular/material';
     MatSortModule,
     MatIconModule, 
     MatMenuModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
   entryComponents: [
     CustomerEditComponent
