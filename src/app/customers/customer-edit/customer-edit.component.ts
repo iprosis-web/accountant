@@ -1,10 +1,11 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { NgForm } from '@angular/forms';
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
 import { CustomersService } from 'src/app/services/customers.service';
 import { customer } from 'src/app/models/customer';
 import { contact } from 'src/app/models/contact';
+import { Helpers } from 'src/app/Utils/Helpers';
 
 @Component({
   selector: 'app-customer-edit',
@@ -12,13 +13,18 @@ import { contact } from 'src/app/models/contact';
   styleUrls: ['./customer-edit.component.css']
 })
 export class CustomerEditComponent implements OnInit {
-
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data:any, private customerService: CustomersService,private dialogRef: MatDialogRef<CustomerEditComponent>) { }
   @ViewChild('cf') customerForm: NgForm;
   editFlag = false;
+  deleteFlag = false;
   currentCustomerId: string;
   currentCustomer: FullCustomerModel;
+  currentCustomerImg: string;
+  fileUploadFlag = false;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any,
+   private customerService: CustomersService,
+   private dialogRef: MatDialogRef<CustomerEditComponent>,
+   private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     //if this is edit
@@ -26,10 +32,20 @@ export class CustomerEditComponent implements OnInit {
       this.editFlag = true;
       this.currentCustomerId = this.data.customerId;
       this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
-      this.setEditFormValues();
+      if(this.currentCustomer){
+        if(this.currentCustomer.contact){
+          console.log(this.currentCustomer.contact);
+          this.fileUploadFlag = true;
+          this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
+
+        }
+        this.setEditFormValues();
+      }
     }
     else{
       this.editFlag = false;
+      this.fileUploadFlag = true;
+      this.currentCustomerImg = "";
       this.currentCustomerId = this.data.customerId;
     }
   }
@@ -37,6 +53,7 @@ export class CustomerEditComponent implements OnInit {
   setEditFormValues(){
     setTimeout(() => {
       this.customerForm.setValue({
+        companyId: this.currentCustomer.customer.id,
         companyName: this.currentCustomer.customer.companyName,
         customerEmail: this.currentCustomer.contact.email,
         customerPhone: this.currentCustomer.contact.phone,
@@ -47,26 +64,64 @@ export class CustomerEditComponent implements OnInit {
     },);
   }
 
+  fileChange(event){
+    if(event.target.files && event.target.files.length){
+      let file = event.target.files[0];
+      //check if file is img
+      if(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/gif"){
+        this.currentCustomerImg = file.name;
+        this.fileUploadFlag = true;
+        
+      }
+      else{
+        this.currentCustomerImg = null;
+        this.fileUploadFlag = false;
+      }
+    }
+    else{
+      this.fileUploadFlag = true;
+      this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
+    }
+  }
+
   onSubmit(customerForm){
     let result: any;
+    console.log(customerForm);
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
+      let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){
+        //check if customer already exists by id
+        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
+        if(findCustomer && findCustomer.customer.id != this.currentCustomerId){
+          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת");
+          return;
+        }
         let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: null, contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
-           city: fullCustomer.customerCity, street: fullCustomer.customerAddress, 
+           city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
-        result = this.customerService.updateCustomer(customerData, contact);
+        result = this.customerService.updateCustomer(customerData, contact,fullCustomer.companyId);
         
       }
       //add new user 
-      else{
-        let customerData: customer = { id: null, companyName: fullCustomer.companyName, isActive: true, createdDate: null, contactID: null };
-        let contact: contact = { id: null, customerId: null,
-           city: fullCustomer.customerCity, street: fullCustomer.customerAddress, 
+      else if(this.editFlag == false && this.deleteFlag == false){
+        //check if customer already exists by id
+        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
+        if(findCustomer){
+          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת");
+          return;
+        }
+        let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: null, contactID: null };
+        let contact: contact = { id: null, customerId: fullCustomer.companyId,
+           city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: '',
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
            result = this.customerService.addNewCustomer(customerData, contact);
+      }
+      //remove user
+      else{
+
       }
       if(result.message != ''){
         this.dialogRef.close(result);

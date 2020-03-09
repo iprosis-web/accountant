@@ -7,5 +7,5 @@ export class contact {
     building: string;
     phone: string;
     email: string;
-
+    imgUrl: string;
 }

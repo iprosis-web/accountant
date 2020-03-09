@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule,MatGridListModule, MatFormFieldModule,
    MatInputModule, MatDatepickerModule, MatNativeDateModule,
-  MatButtonModule,MatSelectModule, MatIconModule, MatMenuModule } from '@angular/material';
+  MatButtonModule,MatSelectModule, MatIconModule, MatMenuModule,MatSnackBarModule } from '@angular/material';
 
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -66,6 +66,7 @@ import { MatPaginatorModule , MatSortModule} from '@angular/material';
     MatSortModule,
     MatIconModule, 
     MatMenuModule,
+    MatSnackBarModule
   ],
   entryComponents: [
     CustomerEditComponent

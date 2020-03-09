@@ -533,7 +533,7 @@ export class reportsData {
             reportDate: new Date('2020-02-12'),
             creatDate: new Date('2020-02-12'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -542,7 +542,7 @@ export class reportsData {
             reportDate: new Date('2020-03-01'),
             creatDate: new Date('2020-03-01'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -632,7 +632,7 @@ export class reportsData {
             reportDate: new Date('2019-06-24'),
             creatDate: new Date('2019-06-24'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -641,7 +641,7 @@ export class reportsData {
             reportDate: new Date('2019-07-24'),
             creatDate: new Date('2019-07-24'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -650,7 +650,7 @@ export class reportsData {
             reportDate: new Date('2019-08-24'),
             creatDate: new Date('2019-08-24'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -659,7 +659,7 @@ export class reportsData {
             reportDate: new Date('2020-02-13'),
             creatDate: new Date('2020-02-13'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -668,7 +668,7 @@ export class reportsData {
             reportDate: new Date('2020-03-13'),
             creatDate: new Date('2020-03-13'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -677,7 +677,7 @@ export class reportsData {
             reportDate: new Date('2020-04-13'),
             creatDate: new Date('2020-04-13'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -686,7 +686,7 @@ export class reportsData {
             reportDate: new Date('2020-01-23'),
             creatDate: new Date('2020-01-23'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -695,7 +695,7 @@ export class reportsData {
             reportDate: new Date('2020-02-23'),
             creatDate: new Date('2020-02-23'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.fail,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -704,7 +704,7 @@ export class reportsData {
             reportDate: new Date('2020-03-23'),
             creatDate: new Date('2020-03-23'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -713,7 +713,7 @@ export class reportsData {
             reportDate: new Date('2020-02-01'),
             creatDate: new Date('2020-02-01'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -722,7 +722,7 @@ export class reportsData {
             reportDate: new Date('2020-03-01'),
             creatDate: new Date('2020-03-01'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -731,7 +731,7 @@ export class reportsData {
             reportDate: new Date('2020-04-01'),
             creatDate: new Date('2020-04-01'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.fail,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -740,7 +740,7 @@ export class reportsData {
             reportDate: new Date('2019-09-08'),
             creatDate: new Date('2019-09-08'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },{
             id: 83,
@@ -748,7 +748,7 @@ export class reportsData {
             reportDate: new Date('2019-10-08'),
             creatDate: new Date('2019-10-08'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -757,7 +757,7 @@ export class reportsData {
             reportDate: new Date('2019-11-08'),
             creatDate: new Date('2019-11-08'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -766,7 +766,7 @@ export class reportsData {
             reportDate: new Date('2019-04-05'),
             creatDate: new Date('2019-04-05'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.fail,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -775,7 +775,7 @@ export class reportsData {
             reportDate: new Date('2019-03-05'),
             creatDate: new Date('2019-03-05'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -784,7 +784,7 @@ export class reportsData {
             reportDate: new Date('2019-03-05'),
             creatDate: new Date('2019-03-05'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -793,7 +793,7 @@ export class reportsData {
             reportDate: new Date('2019-07-02'),
             creatDate: new Date('2019-07-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -802,7 +802,7 @@ export class reportsData {
             reportDate: new Date('2019-08-02'),
             creatDate: new Date('2019-08-02'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.fail,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -811,7 +811,7 @@ export class reportsData {
             reportDate: new Date('2019-09-02'),
             creatDate: new Date('2019-09-02'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -820,7 +820,7 @@ export class reportsData {
             reportDate: new Date('2019-10-02'),
             creatDate: new Date('2019-10-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -829,7 +829,7 @@ export class reportsData {
             reportDate: new Date('2019-11-02'),
             creatDate: new Date('2019-11-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -838,7 +838,7 @@ export class reportsData {
             reportDate: new Date('2019-12-02'),
             creatDate: new Date('2019-12-02'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -847,7 +847,7 @@ export class reportsData {
             reportDate: new Date('2020-01-02'),
             creatDate: new Date('2020-01-02'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -856,7 +856,7 @@ export class reportsData {
             reportDate: new Date('2020-02-02'),
             creatDate: new Date('2020-02-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -865,7 +865,7 @@ export class reportsData {
             reportDate: new Date('2020-03-02'),
             creatDate: new Date('2020-03-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -874,7 +874,7 @@ export class reportsData {
             reportDate: new Date('2020-04-02'),
             creatDate: new Date('2020-04-02'),
             status: +Statuses.notStarted,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -883,7 +883,7 @@ export class reportsData {
             reportDate: new Date('2020-05-02'),
             creatDate: new Date('2020-05-02'),
             status: +Statuses.finished,
-            indication: 3,
+            indication: Indications.successfull,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -892,7 +892,7 @@ export class reportsData {
             reportDate: new Date('2020-06-02'),
             creatDate: new Date('2020-06-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           },
           {
@@ -901,7 +901,7 @@ export class reportsData {
             reportDate: new Date('2020-07-02'),
             creatDate: new Date('2020-07-02'),
             status: +Statuses.working,
-            indication: 1,
+            indication: Indications.pending,
             comment: "חסרים דיווחי משכורות"
           }
     ];

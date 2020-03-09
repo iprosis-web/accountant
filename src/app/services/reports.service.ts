@@ -94,7 +94,14 @@ export class ReportsService {
           fullModel.push(
             {
               customer: customer,
-              contact: this.contacts.find(c => c.customerId == customer.id)
+              contact: this.contacts.find(c => c.customerId == customer.id),
+              newCustomerId: null,
+              clickableAdd: false,
+              clickableDelete: true,
+              displayAdd: false,
+              displayDelete: true,
+              displayEdit: true,
+              clickableEdit: true
             }
           );
         }
@@ -106,7 +113,14 @@ export class ReportsService {
           fullModel.push(
             {
               customer: customer,
-              contact: null
+              contact: null,
+              newCustomerId: null,
+              clickableAdd: false,
+              clickableDelete: true,
+              displayAdd: false,
+              displayDelete: true,
+              displayEdit: true,
+              clickableEdit: true
             }
           );
         }
@@ -121,7 +135,7 @@ export class ReportsService {
     }
   }
 
-  updateCustomer(customer: customer, contact: contact) {
+  updateCustomer(customer: customer, contact: contact, newCustomerId:string = null) {
     let currentCustomer = this.customers.find(c => c.id == customer.id);
     if (currentCustomer) {
       currentCustomer.companyName = customer.companyName;
@@ -132,14 +146,19 @@ export class ReportsService {
         currentCustomerContact.building = contact.building;
         currentCustomerContact.phone = contact.phone;
         currentCustomerContact.street = contact.street;
+        currentCustomerContact.imgUrl = contact.imgUrl;
+        if(newCustomerId != null){
+          currentCustomer.id = newCustomerId;
+          currentCustomerContact.customerId = newCustomerId;
+        }
       }
       else {
         //get latest contact id and increment by one to add contact
         let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-        let newContact: contact = { id: newContactId, building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: customer.id };
+        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.id : newCustomerId };
         this.contacts.push(newContact);
       }
-      return { data: { customer: customer, contact: contact }, message: "לקוח עודכן בהצלחה" };
+      return { data: { customer: currentCustomer, contact: contact }, message: "לקוח עודכן בהצלחה" };
     }
     else {
       return { data: { customer: customer, contact: contact }, message: "לקוח לא קיים במערכת" };
@@ -148,11 +167,11 @@ export class ReportsService {
   }
 
   addCustomer(customer: customer, contact: contact) {
-    let newCustomerId = (Math.max.apply(Math, this.customers.map(function (e) { return +e.id })) + 1) + '';
+    //get incremental id from contacts
     let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-    if (newCustomerId && newContactId) {
-      let newCustomer: customer = { id: newCustomerId, contactID: newContactId, companyName: customer.companyName, isActive: true, createdDate: new Date() };
-      let newContact: contact = { id: newContactId, customerId: newCustomerId, city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
+    if (newContactId) {
+      let newCustomer: customer = { id: customer.id, contactID: newContactId, companyName: customer.companyName, isActive: true, createdDate: new Date() };
+      let newContact: contact = { id: newContactId,imgUrl: '', customerId: customer.id, city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
       this.customers.push(newCustomer);
       this.contacts.push(newContact);
       return { data: { customer: newCustomer, contact: newContact }, message: "לקוח נשמר בהצלחה" };

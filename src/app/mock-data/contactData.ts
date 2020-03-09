@@ -11,7 +11,8 @@ export class contactsData {
             street: "רחוב נשר",
             building: "14",
             phone: "0524949581",
-            email: "aminmangarot@hotmail.com"
+            email: "aminmangarot@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 2,
@@ -20,7 +21,8 @@ export class contactsData {
             street: "רחוב תל",
             building: "7",
             phone: "0529581255",
-            email: "mehandizim@merka.com"
+            email: "mehandizim@merka.com",
+            imgUrl: ""
           },
           {
             id: 3,
@@ -29,7 +31,8 @@ export class contactsData {
             street: "אבדימי",
             building: "2",
             phone: "0541235867",
-            email: "reeton@ee.com"
+            email: "reeton@ee.com",
+            imgUrl: ""
           },
           {
             id: 4,
@@ -38,7 +41,8 @@ export class contactsData {
             street: "רחוב אגוז",
             building: "3",
             phone: "0584123748",
-            email: "sheetab@tech.com"
+            email: "sheetab@tech.com",
+            imgUrl: ""
           },
           {
             id: 5,
@@ -47,7 +51,8 @@ export class contactsData {
             street: "רחוב תל",
             building: "7",
             phone: "0525827365",
-            email: "abasar@hotmail.com"
+            email: "abasar@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 6,
@@ -56,7 +61,8 @@ export class contactsData {
             street: "רחוב אילת",
             building: "2",
             phone: "0528516234",
-            email: "maarakhot@gmail.com"
+            email: "maarakhot@gmail.com",
+            imgUrl: ""
           },
           {
             id: 7,
@@ -65,7 +71,8 @@ export class contactsData {
             street: "אבל אל אתיר",
             building: "14",
             phone: "0501857263",
-            email: "kringel.sa@kringel.com"
+            email: "kringel.sa@kringel.com",
+            imgUrl: ""
           },
           {
             id: 8,
@@ -74,7 +81,8 @@ export class contactsData {
             street: "אבודרהם",
             building: "7",
             phone: "0528173651",
-            email: "libral@hotmail.com"
+            email: "libral@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 9,
@@ -83,7 +91,8 @@ export class contactsData {
             street: "אודם",
             building: "2",
             phone: "0582375811",
-            email: "salinski.shipping@ship.com"
+            email: "salinski.shipping@ship.com",
+            imgUrl: ""
           },
           {
             id: 10,
@@ -92,7 +101,8 @@ export class contactsData {
             street: "אבן גבירול",
             building: "14",
             phone: "0502815517",
-            email: "ema.shipping@shiptsafon.com"
+            email: "ema.shipping@shiptsafon.com",
+            imgUrl: ""
           },
           {
             id: 11,
@@ -101,7 +111,8 @@ export class contactsData {
             street: "אבוקה",
             building: "7",
             phone: "0528371948",
-            email: "shemshon@shipping.com"
+            email: "shemshon@shipping.com",
+            imgUrl: ""
           },
           {
             id: 12,
@@ -110,7 +121,8 @@ export class contactsData {
             street: "איזמרגד",
             building: "2",
             phone: "0505918374",
-            email: "aminshipping@ashippi.com"
+            email: "aminshipping@ashippi.com",
+            imgUrl: ""
           },
           {
             id: 13,
@@ -119,7 +131,8 @@ export class contactsData {
             street: "רחוב אבא חושי",
             building: "14",
             phone: "0521294851",
-            email: "kijima.tech@gmail.com"
+            email: "kijima.tech@gmail.com",
+            imgUrl: ""
           },
           {
             id: 14,
@@ -128,7 +141,8 @@ export class contactsData {
             street: "אבירסף",
             building: "7",
             phone: "0523419485",
-            email: "ekshoal-food@gmail.com"
+            email: "ekshoal-food@gmail.com",
+            imgUrl: ""
           },
           {
             id: 15,
@@ -137,7 +151,8 @@ export class contactsData {
             street: "אילות",
             building: "2",
             phone: "0529581123",
-            email: "toos@gmail.com"
+            email: "toos@gmail.com",
+            imgUrl: ""
           },
           {
             id: 16,
@@ -146,7 +161,8 @@ export class contactsData {
             street: "אבן רושד",
             building: "14",
             phone: "0502239581",
-            email: "koma-mazon@mazon.com"
+            email: "koma-mazon@mazon.com",
+            imgUrl: ""
           },
           {
             id: 17,
@@ -155,7 +171,8 @@ export class contactsData {
             street: "די רוסי",
             building: "7",
             phone: "0525918555",
-            email: "sameer-construction@gmail.com"
+            email: "sameer-construction@gmail.com",
+            imgUrl: ""
           },
           {
             id: 18,
@@ -164,7 +181,8 @@ export class contactsData {
             street: "האירוס",
             building: "2",
             phone: "0528555234",
-            email: "ariyea-construction@gmail.com"
+            email: "ariyea-construction@gmail.com",
+            imgUrl: ""
           },
           {
             id: 19,
@@ -173,7 +191,8 @@ export class contactsData {
             street: "רחוב נשר",
             building: "14",
             phone: "0584172384",
-            email: "amonelectric@gmail.com"
+            email: "amonelectric@gmail.com",
+            imgUrl: ""
           },
           {
             id: 20,
@@ -182,7 +201,8 @@ export class contactsData {
             street: "רוביה חנה",
             building: "7",
             phone: "0503312485",
-            email: "yosif.mamtakim@gmail.com"
+            email: "yosif.mamtakim@gmail.com",
+            imgUrl: ""
           },
           {
             id: 21,
@@ -191,7 +211,8 @@ export class contactsData {
             street: "אייר",
             building: "2",
             phone: "0509488123",
-            email: "mohana-konditora@gmail.com"
+            email: "mohana-konditora@gmail.com",
+            imgUrl: ""
           },
           {
             id: 22,
@@ -200,7 +221,8 @@ export class contactsData {
             street: "אבן סינא",
             building: "14",
             phone: "0505812377",
-            email: "ward@hotmail.com"
+            email: "ward@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 23,
@@ -209,7 +231,8 @@ export class contactsData {
             street: "הרותם",
             building: "7",
             phone: "0509928831",
-            email: "lorinCoffee@gmail.com"
+            email: "lorinCoffee@gmail.com",
+            imgUrl: ""
           },
           {
             id: 24,
@@ -218,7 +241,8 @@ export class contactsData {
             street: "משעול שיקמה",
             building: "2",
             phone: "0525847755",
-            email: "hotcopy@gmail.com"
+            email: "hotcopy@gmail.com",
+            imgUrl: ""
           },
           {
             id: 25,
@@ -227,7 +251,8 @@ export class contactsData {
             street: "עין גדי",
             building: "14",
             phone: "0501183475",
-            email: "ramshal@hotmail.com"
+            email: "ramshal@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 26,
@@ -236,7 +261,8 @@ export class contactsData {
             street: "רובין שלמה",
             building: "7",
             phone: "0503394811",
-            email: "mesholash-coffee@hotmail.com"
+            email: "mesholash-coffee@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 27,
@@ -245,7 +271,8 @@ export class contactsData {
             street: "שביל שיזף",
             building: "2",
             phone: "0509958417",
-            email: "rani-resturant@gmail.com"
+            email: "rani-resturant@gmail.com",
+            imgUrl: ""
           },
           {
             id: 28,
@@ -254,7 +281,8 @@ export class contactsData {
             street: "גוש עציון",
             building: "14",
             phone: "0529938857",
-            email: "osherR@gmail.com"
+            email: "osherR@gmail.com",
+            imgUrl: ""
           },
           {
             id: 29,
@@ -263,7 +291,8 @@ export class contactsData {
             street: "אוגרית",
             building: "7",
             phone: "0529583151",
-            email: "american-delta@hotmail.com"
+            email: "american-delta@hotmail.com",
+            imgUrl: ""
           },
           {
             id: 30,
@@ -272,7 +301,8 @@ export class contactsData {
             street: "שיבולים",
             building: "2",
             phone: "0529581233",
-            email: "shooka@gmail.com"
+            email: "shooka@gmail.com",
+            imgUrl: ""
           }
     ];
 }
