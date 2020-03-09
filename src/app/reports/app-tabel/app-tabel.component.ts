@@ -31,7 +31,7 @@ export class AppTabelComponent implements OnInit {
 
 
   ngOnInit() {
-    this.setTableData(this.date, this.customerId, this.statusId);
+    this.setTableData(null, this.customerId, this.statusId);
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
