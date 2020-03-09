@@ -1,7 +1,77 @@
-.underConstruction h1 {
-    text-align: center;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-style: italic;
-    vertical-align: middle;
-    line-height: 200px; 
+table {
+    width: 100%;
+    direction: rtl;
+    
+  }
+  .mat-elevation-z8 {
+    overflow-y: scroll;
+  }
+  .scroll-container{
+    height: 100;
+    /* overflow: auto; */
+    margin:10% 10% 10% 10%;
+    
+  }
+  .scroll-container mat-elevation-z8 {
+
+    
+    height: 100;
+    /* overflow: auto; */
+    margin:10% 10% 10% 10%;
+  }
+
+  th {
+    text-align:center !important;
+  }
+
+  td {
+
+    display: table-cell;
+    vertical-align: initial;
+    padding-top:15px !important;
+    text-align:center !important;
 }
+  /* 1111111111111111111111 */
+  tr.example-detail-row {
+    height: 0;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):hover {
+    background: whitesmoke;
+  }
+  
+  tr.example-element-row:not(.example-expanded-row):active {
+    background: #efefef;
+  }
+  
+  .example-element-row td {
+    border-bottom-width: 0;
+  }
+  
+  .example-element-detail {
+    overflow: hidden;
+    display: flex;
+  }
+  
+  .example-element-diagram {
+    min-width: 80px;
+    border: 2px solid black;
+    padding: 8px;
+    font-weight: lighter;
+    margin: 8px 0;
+    height: 104px;
+  }
+  
+  .example-element-symbol {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: normal;
+  }
+  
+  .example-element-description {
+    padding: 16px;
+  }
+  
+  .example-element-description-attribution {
+    opacity: 0.5;
+  }
