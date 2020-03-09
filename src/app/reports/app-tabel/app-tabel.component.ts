@@ -1,16 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { ReportsService } from '../../services/reports.service';
 import { CustomerReportModel } from 'src/app/models/customerReportModel';
+import { HeaderService } from 'src/app/services/header.service';
+import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
+import { DateFilterModel } from 'src/app/models/dateFilterModel';
+import { customer } from 'src/app/models/customer';
 
 @Component({
   selector: 'app-app-tabel',
   templateUrl: './app-tabel.component.html',
   styleUrls: ['./app-tabel.component.css']
 })
-export class AppTabelComponent implements OnInit {
+export class AppTabelComponent implements OnInit,OnDestroy {
   displayedColumns: string[] = ['companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
   reports;
   dataTableArray: CustomerReportModel[] = [];
@@ -26,12 +30,17 @@ export class AppTabelComponent implements OnInit {
   
   
   constructor(
-    private reportsService: ReportsService,
+    private reportsService: ReportsService,private headerService: HeaderService
   ) { }
 
 
   ngOnInit() {
     this.setTableData(this.date, this.customerId, this.statusId);
+    this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel)=>{
+      let dateFilter: DateFilterModel = {startDate: filterData.startDate, endDate: filterData.endDate};
+      console.log(filterData);
+      this.setTableData(dateFilter, filterData.company, filterData.status);
+    });
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -65,6 +74,10 @@ export class AppTabelComponent implements OnInit {
       this.customerId = null;
     }
     this.setTableData(this.date, this.customerId, this.statusId);
+
+  }
+
+  ngOnDestroy(){
 
   }
 

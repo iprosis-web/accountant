@@ -1,54 +1,42 @@
 .navbar{
-  position: absolute;
-  /* direction:rtl; */
   width: 100%;
-  
+  /* direction:rtl; 
+  width: 100%;
+  height: 30%; */
+  /* font:500 20px/0px Roboto,"Helvetica Neue",sans-serif; */
+  /* padding: 0px; */
+  /* border: 5px solid red; */
 } 
+.navbar .mat-form-field + .mat-form-field  {
+  margin-left: 8px;
+}
 
+
+/* .mat-select{
+  text-align: left !important;
+} */
+/*mat select rtl*/
+.mat-form-field{
+  direction: ltr;
+}
+::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
+::ng-deep .mat-option { direction: rtl;text-align: left; }
+::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
+
+/* select{
+  direction: rtl;
+} */
 /* :host {
   direction: rtl;
 } */
 
-.example-month-picker .mat-calendar-period-button {
-    pointer-events: none;
-  }
-  
-.example-month-picker .mat-calendar-arrow {
-    display: none;
-}
 
-.mat-toolbar-single-row{
-      background-color: rgb(206, 234, 245);
-      display: inline-block;
-}
+/* .navbar .mat-form-field-infix {
 
-/* .mat-form-field {
-  /* margin: 40px; */
-  /* margin-right: 8px; 
+      
   
 } */
 
-.toolbarButton {
-    background-color: rgb(43,38,38);
-    color: white;
-    margin-right: 20px;
-    
-}
-.toolbarButton[disabled] {
-    background-color: rgb(43,38,38);
-    color: gray;
-    margin-right: 20px;
-    
-}
+/*   */
 
-.mat-datepicker-toggle {
-    direction:rtl;
-}
 
-.filter-nav {
-    /* padding: 10px; */
-    /* margin: 5px;
-    padding-left: 10px;
-    text-align: right; */
-    padding:0;
-  }

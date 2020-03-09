@@ -1,23 +1,23 @@
-<div class="navbar">
 
-  <mat-toolbar>
+
+  
+    <div class="navbar">
     <form #f="ngForm">
-      <div >
         <!-- *ngIf="showFilters" -->
-        <mat-form-field appearance="outline" class="filter-nav">
+        <mat-form-field appearance="outline">
           <mat-label>בחר חברה</mat-label>
-          <input matInput>
-          <select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" required>
-            <option [value]=null>הכל</option>
-            <option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </option>
-          </select>
+          <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" required>
+            <mat-option value=null>הכל</mat-option>
+            <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </mat-option>
+          </mat-select>
         </mat-form-field>
+
         <mat-form-field appearance="outline">
           <mat-label>בחר סטטוס</mat-label>
-          <select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" required>
-            <option [value]=null>הכל</option>
-            <option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </option>
-          </select>
+          <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" required>
+            <mat-option value=null>הכל</mat-option>
+            <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field class="stratDate" appearance="outline">
@@ -35,11 +35,9 @@
             (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>
           </mat-datepicker>
         </mat-form-field>
-
         <button class="toolbarButton" mat-button type="submit" [disabled]="!f.valid"
           (click)="onFilterSubmitted()">סנן</button>
-      </div>
+      
     </form>
-  </mat-toolbar>
+    </div>
 
-</div>
