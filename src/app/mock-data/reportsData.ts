@@ -772,8 +772,8 @@ export class reportsData {
           {
             id: 86,
             customerId: "214475744",
-            reportDate: new Date('2019-05-05'),
-            creatDate: new Date('2019-05-05'),
+            reportDate: new Date('2019-03-05'),
+            creatDate: new Date('2019-03-05'),
             status: +Statuses.finished,
             indication: 3,
             comment: "חסרים דיווחי משכורות"
@@ -781,8 +781,8 @@ export class reportsData {
           {
             id: 87,
             customerId: "214475744",
-            reportDate: new Date('2019-06-05'),
-            creatDate: new Date('2019-06-05'),
+            reportDate: new Date('2019-03-05'),
+            creatDate: new Date('2019-03-05'),
             status: +Statuses.working,
             indication: 1,
             comment: "חסרים דיווחי משכורות"
