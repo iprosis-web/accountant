@@ -10,6 +10,8 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 import { ReportsService } from 'src/app/services/reports.service';
+import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
+import { HeaderService } from 'src/app/services/header.service';
 
 const moment = _rollupMoment || _moment;
 
@@ -27,12 +29,7 @@ export const MY_FORMATS = {
   },
 };
 
-export interface filtersDataModel {
-  company: string,
-  status: string,
-  startDate: Date,
-  endDate: Date
-}
+
 
 @Component({
   selector: 'app-app-header',
@@ -51,15 +48,13 @@ export interface filtersDataModel {
 export class AppHeaderComponent implements OnInit {
   customers = [];
   statuses = [];
-  @Input() showFilters: boolean=false;
-  @Output() dataFilter = new EventEmitter<filtersDataModel>();
   selectedCustomer: string;
   selectedStatus: string;
   selectedStartDate = new FormControl(moment());
   selectedEndDate = new FormControl(moment());
 
-  constructor(private reportsService: ReportsService) { }
-  filtersDataObject: filtersDataModel = {
+  constructor(private reportsService: ReportsService,private headerService: HeaderService) { }
+  filtersDataObject: ReportsFilterModel = {
     company: this.selectedCustomer,
     status: this.selectedStatus,
     startDate: new Date(),
@@ -71,9 +66,10 @@ export class AppHeaderComponent implements OnInit {
   }
 
   onFilterSubmitted() {
-    this.filtersDataObject.company = this.selectedCustomer;
-    this.filtersDataObject.status = this.selectedStatus;
-    this.dataFilter.emit(this.filtersDataObject);
+    this.filtersDataObject.company = this.selectedCustomer == "null" ? null : this.selectedCustomer;
+    this.filtersDataObject.status = this.selectedStatus == "null" ? null : this.selectedStatus;
+    //this.dataFilter.emit(this.filtersDataObject);
+    this.headerService.updateFilterData(this.filtersDataObject);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {

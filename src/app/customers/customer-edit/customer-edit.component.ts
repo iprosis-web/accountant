@@ -95,7 +95,7 @@ export class CustomerEditComponent implements OnInit {
         //check if customer already exists by id
         let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
         if(findCustomer && findCustomer.customer.id != this.currentCustomerId){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת");
+          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
           return;
         }
         let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: null, contactID: this.currentCustomer.contact.id };
@@ -110,7 +110,7 @@ export class CustomerEditComponent implements OnInit {
         //check if customer already exists by id
         let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
         if(findCustomer){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת");
+          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
           return;
         }
         let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: null, contactID: null };
