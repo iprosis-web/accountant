@@ -21,7 +21,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
   firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
-  date = { startDate: this.firstDay, endDate: this.currDate };
+  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()+1, -1);
+  date = { startDate: this.firstDay, endDate: this.endDay };
   customerId = null;
   statusId = null;
   dataSource = new MatTableDataSource<CustomerReportModel>();
