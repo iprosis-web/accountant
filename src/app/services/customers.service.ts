@@ -8,8 +8,19 @@ import { contact } from '../models/contact';
   providedIn: 'root'
 })
 export class CustomersService {
-
+  
   constructor(private reportService: ReportsService) { }
+
+  getFilteredCustomers(customerId: string, status:boolean) {
+    let filteredCustomers = this.getFullCustomersDetails().filter( curcustomer =>
+      (curcustomer.customer.id == customerId || customerId == undefined || customerId == null)
+      //  &&(curcustomer.customer.isActive == status)
+    );
+    // console.log("id  :" +status );
+    // console.log("id 2  :" +this.getFullCustomersDetails().includes(this.getFullCustomerInfoById(customerId)) );
+    // console.log("filtered customers  :" ,filteredCustomers );
+    return filteredCustomers;
+  }
 
     getFullCustomerInfoById(id: string){
       let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);

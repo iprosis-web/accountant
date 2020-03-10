@@ -4,15 +4,17 @@
       <mat-label>בחר חברה</mat-label>
       <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
         <mat-option value=null>הכל</mat-option>
-        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </mat-option>
+        <mat-option *ngFor="let curcustomer of customers" [value]="curcustomer.customer.id">{{curcustomer.customer.companyName}} </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>בחר סטטוס</mat-label>
       <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status">
-        <mat-option value=null>הכל</mat-option>
-        <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
+        <mat-option value="true">הכל</mat-option>
+        <mat-option value="true">פעיל</mat-option>
+        <mat-option value="false">לא פעיל</mat-option>
+        <!-- <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option> -->
       </mat-select>
     </mat-form-field>
 
@@ -21,7 +23,7 @@
         (click)="onFilterSubmitted()">סנן</button>
     </div>
 
-    <div class="customer-list-header">
+    <div class="person_add-icon">
       <button mat-raised-button (click)="openDialogForNew()">
         <mat-icon>person_add</mat-icon>
       </button>

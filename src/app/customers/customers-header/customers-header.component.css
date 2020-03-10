@@ -26,4 +26,9 @@
   .mat-select {
     text-align: right !important;
   } 
+
+  .person_add-icon {
+    display: inline-flex ;
+    margin-right: 10px ;
+  }
   

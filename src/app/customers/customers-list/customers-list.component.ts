@@ -2,15 +2,15 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReportsService } from 'src/app/services/reports.service';
 import { CustomersService } from 'src/app/services/customers.service';
-<<<<<<< HEAD
-=======
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel'
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { MatSnackBar } from '@angular/material';
->>>>>>> b0784c6ac8f74416a0a7d9657496b8273b4f2b70
+import { HeaderService } from 'src/app/services/header.service';
+import { CustomerReportModel } from 'src/app/models/customerReportModel';
+import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
 
 
 export interface PeriodicElement {
@@ -40,41 +40,39 @@ export class CustomersListComponent implements OnInit {
   columnsToDisplay: string[] = ['id', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;
   dataTableArray: FullCustomerModel[] = [];
+  customerId = null;
+  statusId = null;
 
-<<<<<<< HEAD
-  
-  constructor(private reportsService: ReportsService,private customersService: CustomersService) { }
-
-  ngOnInit() {
-    this.dataSource = this.customersService.getFullCustomersDetails();
-    // this.dataSource.paginator = this.paginator;
-=======
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private reportsService: ReportsService,
     private customerService : CustomersService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private headerService: HeaderService
   ) { }
 
   ngOnInit() {
-    this.setTableData();
-  //   this.customerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
-  //   this.setTableData(dateFilter, filterData.company, filterData.status);
-  // });
-   // this.dataSource.data = this.customerService.getFullCustomersDetails();
+    this.setTableData(this.customerId, this.statusId);
+    this.headerService.customersFilterSubject.subscribe((filterData: CustomersFilterModel) => {
+
+      this.setTableData(filterData.companyId,filterData.isActive);
+    });
+ 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
->>>>>>> b0784c6ac8f74416a0a7d9657496b8273b4f2b70
   }
 
   ngOnDestroy() {
 
   }
 
-  setTableData() {    
+  setTableData(customerId, statusId) {    
     this.dataTableArray = [];    
-    this.dataTableArray = this.customerService.getFullCustomersDetails();
+    this.dataTableArray = this.customerService.getFilteredCustomers(customerId,statusId);
+    if (this.dataTableArray.length <= 0) {
+      new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+    }
     this.dataSource.data = this.dataTableArray;
   }
 
