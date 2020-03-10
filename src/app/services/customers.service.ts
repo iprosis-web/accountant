@@ -11,10 +11,14 @@ export class CustomersService {
 
   constructor(private reportService: ReportsService) { }
 
-  getFullCustomerInfoById(id: string){
-    let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);
-    return customer;
+    getFullCustomerInfoById(id: string){
+      let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);
+      return customer;
     }
+
+    getFullCustomersDetails(){
+      return this.reportService.getFullCustomersDetails();
+    }  
 
     updateCustomer(customer: customer, contact: contact,newCustomerId: string = null){
       return this.reportService.updateCustomer(customer,contact,newCustomerId);

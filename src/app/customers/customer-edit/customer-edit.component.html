@@ -61,7 +61,9 @@
           <mat-error *ngIf="!fileUploadFlag && currentCustomerImg == null">תמונה חייבת להיות מסוגים: jpg,png,gif</mat-error>
         </div>
         <br>
-        <button type="submit" mat-raised-button color="primary" style="margin: 5px;" [disabled]="!customerForm.valid || (!fileUploadFlag && currentCustomerImg == null)">שמור</button>
+        <span matTooltip="חובה למלא שדות בהתאם" [matTooltipDisabled]="customerForm.valid && (fileUploadFlag || currentCustomerImg != null)">
+          <button type="submit" mat-raised-button color="primary" style="margin: 5px;" [disabled]="!customerForm.valid || (!fileUploadFlag && currentCustomerImg == null)">שמור</button>
+        </span>
         <button type="button" mat-dialog-close mat-raised-button color="danger">ביטול</button>
       </div>
       </form>

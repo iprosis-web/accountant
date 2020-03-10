@@ -1,37 +1,34 @@
-table {
-    width: 100%;
-    direction: rtl;
-    
-  }
-  .mat-elevation-z8 {
-    overflow-y: scroll;
-  }
-  .scroll-container{
-    height: 100;
-    /* overflow: auto; */
-    margin:10% 10% 10% 10%;
-    
-  }
-  .scroll-container mat-elevation-z8 {
-
-    
-    height: 100;
-    /* overflow: auto; */
-    margin:10% 10% 10% 10%;
-  }
-
-  th {
-    text-align:center !important;
-  }
-
-  td {
-
-    display: table-cell;
-    vertical-align: initial;
-    padding-top:15px !important;
-    text-align:center !important;
+.scroll-container {
+  max-height:60vh;
+  overflow: auto;
+  margin:5% 10% 0 10%;
+  transition: top 0.3s;  
 }
-  /* 1111111111111111111111 */
+
+table {
+  width: 100%;
+  height: 100%;
+  direction: rtl;
+}
+
+th {
+  color: black;
+  margin-right:100px;  
+}
+
+::ng-deep .mat-sort-header-container{
+  display: flex;
+  justify-content: center;
+} 
+
+td {
+  display: table-cell;
+  vertical-align: initial;
+  padding-top:15px !important;
+  text-align:center !important;
+}
+
+
   tr.example-detail-row {
     height: 0;
   }
@@ -51,10 +48,11 @@ table {
   .example-element-detail {
     overflow: hidden;
     display: flex;
+    border: 2px solid red;
   }
   
   .example-element-diagram {
-    min-width: 80px;
+    width: 100%;
     border: 2px solid black;
     padding: 8px;
     font-weight: lighter;
