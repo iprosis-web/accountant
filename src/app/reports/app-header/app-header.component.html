@@ -16,9 +16,9 @@
         <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
       </mat-select>
     </mat-form-field>
-  <!-- </div> -->
+
     <mat-form-field class="stratDate" appearance="outline">
-      <mat-label>בחר תאריך מ</mat-label>
+      <mat-label> מתאריך</mat-label>
       <input matInput [matDatepicker]="picker" [formControl]="selectedStartDate" readonly>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
@@ -27,7 +27,7 @@
     </mat-form-field>
 
     <mat-form-field class="endDate" appearance="outline">
-      <mat-label>בחר תאריך עד</mat-label>
+      <mat-label>עד תאריך</mat-label>
       <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" [formControl]="selectedEndDate" readonly>
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"

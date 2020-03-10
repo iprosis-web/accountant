@@ -1,30 +1,22 @@
 .navbar{
   display:inline-flex;
   justify-content: center;
-  width: 100%;
-  position: sticky;
+  width: 100%;  
+position: sticky;
 } 
 
-::ng-deep .mat-form-field  {
+::ng-deep .mat-form-field{
   direction: ltr;
-  margin-left: 8px;
-  width: 160px;
+  margin-left:8px;
+  width:160px;
 }
- /* .mat-select-container {
-  display: inline;
-  justify-content: space-between;
-
-} */
-
 ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
 ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
 
-
 .buttonTooltipSubmitt {
-display: inline;
-}
-
- .mat-select {
-  text-align: right !important;
-} 
-
+  display: inline;
+  }
+  
+   .mat-select {
+    text-align: right !important;
+  } 

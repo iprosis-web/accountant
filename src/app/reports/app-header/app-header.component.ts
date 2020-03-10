@@ -67,17 +67,15 @@ export class AppHeaderComponent implements OnInit {
 
   onFilterSubmitted() {
     this.filtersDataObject.company = this.selectedCustomer == "null" ? null : this.selectedCustomer;
-    this.filtersDataObject.status = this.selectedStatus == "null" ? null : this.selectedStatus;
-    console.log(this.selectedStartDate.value);
-    if(this.selectedStartDate.value==""){
-      this.filtersDataObject.startDate  =null;
-    }
+    this.filtersDataObject.status = this.selectedStatus ==  "null" ? null : this.selectedStatus;
     //this.dataFilter.emit(this.filtersDataObject);
     this.headerService.updateFilterData(this.filtersDataObject);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.selectedStartDate.value;
+    console.log(ctrlValue);
+    
     ctrlValue.year(normalizedYear.year());
     this.selectedStartDate.setValue(ctrlValue);
 
@@ -117,5 +115,7 @@ export class AppHeaderComponent implements OnInit {
     datepicker.close();
 
   }
+
+  
   
 }
