@@ -40,10 +40,11 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.setTableData(this.date, this.customerId, this.statusId);
     this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
-      let dateFilter: DateFilterModel = { startDate: filterData.startDate, endDate: filterData.endDate };
+      let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
+        , endDate: new Date(filterData.endDate.getFullYear(), filterData.endDate.getMonth()+1, -1)
+      };
       this.setTableData(dateFilter, filterData.company, filterData.status);
     });
-
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -53,6 +54,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   }
 
   setTableData(date, customerId, statusId) {
+    console.log('date' , date , 'customer' , customerId , 'status' , statusId);
+    
     this.dataTableArray = [];
     this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
     if (this.dataTableArray.length <= 0) {
