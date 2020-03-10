@@ -26,10 +26,21 @@
 
 .row{
     display: flex;
-    margin: 10px;
+    text-align: right;
+    padding: 0;
+    margin: 0;
 }
 .col {
-    padding: 5px;
+    margin-right: 10px;
+}
+
+.header-customer-data {
+  float: right;
+  overflow: hidden;
+}
+
+.table-init-info {
+  float: left;
 }
 
 @media only screen and (max-width: 600px) {
@@ -37,11 +48,16 @@
       width:50px;
       height: 50px;
     }
+    .table-init-info {
+      margin-left: 20%;
+    }
   }
 
   .img-responsive-table {
       width: 100px;
       height: 100px;
+      margin-top: 15px;
+      
   }
 
   .table-element-detail {

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -29,7 +29,6 @@ export const MY_FORMATS = {
 };
 
 
-
 @Component({
   selector: 'app-app-header',
   templateUrl: './app-header.component.html',
@@ -52,7 +51,10 @@ export class AppHeaderComponent implements OnInit {
   selectedStartDate = new FormControl(moment());
   selectedEndDate = new FormControl(moment());
 
-  constructor(private reportsService: ReportsService, private headerService: HeaderService) { }
+  constructor(private reportsService: ReportsService,
+    private headerService: HeaderService,) {
+   }
+
   filtersDataObject: ReportsFilterModel = {
     company: this.selectedCustomer,
     status: this.selectedStatus,
