@@ -26,7 +26,7 @@ import { AppTabelComponent } from './reports/app-tabel/app-tabel.component';
 import { AppHeaderComponent } from './reports/app-header/app-header.component';
 import { MatPaginatorModule , MatSortModule} from '@angular/material';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import { CustomersHeaderComponent } from './customers/customers-header/customers-header.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     CustomerDetailsComponent,
     CustomersListComponent,
     AppTabelComponent,
-    AppHeaderComponent
+    AppHeaderComponent,
+    CustomersHeaderComponent
   ],
   imports: [
     BrowserModule,

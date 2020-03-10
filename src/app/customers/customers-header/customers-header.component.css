@@ -1,0 +1,29 @@
+.customers-navbar{
+    display:inline-flex;
+    justify-content: center;
+    width: 100%;  
+    position: sticky;
+  } 
+  
+.mat-form-field{
+    direction: ltr;
+    margin-left:8px !important;
+    width:160px;
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.3em 0 0.3em 0 !important;
+}
+
+  
+  ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
+  ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
+  
+  .buttonTooltipSubmitt, .customer-list-header {
+    display: inline;
+  }
+  
+  .mat-select {
+    text-align: right !important;
+  } 
+  
