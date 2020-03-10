@@ -1,8 +1,12 @@
 .scroll-container {
     max-height:60vh;
     overflow: auto;
-    margin:5% 10% 0 10%;
+    width:100%;
+    max-width:1000px;
     transition: top 0.3s;  
+    position: absolute;
+    left:50%;
+    transform: translate(-50%);
   }
   
 table {
@@ -26,5 +30,14 @@ td {
     vertical-align: initial;
     padding-top:15px !important;
     text-align:center !important;
+}
+
+table tr:hover {
+    background-color: rgb(182, 199, 201) !important;
+    color: #ffffff;
+}
+
+ng-container:hover{
+    background-color: gray;
 }
 

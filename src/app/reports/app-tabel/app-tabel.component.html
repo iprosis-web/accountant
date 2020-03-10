@@ -27,7 +27,7 @@
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true;"></tr>
-    <tr mat-row (click)="getRowData(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row [routerLink]="['/report', row.reportID]"  (click)="getRowData(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

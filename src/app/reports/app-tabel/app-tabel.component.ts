@@ -20,8 +20,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
-  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
-  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()+1, -1);
+  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
+  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), -1);
   date = { startDate: this.firstDay, endDate: this.endDay };
   customerId = null;
   statusId = null;
@@ -65,7 +65,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   getRowData(reportData){
     let rowData = JSON.stringify(reportData);    
-    new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + reportData.reportID,""  )
+    new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
 
   }
 
