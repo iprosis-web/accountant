@@ -54,6 +54,13 @@ export class ReportsService {
     return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
   }
 
+  getReportById(reportId: number){
+    let customerReportData = this.reports.find(r => r.id == reportId);
+    if(customerReportData)
+      return customerReportData;
+    return null;
+  }
+
   mapReportsToCustomerReports(reports: reports[], customers: customer[]) {
     let customersReports: CustomerReportModel[] = [];
     if (reports && customers) {
@@ -182,22 +189,26 @@ export class ReportsService {
   }
 
   deleteCustomer(customer: customer){
-    let currentCustomer = this.customers.find(c => c.id == customer.id);
-    if(currentCustomer){
+    let currentCustomer = this.customers.findIndex(c => c.id == customer.id);
+    console.log(currentCustomer);
+    if(currentCustomer != undefined){
       //set contact to inactive
-      let customerContact = this.contacts.find(c => c.customerId == currentCustomer.id);
-      if(customerContact){
-        customerContact.isActive = false;
+      let customerContact = this.contacts.findIndex(c => c.customerId == customer.id);
+      if(customerContact != undefined){
+        //customerContact.isActive = false;
+        this.contacts.splice(customerContact, 1);
       }
       //set all reports to inactive
-      let customerReports = this.reports.filter(r => r.customerId == currentCustomer.id);
+      let customerReports = this.reports.filter(r => r.customerId == customer.id);
       if(customerReports){
         for(let report of customerReports){
-          report.isActive = false;
-        }
+          //report.isActive = false;  
+          this.reports.splice(customerReports.indexOf(report), 1);
+        }   
       }
       //set user to inactive
-      currentCustomer.isActive = false;
+      //currentCustomer.isActive = false;
+      this.customers.splice(currentCustomer, 1);
       return { data: null, message: "לקוח נמחק בהצלחה" };
     }
     else{

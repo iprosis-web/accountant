@@ -2,15 +2,12 @@ import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReportsService } from 'src/app/services/reports.service';
 import { CustomersService } from 'src/app/services/customers.service';
-<<<<<<< HEAD
-=======
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel'
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { MatSnackBar } from '@angular/material';
->>>>>>> b0784c6ac8f74416a0a7d9657496b8273b4f2b70
 
 
 export interface PeriodicElement {
@@ -41,14 +38,6 @@ export class CustomersListComponent implements OnInit {
   expandedElement: PeriodicElement | null;
   dataTableArray: FullCustomerModel[] = [];
 
-<<<<<<< HEAD
-  
-  constructor(private reportsService: ReportsService,private customersService: CustomersService) { }
-
-  ngOnInit() {
-    this.dataSource = this.customersService.getFullCustomersDetails();
-    // this.dataSource.paginator = this.paginator;
-=======
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
@@ -65,7 +54,6 @@ export class CustomersListComponent implements OnInit {
    // this.dataSource.data = this.customerService.getFullCustomersDetails();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
->>>>>>> b0784c6ac8f74416a0a7d9657496b8273b4f2b70
   }
 
   ngOnDestroy() {
