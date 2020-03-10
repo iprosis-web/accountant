@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { ReportsService } from 'src/app/services/reports.service';
+import { CustomersService } from 'src/app/services/customers.service';
 
 @Component({
   selector: 'app-customers-list',
@@ -22,10 +23,10 @@ export class CustomersListComponent implements OnInit {
   expandedElement: PeriodicElement | null;
 
   
-  constructor(private reportsService: ReportsService) { }
+  constructor(private reportsService: ReportsService,private customersService: CustomersService) { }
 
   ngOnInit() {
-    this.dataSource = this.reportsService.getAllCustomers();
+    this.dataSource = this.customersService.getFullCustomersDetails();
     // this.dataSource.paginator = this.paginator;
   }
 

@@ -16,6 +16,7 @@ export class CustomerDetailsComponent implements OnInit {
   faAdd = faUserPlus;
   faDelete = faUserMinus;
   @Input('customerModel') currentCustomerModel: FullCustomerModel;
+  @Input('fromTable') fromTableFlag: boolean = false;
   private editDialog: MatDialogRef<CustomerEditComponent>;
   currentCustomerId: string;
   constructor(public dialog: MatDialog, private customerService: CustomersService,private snackBar: MatSnackBar) { }
