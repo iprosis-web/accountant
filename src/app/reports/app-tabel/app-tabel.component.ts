@@ -26,7 +26,6 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   customerId = null;
   statusId = null;
   dataSource = new MatTableDataSource<CustomerReportModel>();
-  static: false;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -54,9 +53,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   }
 
-  setTableData(date, customerId, statusId) {
-    console.log('date' , date , 'customer' , customerId , 'status' , statusId);
-    
+  setTableData(date, customerId, statusId) {    
     this.dataTableArray = [];
     this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
     if (this.dataTableArray.length <= 0) {
@@ -66,11 +63,9 @@ export class AppTabelComponent implements OnInit, OnDestroy {
     this.dataSource.data = this.dataTableArray;
   }
 
-  getRowData(customerId){
-    let rowData = JSON.stringify(customerId);
-    console.log(rowData);
-    
-    new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + customerId.reportID,""  )
+  getRowData(reportData){
+    let rowData = JSON.stringify(reportData);    
+    new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + reportData.reportID,""  )
 
   }
 
