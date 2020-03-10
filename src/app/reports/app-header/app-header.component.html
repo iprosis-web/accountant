@@ -1,10 +1,9 @@
-<div class="navbar">
+<div class="navbar" fxFlexFill>
   <form #f="ngForm">
-    <!-- *ngIf="showFilters" -->
-    <div class="mat-select-container">
+    <!-- <div class="mat-select-container"> -->
     <mat-form-field appearance="outline">
       <mat-label>בחר חברה</mat-label>
-      <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" required>
+      <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
         <mat-option value=null>הכל</mat-option>
         <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </mat-option>
       </mat-select>
@@ -12,15 +11,15 @@
 
     <mat-form-field appearance="outline">
       <mat-label>בחר סטטוס</mat-label>
-      <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" required>
+      <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status">
         <mat-option value=null>הכל</mat-option>
         <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
       </mat-select>
     </mat-form-field>
-  </div>
+
     <mat-form-field class="stratDate" appearance="outline">
-      <mat-label>בחר תאריך מ</mat-label>
-      <input matInput [matDatepicker]="picker" [formControl]="selectedStartDate">
+      <mat-label> מתאריך</mat-label>
+      <input matInput [matDatepicker]="picker" [formControl]="selectedStartDate" readonly>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
         (monthSelected)="chosenStartMonthHandler($event, picker)" panelClass="example-month-picker">>
@@ -28,8 +27,9 @@
     </mat-form-field>
 
     <mat-form-field class="endDate" appearance="outline">
-      <mat-label>בחר תאריך עד</mat-label>
-      <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" [formControl]="selectedEndDate">
+      <mat-label>עד תאריך</mat-label>
+      <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" [formControl]="selectedEndDate"
+        readonly>
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
         (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>
