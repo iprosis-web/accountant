@@ -1,10 +1,10 @@
-<div class="navbar">
-  <form #f="ngForm">
-    <!-- *ngIf="showFilters" -->
+<div class="navbar" fxFlexFill>
+  <form #f="ngForm" >
+    <!-- <div class="mat-select-container"> -->
     <mat-form-field appearance="outline">
       <mat-label>בחר חברה</mat-label>
-      <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer" >
-        <mat-option value=null >הכל</mat-option>
+      <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
+        <mat-option value=null>הכל</mat-option>
         <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </mat-option>
       </mat-select>
     </mat-form-field>
