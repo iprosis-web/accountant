@@ -2,7 +2,7 @@
   display:inline-flex;
   justify-content: center;
   width: 100%;  
-position: sticky;
+  position: sticky;
 } 
 
 ::ng-deep .mat-form-field{
@@ -15,8 +15,8 @@ position: sticky;
 
 .buttonTooltipSubmitt {
   display: inline;
-  }
+}
   
-   .mat-select {
-    text-align: right !important;
-  } 
+.mat-select {
+  text-align: right !important;
+} 

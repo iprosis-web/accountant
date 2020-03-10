@@ -1,5 +1,5 @@
 <div class="navbar" fxFlexFill>
-  <form #f="ngForm" >
+  <form #f="ngForm">
     <!-- <div class="mat-select-container"> -->
     <mat-form-field appearance="outline">
       <mat-label>בחר חברה</mat-label>
@@ -11,7 +11,7 @@
 
     <mat-form-field appearance="outline">
       <mat-label>בחר סטטוס</mat-label>
-      <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status" >
+      <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status">
         <mat-option value=null>הכל</mat-option>
         <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
       </mat-select>
@@ -28,7 +28,8 @@
 
     <mat-form-field class="endDate" appearance="outline">
       <mat-label>עד תאריך</mat-label>
-      <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" [formControl]="selectedEndDate" readonly>
+      <input matInput [min]="filtersDataObject.startDate" [matDatepicker]="picker2" [formControl]="selectedEndDate"
+        readonly>
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
         (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>

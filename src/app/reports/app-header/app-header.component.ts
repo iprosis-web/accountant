@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Output, EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -48,12 +47,12 @@ export const MY_FORMATS = {
 export class AppHeaderComponent implements OnInit {
   customers = [];
   statuses = [];
-  selectedCustomer: string="null";
-  selectedStatus: string="null";
+  selectedCustomer: string = "null";
+  selectedStatus: string = "null";
   selectedStartDate = new FormControl(moment());
   selectedEndDate = new FormControl(moment());
 
-  constructor(private reportsService: ReportsService,private headerService: HeaderService) { }
+  constructor(private reportsService: ReportsService, private headerService: HeaderService) { }
   filtersDataObject: ReportsFilterModel = {
     company: this.selectedCustomer,
     status: this.selectedStatus,
@@ -67,15 +66,13 @@ export class AppHeaderComponent implements OnInit {
 
   onFilterSubmitted() {
     this.filtersDataObject.company = this.selectedCustomer == "null" ? null : this.selectedCustomer;
-    this.filtersDataObject.status = this.selectedStatus ==  "null" ? null : this.selectedStatus;
-    //this.dataFilter.emit(this.filtersDataObject);
+    this.filtersDataObject.status = this.selectedStatus == "null" ? null : this.selectedStatus;
     this.headerService.updateFilterData(this.filtersDataObject);
   }
 
   chosenStartYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.selectedStartDate.value;
     console.log(ctrlValue);
-    
     ctrlValue.year(normalizedYear.year());
     this.selectedStartDate.setValue(ctrlValue);
 
@@ -84,13 +81,8 @@ export class AppHeaderComponent implements OnInit {
   chosenStartMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
-    this.selectedStartDate.setValue(ctrlValue); 
-    // console.log(this.selectedStartDate.value);
-    //  if(this.selectedStartDate.value==""){
-    //   this.filtersDataObject.startDate  =null;
-    // }else{
+    this.selectedStartDate.setValue(ctrlValue);
     this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
-  // }
     datepicker.close();
 
   }
@@ -106,16 +98,8 @@ export class AppHeaderComponent implements OnInit {
     const ctrlValue = this.selectedEndDate.value;
     ctrlValue.month(normalizedMonth.month());
     this.selectedEndDate.setValue(ctrlValue);
-    if(this.selectedEndDate.value==""){
-      this.filtersDataObject.endDate  =null;
-    }else{
-      this.filtersDataObject.endDate  = this.selectedEndDate.value.toDate();
-    }
-    
+    this.filtersDataObject.endDate = this.selectedEndDate.value.toDate();
     datepicker.close();
-
   }
 
-  
-  
 }
