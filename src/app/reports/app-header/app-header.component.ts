@@ -48,8 +48,8 @@ export const MY_FORMATS = {
 export class AppHeaderComponent implements OnInit {
   customers = [];
   statuses = [];
-  selectedCustomer: string;
-  selectedStatus: string;
+  selectedCustomer: string="null";
+  selectedStatus: string="null";
   selectedStartDate = new FormControl(moment());
   selectedEndDate = new FormControl(moment());
 
@@ -68,6 +68,10 @@ export class AppHeaderComponent implements OnInit {
   onFilterSubmitted() {
     this.filtersDataObject.company = this.selectedCustomer == "null" ? null : this.selectedCustomer;
     this.filtersDataObject.status = this.selectedStatus == "null" ? null : this.selectedStatus;
+    console.log(this.selectedStartDate.value);
+    if(this.selectedStartDate.value==""){
+      this.filtersDataObject.startDate  =null;
+    }
     //this.dataFilter.emit(this.filtersDataObject);
     this.headerService.updateFilterData(this.filtersDataObject);
   }
@@ -82,8 +86,13 @@ export class AppHeaderComponent implements OnInit {
   chosenStartMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
-    this.selectedStartDate.setValue(ctrlValue);
+    this.selectedStartDate.setValue(ctrlValue); 
+    // console.log(this.selectedStartDate.value);
+    //  if(this.selectedStartDate.value==""){
+    //   this.filtersDataObject.startDate  =null;
+    // }else{
     this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
+  // }
     datepicker.close();
 
   }
@@ -99,7 +108,12 @@ export class AppHeaderComponent implements OnInit {
     const ctrlValue = this.selectedEndDate.value;
     ctrlValue.month(normalizedMonth.month());
     this.selectedEndDate.setValue(ctrlValue);
-    this.filtersDataObject.endDate  = this.selectedEndDate.value.toDate();
+    if(this.selectedEndDate.value==""){
+      this.filtersDataObject.endDate  =null;
+    }else{
+      this.filtersDataObject.endDate  = this.selectedEndDate.value.toDate();
+    }
+    
     datepicker.close();
 
   }

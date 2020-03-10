@@ -1,24 +1,21 @@
 .navbar{
-  display:flex;
+  display:inline-flex;
   justify-content: center;
   width: 100%;
-  display: flex;
-  justify-content: center;
   position: sticky;
 } 
-.navbar .mat-form-field + .mat-form-field  {
-  margin-left: 8px;
-}
 
- .mat-select-container {
+::ng-deep .mat-form-field  {
+  direction: ltr;
+  margin-left: 8px;
+  width: 160px;
+}
+ /* .mat-select-container {
   display: inline;
   justify-content: space-between;
 
-}
+} */
 
-.mat-form-field{
-  direction: ltr;
-}
 ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
 ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
 
