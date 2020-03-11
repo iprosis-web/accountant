@@ -3,11 +3,13 @@ import { ReportsService } from './reports.service';
 import { FullCustomerModel } from '../models/fullCustomerModel';
 import { customer } from '../models/customer';
 import { contact } from '../models/contact';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomersService {
+  fullCustomerDetailsSubject: Subject<FullCustomerModel[]> = new Subject<FullCustomerModel[]>();
 
   constructor(private reportService: ReportsService) { }
 
@@ -29,6 +31,7 @@ export class CustomersService {
     }
 
     deleteCustomer(customer: customer){
+      this.fullCustomerDetailsSubject.next(this.getFullCustomersDetails());
       return this.reportService.deleteCustomer(customer);
     }
 

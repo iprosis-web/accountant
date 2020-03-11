@@ -32,7 +32,7 @@ export interface PeriodicElement {
 
 })
 export class CustomersListComponent implements OnInit {
-
+  
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['id', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;
@@ -48,6 +48,7 @@ export class CustomersListComponent implements OnInit {
 
   ngOnInit() {
     this.setTableData();
+
   //   this.customerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
   //   this.setTableData(dateFilter, filterData.company, filterData.status);
   // });

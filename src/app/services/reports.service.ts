@@ -56,8 +56,26 @@ export class ReportsService {
 
   getReportById(reportId: number){
     let customerReportData = this.reports.find(r => r.id == reportId);
-    if(customerReportData)
-      return customerReportData;
+    if(customerReportData){
+      let customerData = this.customers.find(c => c.id == customerReportData.customerId);
+      if(customerData){
+        let reportCustomerModel: CustomerReportModel = {
+          reportID: customerReportData.id,
+          customerID: customerData.id,
+          companyName: customerData.companyName,
+          companyEmail: null,
+          date: customerReportData.reportDate,
+          statusNum: customerReportData.status,
+          status: this.statuses.find(s => s.id == customerReportData.status).name,
+          indication: customerReportData.indication,
+          indicationStr: customerReportData.indication == Indications.fail ? "חרג בזמן" : "",
+          comment: customerReportData.comment,
+          indicationColor: customerReportData.indication == Indications.fail ? "rgba(255,128,171,.4)" : customerReportData.indication == Indications.pending ? "rgb(255,255,153)" : customerReportData.indication == Indications.successfull ? "rgba(0,200,0,.4)" : "white",
+          dateStr: customerReportData.reportDate.getMonth() + 1 + '.' + customerReportData.reportDate.getFullYear()
+        }
+        return reportCustomerModel;
+      }
+    }
     return null;
   }
 

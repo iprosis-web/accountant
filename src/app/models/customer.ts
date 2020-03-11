@@ -6,5 +6,4 @@ export class customer {
     createdDate: Date;
     isActive: boolean = true;
 
-
 }
