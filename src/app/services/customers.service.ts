@@ -31,8 +31,9 @@ export class CustomersService {
     }
 
     deleteCustomer(customer: customer){
+      let res =  this.reportService.deleteCustomer(customer);
       this.fullCustomerDetailsSubject.next(this.getFullCustomersDetails());
-      return this.reportService.deleteCustomer(customer);
+      return res;
     }
 
   }

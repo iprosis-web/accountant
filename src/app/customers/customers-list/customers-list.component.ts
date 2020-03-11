@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReportsService } from 'src/app/services/reports.service';
 import { CustomersService } from 'src/app/services/customers.service';
@@ -8,6 +8,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { MatSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs';
 
 
 export interface PeriodicElement {
@@ -32,7 +33,7 @@ export interface PeriodicElement {
 
 })
 export class CustomersListComponent implements OnInit {
-  
+  customersDataSubscription: Subscription;
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['id', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;
@@ -48,7 +49,11 @@ export class CustomersListComponent implements OnInit {
 
   ngOnInit() {
     this.setTableData();
-
+    this.customersDataSubscription = this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[])=>{
+      this.dataSource.data = data;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   //   this.customerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
   //   this.setTableData(dateFilter, filterData.company, filterData.status);
   // });
@@ -58,7 +63,7 @@ export class CustomersListComponent implements OnInit {
   }
 
   ngOnDestroy() {
-
+    this.customersDataSubscription.unsubscribe();
   }
 
   setTableData() {    

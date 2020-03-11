@@ -21,7 +21,7 @@ export class ReportsService {
 
   private contacts: contact[] = new contactsData().contacts;
 
-  private reports: reports[] = new reportsData().reports;
+  private reports: reports[] = new reportsData().fillReportsNullableValues();
 
   statuses = [
     {
@@ -37,7 +37,7 @@ export class ReportsService {
       name: "הסתיים"
     }];
 
-  constructor() { }
+  constructor() { console.log(this.reports) }
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number) {
     //bring all reports
@@ -227,6 +227,7 @@ export class ReportsService {
       //set user to inactive
       //currentCustomer.isActive = false;
       this.customers.splice(currentCustomer, 1);
+      console.log(this.customers);
       return { data: null, message: "לקוח נמחק בהצלחה" };
     }
     else{

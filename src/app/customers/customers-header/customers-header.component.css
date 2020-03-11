@@ -11,13 +11,13 @@
     width:160px;
   }
 
-  ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
     padding: 0.3em 0 0.3em 0 !important;
 }
 
   
-  ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
-  ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
+:host ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
+:host ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
   
   .buttonTooltipSubmitt, .customer-list-header {
     display: inline;

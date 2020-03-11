@@ -916,4 +916,60 @@ export class reportsData {
             comment: "חסרים דיווחי משכורות"
           }
     ];
+
+    fillReportsNullableValues(){
+      for(let report of this.reports){
+        report.isActive = true;
+        report.lease = null;
+        report.actualDownPaymentsFee = null;
+        report.salariesVat = null;
+        report.deductions = null;
+        report.deductionsFee = null;
+        report.downPaymentPercentage = null;
+        report.downPaymentsCycleFee = null;
+        report.addedValueFee = null;
+        report.addedValueKFee = null;
+        report.arrivedToOffice = null;
+        report.workers = null;
+        report.exemptCapitalCycleFee = null;
+        report.exemptCycleFee = null;
+        report.reportHandler = null;
+        report.reportEndDate = null;
+        report.reportLastChangeDate = null;
+        report.reportNumber = null;
+        report.reportStartDate = null;
+        report.requiredCapitalCycleFee = null;
+        report.requiredCycleVal = null;
+        report.totalContractors = null;
+        report.totalDeductions = null;
+        report.incomeTaxDeductions = null;
+        report.incomeTaxDeductionsDate = null;
+        report.incomeTaxDeductionsPeriodType = null;
+        report.incomeTaxDeductionsVal = null;
+        report.incomeTaxDownPaymentAppointedDate = null;
+        report.incomeTaxDownPaymentsPeriodType = null;
+        report.incomeTaxDownPaymentsVal = null;
+        report.incomeTaxSalaries = null;
+        report.incomeTaxWorkers = null;
+        report.generalCycleVat = null;
+        report.generalRequiredCycleFee = null;
+        report.leasePaymentPeriodType = null;
+        report.leaseVal = null;
+        report.leaseVat = null;
+        report.calculatedDownPayment = null;
+        report.contractors = null;
+        report.contractorsEmployerPeriodType = null;
+        report.contractorsVal = null;
+        report.contractorsVat = null;
+        report.vatAppointedDate = null;
+        report.vatPayment = null;
+        report.vatReportPeriodType = null;
+        report.vatValue = null;
+        report.nationalInsuranceDeductionsPeriodType = null;
+        report.nationalInsuranceDeductionsVal = null;
+        report.nationalInsuranceDownPaymentsPeriodType = null;
+        report.nationalInsuranceDownPaymentsVal = null;
+      }
+      return this.reports;
+    }
 }
