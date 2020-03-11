@@ -41,7 +41,8 @@ import { CustomersHeaderComponent } from "./customers/customers-header/customers
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { ToggleDialogComponent } from './reports/toggle-dialog/toggle-dialog.component';
+import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
+import { TestcompComponent } from "./testcomp/testcomp.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ToggleDialogComponent } from './reports/toggle-dialog/toggle-dialog.com
     AppHeaderComponent,
     ReportDetailsComponent,
     CustomersHeaderComponent,
-    ToggleDialogComponent
+    ToggleDialogComponent,
+    TestcompComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +93,7 @@ import { ToggleDialogComponent } from './reports/toggle-dialog/toggle-dialog.com
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule
   ],
-  entryComponents: [CustomerEditComponent,ToggleDialogComponent],
+  entryComponents: [CustomerEditComponent, ToggleDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })

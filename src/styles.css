@@ -1,12 +1,13 @@
-html, body {
-    height: 100%;
-    /* margin: 0; */
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
-    width: 100%;
-    overflow: hidden;
+@import "~bootstrap/dist/css/bootstrap.css";
+
+html,
+body {
+  height: 100%;
+  /* margin: 0; */
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  width: 100%;
+  overflow: hidden;
 }
 
-
-.style-snackbar{
-    
+.style-snackbar {
 }
