@@ -8,7 +8,12 @@ import { HeaderService } from 'src/app/services/header.service';
 import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
 import { DateFilterModel } from 'src/app/models/dateFilterModel';
 import { Helpers } from 'src/app/Utils/Helpers';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { PeriodicElement } from 'src/app/customers/customers-list/customers-list.component';
+import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { ToggleDialogComponent } from '../toggle-dialog/toggle-dialog.component';
 
 @Component({
   selector: 'app-app-tabel',
@@ -16,7 +21,9 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./app-tabel.component.css']
 })
 export class AppTabelComponent implements OnInit, OnDestroy {
-  displayedColumns: string[] = ['companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
+  toggleEnabled: boolean = false;
+  reportsFilterSubscription: Subscription;
+  displayedColumns: string[] = ['arrivedToOffice','companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
@@ -26,20 +33,23 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   customerId = null;
   statusId = null;
   dataSource = new MatTableDataSource<CustomerReportModel>();
+  // selection = new SelectionModel<PeriodicElement>(true, []);
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
-
+  private dialogRef: MatDialogRef<ToggleDialogComponent>;
 
   constructor(
     private reportsService: ReportsService,
     private headerService: HeaderService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public confirmDialog: MatDialog
   ) { }
 
 
   ngOnInit() {
     this.setTableData(this.date, this.customerId, this.statusId);
-    this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
+    this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
       let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
         , endDate: new Date(filterData.endDate.getFullYear(), filterData.endDate.getMonth()+1, -1)
       };
@@ -50,7 +60,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.reportsFilterSubscription.unsubscribe();
   }
 
   setTableData(date, customerId, statusId) {    
@@ -64,9 +74,26 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   }
 
   getRowData(reportData){
-    let rowData = JSON.stringify(reportData);    
-    new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
+      let rowData = JSON.stringify(reportData);    
+      new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
+      this.router.navigate(['/report', reportData.reportID]);
+  }
 
+  arrivedToOfficeChange(event, element){
+    event.stopPropagation();
+    this.dialogRef = this.confirmDialog.open(ToggleDialogComponent,  {
+      direction: 'rtl',
+      data: {
+        report: element,
+        status: element.arrivedToOffice == null ? "add" : "delete"
+      },
+      width: "400px",
+      maxHeight: '90vh'
+    });
+
+    this.dialogRef.afterClosed().subscribe((res) => {
+      console.log(res);
+    });
   }
 
 }
