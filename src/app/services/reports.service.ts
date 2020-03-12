@@ -23,6 +23,10 @@ export class ReportsService {
 
   private reports: reports[] = new reportsData().fillReportsNullableValues();
 
+  private dateFilter: DateFilterModel = null;
+  private customerId: string = null;
+  private status: number = null;
+
   statuses = [
     {
       id: 1,
@@ -44,6 +48,9 @@ export class ReportsService {
     if (dateFilter == null || dateFilter == undefined) {
       dateFilter = new DateFilterModel();
     }
+    this.dateFilter = dateFilter;
+    this.customerId = customerId;
+    this.status = status;
     let filteredReports = this.reports.filter(report =>
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate)) &&

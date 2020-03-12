@@ -53,6 +53,9 @@ export class AppTabelComponent implements OnInit, OnDestroy {
       let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
         , endDate: new Date(filterData.endDate.getFullYear(), filterData.endDate.getMonth()+1, -1)
       };
+      this.date = dateFilter;
+      this.customerId = filterData.company;
+      this.statusId = filterData.status;
       this.setTableData(dateFilter, filterData.company, filterData.status);
     });
     this.dataSource.paginator = this.paginator;
@@ -66,6 +69,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   setTableData(date, customerId, statusId) {    
     this.dataTableArray = [];
     this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
+    console.log(this.dataTableArray);
     if (this.dataTableArray.length <= 0) {
       new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
@@ -92,7 +96,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
+        this.setTableData(this.date, this.customerId, this.statusId);
+        //console.log(this.dataTableArray);
     });
   }
 
