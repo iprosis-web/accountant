@@ -6,6 +6,9 @@ import { CustomerCRUD } from 'src/app/Utils/Enums';
 import { CustomersService } from 'src/app/services/customers.service';
 import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
 import { HeaderService } from 'src/app/services/header.service';
+import { Subscription } from 'rxjs';
+import { customer } from 'src/app/models/customer';
+import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
 
 @Component({
   selector: 'app-customers-header',
@@ -13,9 +16,9 @@ import { HeaderService } from 'src/app/services/header.service';
   styleUrls: ['./customers-header.component.css']
 })
 export class CustomersHeaderComponent implements OnInit {
-
+  customersSubscription: Subscription;
   private addDialog: MatDialogRef<CustomerEditComponent>;
-  customers = [];
+  customers: FullCustomerModel[] = [];
   selectedCustomer: string = "null";
   selectedStatus:boolean ;
   
@@ -31,6 +34,9 @@ export class CustomersHeaderComponent implements OnInit {
 
   ngOnInit() {
     this.customers = this.customerService.getFullCustomersDetails();
+    this.customersSubscription = this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
+      this.customers = data;
+    });
   }
 
   onFilterSubmitted() {

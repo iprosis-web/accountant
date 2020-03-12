@@ -217,7 +217,7 @@ export class ReportsService {
 
   deleteCustomer(customer: customer){
     let currentCustomer = this.customers.findIndex(c => c.id == customer.id);
-    console.log(currentCustomer);
+    console.log("customer on delete",currentCustomer);
     if(currentCustomer != undefined){
       //set contact to inactive
       let customerContact = this.contacts.findIndex(c => c.customerId == customer.id);

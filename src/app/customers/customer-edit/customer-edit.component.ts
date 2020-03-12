@@ -52,15 +52,15 @@ export class CustomerEditComponent implements OnInit {
         this.currentCustomerId = this.data.customerModel.customer.id;
         this.currentCustomer = this.data.customerModel;
       }
-      //add
-      else{
-        this.editFlag = false;
-        this.deleteFlag = false;
-        this.fileUploadFlag = true;
-        this.currentCustomerImg = "";
-        this.currentCustomerId = this.data.customerId;
-      }
     }
+          //add
+          else if(this.data.flag == CustomerCRUD.add){
+            this.editFlag = false;
+            this.deleteFlag = false;
+            this.fileUploadFlag = true;
+            this.currentCustomerImg = "";
+            this.currentCustomerId = this.data.customerId;
+          }
   }
 
   setEditFormValues(){
