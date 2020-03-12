@@ -18,11 +18,11 @@ export class CustomersService {
       status = true;
     }
 
-    console.log('New status :', status);
+    // console.log('New status :', status);
 
 
 
-    console.log('filter::::::::', customerId, status);
+    // console.log('filter::::::::', customerId, status);
    
 
 
