@@ -33,13 +33,13 @@
 
 :host ::ng-deep .mat-form-field{
     direction: ltr;  
-  }
+}
 
-  .status{
+.status{
     align-items: right;
-  }
+}
 
- .panel-title{
+.panel-title{
     display: flex;
     flex-grow: 0 !important;
-  }
+}
