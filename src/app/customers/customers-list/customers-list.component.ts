@@ -59,8 +59,14 @@ export class CustomersListComponent implements OnInit , OnDestroy {
   ngOnInit() {
     this.setTableData(this.customerId, this.statusId);
     this.customersSubject=this.headerService.customersFilterSubject.subscribe((filterData: CustomersFilterModel) => {
-
+    this.customerId = filterData.companyId;
+    this.statusId = filterData.isActive;
     this.setTableData(filterData.companyId,filterData.isActive);
+    });
+
+    this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
+      this.dataTableArray = data;
+      this.setTableData(this.customerId, this.statusId);
     });
  
     // this.dataSource.paginator = this.paginator;

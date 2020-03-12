@@ -1,8 +1,12 @@
 .scroll-container {
-  max-height:60vh;
+  max-height:60vh; 
   overflow: auto;
-  margin:5% 10% 0 10%;
+  width:100%;
+  max-width:1000px;
   transition: top 0.3s;  
+  position: absolute;
+  left:50%;
+  transform: translate(-50%);
 }
 
 table {
@@ -27,7 +31,6 @@ td {
   padding-top:15px !important;
   text-align:center !important;
 }
-
 
   tr.example-detail-row {
     height: 0;
@@ -71,3 +74,4 @@ td {
   .example-element-description-attribution {
     opacity: 0.5;
   }
+
