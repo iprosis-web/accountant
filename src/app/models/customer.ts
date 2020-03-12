@@ -5,6 +5,5 @@ export class customer {
     contactID:number;
     createdDate: Date;
     isActive: boolean = true;
-
-
+    
 }

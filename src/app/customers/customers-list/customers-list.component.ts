@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ReportsService } from 'src/app/services/reports.service';
 import { CustomersService } from 'src/app/services/customers.service';
@@ -11,6 +11,8 @@ import { Helpers } from 'src/app/Utils/Helpers';
 import { HeaderService } from 'src/app/services/header.service';
 import { CustomerReportModel } from 'src/app/models/customerReportModel';
 import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
+import { MatSnackBar } from '@angular/material';
+import { Subscription } from 'rxjs';
 
 
 export interface PeriodicElement {
@@ -36,6 +38,7 @@ export interface PeriodicElement {
 })
 export class CustomersListComponent implements OnInit , OnDestroy {
 
+  customersDataSubscription: Subscription;
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['id', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;

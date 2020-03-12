@@ -14,7 +14,8 @@ import {
   MatMenuModule,
   MatSnackBarModule,
   MatSidenavModule,
-  MatListModule
+  MatListModule,
+  MatSlideToggleModule
 } from "@angular/material";
 
 import { FlexLayoutModule } from "@angular/flex-layout";
@@ -43,6 +44,8 @@ import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
 import { CustomersComponent } from './customers/customers.component';
+import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
+import { TestcompComponent } from "./testcomp/testcomp.component";
 
 @NgModule({
   declarations: [
@@ -58,7 +61,9 @@ import { CustomersComponent } from './customers/customers.component';
     AppHeaderComponent,
     ReportDetailsComponent,
     CustomersHeaderComponent,
-    CustomersComponent
+    CustomersComponent,
+    ToggleDialogComponent,
+    TestcompComponent
   ],
   imports: [
     BrowserModule,
@@ -88,12 +93,13 @@ import { CustomersComponent } from './customers/customers.component';
     MatMenuModule,
     MatSnackBarModule,
     MatTooltipModule,
+    MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     MatSidenavModule,
     MatListModule 
   ],
-  entryComponents: [CustomerEditComponent],
+  entryComponents: [CustomerEditComponent, ToggleDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
