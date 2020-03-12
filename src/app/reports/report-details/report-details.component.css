@@ -1,0 +1,49 @@
+.report-container{
+    margin:10% 10% 0 10%;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+
+}
+.title-header{
+    border:2px solid black;
+    width:50%;
+}
+.status-header{
+    border:2px solid black;
+    width:50%;
+}
+.container{
+    display: flex;
+}
+.title-container{
+    width: 50%;
+    border:2px solid black;
+    display: flex;
+
+
+}
+.sub-title1{
+
+    width:50%;
+    border:2px solid black;
+
+}
+.sub-title2{
+    width: 50%;
+    right:65px;
+    border:2px solid black;
+
+}
+
+.status-container{
+    width: 50%;
+    border:2px solid black;
+
+}
+.row{
+    display: flex;
+    flex-direction:row;
+}

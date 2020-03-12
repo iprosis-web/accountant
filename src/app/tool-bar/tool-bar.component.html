@@ -1,28 +1,45 @@
 <div class="navbar">
   <mat-toolbar color="primary">
     <span class="fill-remaining-space">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
+      <button mat-icon-button (click)="sidenav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <mat-menu class="menuclass" #menu="matMenu" [overlapTrigger]="false" (click)="routeSidebar($event)">
-        <button mat-menu-item routerLinkActive="active" routerLink="/reports">
-          <span>דוחות</span>
-          <mat-icon>assignment</mat-icon>
-        </button>
-        <button mat-menu-item routerLinkActive="active" routerLink="/customers">
-          <span>לקוחות שלי</span>
-          <mat-icon>people</mat-icon>
-        </button>
-        <button mat-menu-item routerLinkActive="active" routerLink="/monthlyreport">
-          <span>הזנת דיווח חודשי ללקוח</span>
-          <mat-icon>note_add</mat-icon>
-        </button>
-        <button mat-menu-item routerLinkActive="active" routerLink="/customerdetails">
-          <span>תחזוקת נתוני הלקוח</span>
-          <mat-icon>account_box</mat-icon>
-        </button>
+      <mat-menu class="menuclass" #menu="matMenu" [overlapTrigger]="false">
       </mat-menu>
     </span>
     <span class="fill-remaining-space">Accountant App</span>
   </mat-toolbar>
 </div>
+
+<mat-sidenav-container class="app-side-nav" [hasBackdrop]="false">
+  <mat-sidenav  #sidenav mode="side" position="end" opened="true">
+    <mat-nav-list>
+      <button class="close-button" mat-menu-item (click)="sidenav.toggle()" routerLinkActive="active">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/reports">
+        <mat-icon>assignment</mat-icon>
+        <span>דוחות</span>
+      </button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/customers">
+        <mat-icon>people</mat-icon>
+        <span>לקוחות שלי</span>
+      </button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/monthlyreport">
+        <mat-icon>note_add</mat-icon>
+        <span>הזנת דיווח חודשי ללקוח</span>
+      </button>
+      <button mat-menu-item routerLinkActive="active" routerLink="/customerdetails">
+        <mat-icon>account_box</mat-icon>
+        <span>תחזוקת נתוני הלקוח</span>
+      </button>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+
+
+    <div class="content-div" >
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

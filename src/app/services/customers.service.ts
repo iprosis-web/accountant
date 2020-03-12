@@ -11,11 +11,30 @@ export class CustomersService {
   
   constructor(private reportService: ReportsService) { }
 
-  getFilteredCustomers(customerId: string, status:boolean) {
-    let filteredCustomers = this.getFullCustomersDetails().filter( curcustomer =>
-      (curcustomer.customer.id == customerId || customerId == undefined || customerId == null)
-      //  &&(curcustomer.customer.isActive == status)
-    );
+  getFilteredCustomers(customerId: string, statusString:string) {
+// changing status to string , adding statuses string array + changing to string in DB
+    let status = false;
+    if (statusString === 'true') {
+      status = true;
+    }
+
+    console.log('New status :', status);
+
+
+
+    console.log('filter::::::::', customerId, status);
+   
+
+
+
+
+    let filteredCustomers = this.getFullCustomersDetails().filter( curCustomer => {
+     return (curCustomer.customer.id === customerId || !customerId ) 
+      && (curCustomer.customer.isActive === status)
+     });
+
+    
+
     // console.log("id  :" +status );
     // console.log("id 2  :" +this.getFullCustomersDetails().includes(this.getFullCustomerInfoById(customerId)) );
     // console.log("filtered customers  :" ,filteredCustomers );

@@ -20,12 +20,13 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
-  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
-  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()+1, -1);
+  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
+  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), -1);
   date = { startDate: this.firstDay, endDate: this.endDay };
   customerId = null;
   statusId = null;
   dataSource = new MatTableDataSource<CustomerReportModel>();
+  reportsFilter;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -39,7 +40,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setTableData(this.date, this.customerId, this.statusId);
-    this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
+    this.reportsFilter=this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
       let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
         , endDate: new Date(filterData.endDate.getFullYear(), filterData.endDate.getMonth()+1, -1)
       };
@@ -50,7 +51,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    this.reportsFilter.unsubscribe();
   }
 
   setTableData(date, customerId, statusId) {    
@@ -65,7 +66,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   getRowData(reportData){
     let rowData = JSON.stringify(reportData);    
-    new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + reportData.reportID,""  )
+    new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
 
   }
 

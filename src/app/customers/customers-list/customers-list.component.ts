@@ -7,7 +7,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Helpers } from 'src/app/Utils/Helpers';
-import { MatSnackBar } from '@angular/material';
+//import { MatSnackBar } from '@angular/material';
 import { HeaderService } from 'src/app/services/header.service';
 import { CustomerReportModel } from 'src/app/models/customerReportModel';
 import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
@@ -34,7 +34,7 @@ export interface PeriodicElement {
   ],
 
 })
-export class CustomersListComponent implements OnInit {
+export class CustomersListComponent implements OnInit , OnDestroy {
 
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['id', 'companyName', 'isActive'];
@@ -42,36 +42,39 @@ export class CustomersListComponent implements OnInit {
   dataTableArray: FullCustomerModel[] = [];
   customerId = null;
   statusId = null;
+  customersSubject;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private reportsService: ReportsService,
     private customerService : CustomersService,
-    private snackBar: MatSnackBar,
+    //private snackBar: MatSnackBar,
     private headerService: HeaderService
   ) { }
 
   ngOnInit() {
     this.setTableData(this.customerId, this.statusId);
-    this.headerService.customersFilterSubject.subscribe((filterData: CustomersFilterModel) => {
+    this.customersSubject=this.headerService.customersFilterSubject.subscribe((filterData: CustomersFilterModel) => {
 
-      this.setTableData(filterData.companyId,filterData.isActive);
+    this.setTableData(filterData.companyId,filterData.isActive);
     });
  
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy() {
-
+    this.customersSubject.unsubscribe();
   }
 
   setTableData(customerId, statusId) {    
-    this.dataTableArray = [];    
+    this.dataTableArray = [];  
+    
+    console.log('setTableData parans: :::', customerId, statusId);
     this.dataTableArray = this.customerService.getFilteredCustomers(customerId,statusId);
     if (this.dataTableArray.length <= 0) {
-      new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+      //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
     }
     this.dataSource.data = this.dataTableArray;
   }
@@ -79,7 +82,7 @@ export class CustomersListComponent implements OnInit {
   getRowData(customertData){
     let rowData = JSON.stringify(customertData);
     console.log(rowData);  
-    new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + customertData.reportID,""  )
+    //new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + customertData.reportID,""  )
 
   }
 

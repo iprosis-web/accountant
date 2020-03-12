@@ -12,7 +12,7 @@ export class HeaderService {
      endDate: new Date(), company: null,status: null};
 
   customersFilterSubject: Subject<CustomersFilterModel>= new Subject<CustomersFilterModel>();
-  customersFilterData: CustomersFilterModel = {companyId: null, isActive:null} ;
+  customersFilterData: CustomersFilterModel = {companyId: null, isActive:true} ;
   constructor() { }
 
   updateFilterData(filterData: ReportsFilterModel){
@@ -21,6 +21,8 @@ export class HeaderService {
   }
 
   updateFilterCustomer(filterData: CustomersFilterModel) {
+console.log('Header service:::::: ', filterData);
+
     this.customersFilterData = filterData;
     this.customersFilterSubject.next(filterData);
 
