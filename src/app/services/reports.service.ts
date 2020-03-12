@@ -21,7 +21,11 @@ export class ReportsService {
 
   private contacts: contact[] = new contactsData().contacts;
 
-  private reports: reports[] = new reportsData().reports;
+  private reports: reports[] = new reportsData().fillReportsNullableValues();
+
+  private dateFilter: DateFilterModel = null;
+  private customerId: string = null;
+  private status: number = null;
 
   statuses = [
     {
@@ -44,6 +48,9 @@ export class ReportsService {
     if (dateFilter == null || dateFilter == undefined) {
       dateFilter = new DateFilterModel();
     }
+    this.dateFilter = dateFilter;
+    this.customerId = customerId;
+    this.status = status;
     let filteredReports = this.reports.filter(report =>
       (report.customerId == customerId || customerId == undefined || customerId == null) &&
       (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate)) &&
@@ -61,6 +68,7 @@ export class ReportsService {
       if(customerData){
         let reportCustomerModel: CustomerReportModel = {
           reportID: customerReportData.id,
+          arrivedToOffice: customerReportData.arrivedToOffice,
           customerID: customerData.id,
           companyName: customerData.companyName,
           companyEmail: null,
@@ -88,6 +96,7 @@ export class ReportsService {
           customersReports.push({
             reportID: report.id,
             customerID: currentUser.id,
+            arrivedToOffice: report.arrivedToOffice,
             companyName: currentUser.companyName,
             companyEmail: null,
             date: report.reportDate,
@@ -227,10 +236,34 @@ export class ReportsService {
       //set user to inactive
       //currentCustomer.isActive = false;
       this.customers.splice(currentCustomer, 1);
+      console.log(this.customers);
       return { data: null, message: "לקוח נמחק בהצלחה" };
     }
     else{
       return { data: null, message: "אירעה שגיאה בעת מחיקת לקוח" };
+    }
+  }
+
+  updateArriveToOffice(reportId: number, newFlag){
+    //add arrivetooffice
+    let report = this.reports.find(r => r.id == reportId);
+    if(newFlag == true){
+      if(report){
+        report.arrivedToOffice = new Date();
+        return { data: report, message: 'עודכן בהצלחה' };
+      }
+      else{
+        return { data: null, message: 'אירעה שגיאה' };
+      }
+    }
+    else{
+      if(report){
+        report.arrivedToOffice = null;
+        return { data: report, message: 'עודכן בהצלחה' };
+      }
+      else{
+        return { data: null, message: 'אירעה שגיאה' };
+      }
     }
   }
 }

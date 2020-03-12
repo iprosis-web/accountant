@@ -1,4 +1,4 @@
 export class DateFilterModel{
-    startDate: Date
-    endDate: Date
+    startDate: Date = null
+    endDate: Date = null
 }

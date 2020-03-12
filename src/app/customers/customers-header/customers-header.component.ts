@@ -3,6 +3,9 @@ import { CustomerEditComponent } from '../customer-edit/customer-edit.component'
 import { Helpers } from 'src/app/Utils/Helpers';
 import { MatDialogRef, MatSnackBar, MatDialog } from '@angular/material';
 import { CustomerCRUD } from 'src/app/Utils/Enums';
+import { CustomersService } from 'src/app/services/customers.service';
+import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
+import { HeaderService } from 'src/app/services/header.service';
 
 @Component({
   selector: 'app-customers-header',
@@ -13,16 +16,29 @@ export class CustomersHeaderComponent implements OnInit {
 
   private addDialog: MatDialogRef<CustomerEditComponent>;
   customers = [];
-  statuses = [];
   selectedCustomer: string = "null";
-  selectedStatus: string = "null";
+  selectedStatus:boolean ;
+  
+  filtersCustomerObject: CustomersFilterModel = {
+    companyId: this.selectedCustomer,
+    isActive: this.selectedStatus
+  };
   
   constructor(public dialog: MatDialog,
-     private snackBar: MatSnackBar) { }
+     private snackBar: MatSnackBar,
+     private customerService : CustomersService,
+     private headerService : HeaderService) { }
 
   ngOnInit() {
-    // this.customers = this.reportsService.getAllCustomers();
-    // this.statuses = this.reportsService.getAllStatuses();
+    this.customers = this.customerService.getFullCustomersDetails();
+  }
+
+  onFilterSubmitted() {
+    this.filtersCustomerObject.companyId = this.selectedCustomer == "null" ? null : this.selectedCustomer;
+    //null boolean??
+    this.filtersCustomerObject.isActive = this.selectedStatus;
+    this.headerService.updateFilterCustomer(this.filtersCustomerObject);
+    // console.log(this.filtersCustomerObject.companyId + " " ,this.filtersCustomerObject.isActive)
   }
 
     //add dialog

@@ -11,4 +11,5 @@ export class CustomerReportModel{
     indicationStr: string
     comment: string
     indicationColor: string
+    arrivedToOffice: Date
 }

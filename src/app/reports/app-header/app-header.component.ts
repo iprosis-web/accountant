@@ -64,6 +64,7 @@ export class AppHeaderComponent implements OnInit {
   ngOnInit() {
     this.customers = this.reportsService.getAllCustomers();
     this.statuses = this.reportsService.getAllStatuses();
+    
   }
 
   onFilterSubmitted() {

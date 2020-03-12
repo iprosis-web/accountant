@@ -13,6 +13,36 @@ export class CustomersService {
 
   constructor(private reportService: ReportsService) { }
 
+  getFilteredCustomers(customerId: string, statusString:string) {
+// changing status to string , adding statuses string array + changing to string in DB
+    let status = false;
+    if (statusString === 'true') {
+      status = true;
+    }
+
+    // console.log('New status :', status);
+
+
+
+    // console.log('filter::::::::', customerId, status);
+   
+
+
+
+
+    let filteredCustomers = this.getFullCustomersDetails().filter( curCustomer => {
+     return (curCustomer.customer.id === customerId || !customerId ) 
+      && (curCustomer.customer.isActive === status)
+     });
+
+    
+
+    // console.log("id  :" +status );
+    // console.log("id 2  :" +this.getFullCustomersDetails().includes(this.getFullCustomerInfoById(customerId)) );
+    // console.log("filtered customers  :" ,filteredCustomers );
+    return filteredCustomers;
+  }
+
     getFullCustomerInfoById(id: string){
       let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);
       return customer;
@@ -31,8 +61,9 @@ export class CustomersService {
     }
 
     deleteCustomer(customer: customer){
+      let res =  this.reportService.deleteCustomer(customer);
       this.fullCustomerDetailsSubject.next(this.getFullCustomersDetails());
-      return this.reportService.deleteCustomer(customer);
+      return res;
     }
 
   }

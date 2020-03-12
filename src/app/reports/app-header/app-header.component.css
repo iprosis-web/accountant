@@ -5,23 +5,23 @@
   position: sticky;
 } 
 
-::ng-deep .mat-form-field{
+:host ::ng-deep .mat-form-field{
   direction: ltr;
   margin-left:8px;
   width:160px;
 
 }
-::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
-::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
+:host ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
+:host ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
 
-::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
+:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix{
     padding: 0.3rem 0 0.3rem 0 !important;   
 }
 
 .buttonTooltipSubmitt {
   display: inline;
 }
-::ng-deep .mat-raised-button{
+:host ::ng-deep .mat-raised-button{
   padding: 0 10px !important;
   min-width: 10px;
   line-height: 48px;

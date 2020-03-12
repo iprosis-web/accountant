@@ -1,28 +1,33 @@
 <div class="customers-navbar" fxFlexFill>
-  <form #f="ngForm">
-    <mat-form-field appearance="outline">
-      <mat-label>בחר חברה</mat-label>
-      <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
-        <mat-option value=null>הכל</mat-option>
-        <mat-option *ngFor="let customer of customers" [value]="customer.id">{{customer.companyName}} </mat-option>
-      </mat-select>
-    </mat-form-field>
+  <form #f="ngForm" class="form-container">
+    <div class="filter-container">
+      <mat-form-field appearance="outline">
+        <mat-label>בחר חברה</mat-label>
+        <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
+          <mat-option value=null>הכל</mat-option>
+          <mat-option *ngFor="let curcustomer of customers" [value]="curcustomer.customer.id">
+            {{curcustomer.customer.companyName}} </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>בחר סטטוס</mat-label>
-      <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status">
-        <mat-option value=null>הכל</mat-option>
-        <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>בחר סטטוס</mat-label>
+        <mat-select matNativeControl name="statusSelection" [(ngModel)]="selectedStatus" class="status">
+          <mat-option value="true">הכל</mat-option>
+          <mat-option value="true">פעיל</mat-option>
+          <mat-option value="false">לא פעיל</mat-option>
+          <!-- <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option> -->
+        </mat-select>
+      </mat-form-field>
 
-    <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
-      <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
-        (click)="onFilterSubmitted()">סנן</button>
+      <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
+        <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
+          (click)="onFilterSubmitted()">סנן</button>
+      </div>
     </div>
 
-    <div class="customer-list-header">
-      <button mat-raised-button (click)="openDialogForNew()">
+    <div class="person_add-icon">
+      <button mat-raised-button (click)="openDialogForNew()" class="add-icon">
         <mat-icon>person_add</mat-icon>
       </button>
     </div>

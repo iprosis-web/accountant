@@ -1,33 +1,10 @@
-/* .sidebar-container{
-    direction: rtl;
-    height: 200vh !important;
-}
-  .sidebar {
-       background-color: rgb(20,20,20);
-       direction:rtl;
-
-  }   */
-
-  :host {
+ :host {
     direction: rtl;
   }
-/*   
-  .sidebar a {
-    display: block;
-    color: white;
-    padding: 16px;
-    text-decoration: none;
+
+  .primary-continer {
+    height: 100%;
   }
-   
-  .sidebar a.active {
-    background-color: rgb(43, 38, 38);
-    color: rgb(15, 172, 211);
-  }
-  
-  .sidebar a:hover:not(.active) {
-    background-color: #555;
-    color: white;
-  } */
   /* .toolbar-container {
     display: block;
   } */
@@ -46,3 +23,8 @@
       float: none;
     } 
   }*/
+
+
+
+
+ 
