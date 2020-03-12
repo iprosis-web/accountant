@@ -43,6 +43,7 @@ import { CustomersHeaderComponent } from "./customers/customers-header/customers
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import {MatExpansionModule} from '@angular/material/expansion';
 import { CustomersComponent } from './customers/customers.component';
 import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
 import { TestcompComponent } from "./testcomp/testcomp.component";
@@ -96,6 +97,7 @@ import { TestcompComponent } from "./testcomp/testcomp.component";
     MatSlideToggleModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
+    MatExpansionModule,
     MatSidenavModule,
     MatListModule 
   ],

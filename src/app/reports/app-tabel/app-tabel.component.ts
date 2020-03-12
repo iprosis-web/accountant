@@ -48,6 +48,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    
     this.setTableData(this.date, this.customerId, this.statusId);
     this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
       let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
