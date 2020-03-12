@@ -40,6 +40,7 @@ import { CustomersHeaderComponent } from "./customers/customers-header/customers
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { AngularFirestoreModule } from "@angular/fire/firestore";
     MatSnackBarModule,
     MatTooltipModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    MatExpansionModule
   ],
   entryComponents: [CustomerEditComponent],
   providers: [],

@@ -52,8 +52,8 @@ export class AppHeaderComponent implements OnInit {
   selectedEndDate = new FormControl(moment());
 
   constructor(private reportsService: ReportsService,
-    private headerService: HeaderService,) {
-   }
+    private headerService: HeaderService, ) {
+  }
 
   filtersDataObject: ReportsFilterModel = {
     company: this.selectedCustomer,

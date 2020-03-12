@@ -1,49 +1,45 @@
 .report-container{
-    margin:10% 10% 0 10%;
-}
-
-.header{
-    display: flex;
-    flex-direction: row;
-
-}
-.title-header{
-    border:2px solid black;
-    width:50%;
-}
-.status-header{
-    border:2px solid black;
-    width:50%;
-}
-.container{
-    display: flex;
-}
-.title-container{
-    width: 50%;
-    border:2px solid black;
-    display: flex;
+    /* margin:1% 5% 0 5%; */
+    overflow-y: auto;
+    max-height:550px;
+    width: 100%;
 
 
 }
-.sub-title1{
 
-    width:50%;
-    border:2px solid black;
-
-}
-.sub-title2{
-    width: 50%;
-    right:65px;
-    border:2px solid black;
-
-}
-
-.status-container{
-    width: 50%;
-    border:2px solid black;
-
-}
 .row{
+    margin:0;
+}
+
+.customer-data{
+    margin-top: 2%;
+}
+.card-title {
+    text-align: right;
+}
+.c-row{
     display: flex;
     flex-direction:row;
+    justify-content: center;
 }
+
+.border-title{
+    font-weight: bold;
+}
+
+.res{
+    margin-right:1%;
+}
+
+:host ::ng-deep .mat-form-field{
+    direction: ltr;  
+  }
+
+  .status{
+    align-items: right;
+  }
+
+ .panel-title{
+    display: flex;
+    flex-grow: 0 !important;
+  }

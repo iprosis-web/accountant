@@ -22,7 +22,9 @@ export class CustomerDetailsComponent implements OnInit {
   constructor(public dialog: MatDialog, private customerService: CustomersService,private snackBar: MatSnackBar) { }
 
   ngOnInit() {
-     this.currentCustomerModel = this.customerService.getFullCustomerInfoById("318854125");
+    console.log(this.currentCustomerModel);
+    
+    //  this.currentCustomerModel = this.customerService.getFullCustomerInfoById("318854125");
   }
 
   //edit dialog
