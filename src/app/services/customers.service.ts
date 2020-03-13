@@ -15,15 +15,15 @@ export class CustomersService {
 
   getFilteredCustomers(customerId: string, statusString: string) {
     // changing status to string , adding statuses string array + changing to string in DB
-    let status = false;
-    if (statusString === 'true') {
-      status = true;
-    }
+    // let status = false;
+    // if (statusString === 'true') {
+    //   status = true;
+    // }
 
 
     let filteredCustomers = this.getFullCustomersDetails().filter(curCustomer => {
       return (curCustomer.customer.id === customerId || !customerId)
-        && (curCustomer.customer.isActive === status)
+        && (curCustomer.customer.activityStatus === statusString || !statusString)
     });
 
     return filteredCustomers;

@@ -47,6 +47,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { CustomersComponent } from './customers/customers.component';
 import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
 import { TestcompComponent } from "./testcomp/testcomp.component";
+import { ReportInstitutionsPaymentsComponent } from './reports/report-details/report-institutions-payments/report-institutions-payments.component';
+// import { ReportInstitutionsPaymentsComponent } from './reportDetails/report-institutions-payments/report-institutions-payment';
 
 @NgModule({
   declarations: [
@@ -64,7 +66,8 @@ import { TestcompComponent } from "./testcomp/testcomp.component";
     CustomersHeaderComponent,
     CustomersComponent,
     ToggleDialogComponent,
-    TestcompComponent
+    TestcompComponent,
+    ReportInstitutionsPaymentsComponent
   ],
   imports: [
     BrowserModule,

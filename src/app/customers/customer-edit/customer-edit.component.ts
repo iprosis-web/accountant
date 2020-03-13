@@ -111,7 +111,7 @@ export class CustomerEditComponent implements OnInit {
           new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
           return;
         }
-        let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: null, contactID: this.currentCustomer.contact.id };
+        let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, activityStatus: this.currentCustomer.customer.activityStatus, createdDate: null, contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
@@ -126,7 +126,7 @@ export class CustomerEditComponent implements OnInit {
           new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
           return;
         }
-        let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: null, contactID: null };
+        let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, activityStatus: "true", createdDate: null, contactID: null };
         let contact: contact = { id: null, customerId: fullCustomer.companyId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: '',
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };

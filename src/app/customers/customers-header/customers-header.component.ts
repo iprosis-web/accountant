@@ -19,8 +19,9 @@ export class CustomersHeaderComponent implements OnInit {
   customersSubscription: Subscription;
   private addDialog: MatDialogRef<CustomerEditComponent>;
   customers: FullCustomerModel[] = [];
+  statuses: Array<string> = ["null", "פעיל","לא פעיל"];
   selectedCustomer: string = "null";
-  selectedStatus:boolean ;
+  selectedStatus: string = "null";
   
   filtersCustomerObject: CustomersFilterModel = {
     companyId: this.selectedCustomer,
@@ -42,7 +43,7 @@ export class CustomersHeaderComponent implements OnInit {
   onFilterSubmitted() {
     this.filtersCustomerObject.companyId = this.selectedCustomer == "null" ? null : this.selectedCustomer;
     //null boolean??
-    this.filtersCustomerObject.isActive = this.selectedStatus;
+    this.filtersCustomerObject.isActive = this.selectedStatus == "null" ? null : this.selectedStatus;
     this.headerService.updateFilterCustomer(this.filtersCustomerObject);
     // console.log(this.filtersCustomerObject.companyId + " " ,this.filtersCustomerObject.isActive)
   }

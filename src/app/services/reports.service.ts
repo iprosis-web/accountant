@@ -204,7 +204,7 @@ export class ReportsService {
     //get incremental id from contacts
     let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
     if (newContactId) {
-      let newCustomer: customer = { id: customer.id, contactID: newContactId, companyName: customer.companyName, isActive: true, createdDate: new Date() };
+      let newCustomer: customer = { id: customer.id, contactID: newContactId, companyName: customer.companyName, activityStatus: "true", createdDate: new Date() };
       let newContact: contact = { id: newContactId,imgUrl: '', customerId: customer.id, city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
       this.customers.push(newCustomer);
       this.contacts.push(newContact);

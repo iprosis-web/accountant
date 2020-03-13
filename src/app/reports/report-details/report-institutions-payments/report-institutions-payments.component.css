@@ -1,0 +1,13 @@
+.col-md-4 {
+    border: 2px red;
+}
+
+.row{
+    margin:0;
+}
+
+.c-row{
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+}

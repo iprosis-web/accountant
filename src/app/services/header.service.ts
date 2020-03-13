@@ -12,7 +12,7 @@ export class HeaderService {
      endDate: new Date(), company: null,status: null};
 
   customersFilterSubject: Subject<CustomersFilterModel>= new Subject<CustomersFilterModel>();
-  customersFilterData: CustomersFilterModel = {companyId: null, isActive:true} ;
+  customersFilterData: CustomersFilterModel = {companyId: null, isActive:"true"} ;
   constructor() { }
 
   updateFilterData(filterData: ReportsFilterModel){
