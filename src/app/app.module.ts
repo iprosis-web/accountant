@@ -49,6 +49,7 @@ import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.com
 import { TestcompComponent } from "./testcomp/testcomp.component";
 import { ReportInstitutionsPaymentsComponent } from './reports/report-details/report-institutions-payments/report-institutions-payments.component';
 // import { ReportInstitutionsPaymentsComponent } from './reportDetails/report-institutions-payments/report-institutions-payment';
+import { ReportRealisticPaymentComponent } from './reports/report-details/report-realistic-payment/report-realistic-payment.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ReportInstitutionsPaymentsComponent } from './reports/report-details/re
     CustomersComponent,
     ToggleDialogComponent,
     TestcompComponent,
-    ReportInstitutionsPaymentsComponent
+    ReportInstitutionsPaymentsComponent,
+    ReportRealisticPaymentComponent
   ],
   imports: [
     BrowserModule,
