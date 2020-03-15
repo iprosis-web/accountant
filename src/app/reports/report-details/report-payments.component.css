@@ -22,6 +22,8 @@
 
 :host ::ng-deep  .whiteSpace.mat-form-field-appearance-fill .mat-form-field-flex {
     background-color: white;
+    border:0 solid white;
+
 }
 
 .mat-form-field {
@@ -36,4 +38,9 @@
 
 :host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
     padding: 0.25em 0.75em 0 0.75em;
+    border:2px solid black;
+}
+
+:host ::ng-deep .mat-form-field-underline{
+    width:0;
 }
