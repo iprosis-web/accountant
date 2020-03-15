@@ -34,9 +34,9 @@ export class CustomerEditComponent implements OnInit {
         this.editFlag = true;
         this.deleteFlag = false;
         this.currentCustomerId = this.data.customerModel.customer.id;
-        this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
+        // this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
         if(this.currentCustomer){
-          console.log(this.currentCustomer);
+          
           if(this.currentCustomer.contact){
             this.fileUploadFlag = true;
             this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
@@ -66,7 +66,7 @@ export class CustomerEditComponent implements OnInit {
   setEditFormValues(){
     setTimeout(() => {
       this.customerForm.setValue({
-        companyId: this.currentCustomer.customer.id,
+        companyId: this.currentCustomer.customer.businessId,
         companyName: this.currentCustomer.customer.companyName,
         customerEmail: this.currentCustomer.contact.email,
         customerPhone: this.currentCustomer.contact.phone,
@@ -99,59 +99,62 @@ export class CustomerEditComponent implements OnInit {
 
   onSubmit(customerForm){
     let result: any;
-    console.log(customerForm);
+    
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){
-        //check if customer already exists by id
-        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
-        if(findCustomer && findCustomer.customer.id != this.currentCustomerId){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
-          return;
-        }
-        let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, activityStatus: this.currentCustomer.customer.activityStatus, createdDate: null, contactID: this.currentCustomer.contact.id };
+        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.businessId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: this.currentCustomer.customer.createdDate, contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
-        result = this.customerService.updateCustomer(customerData, contact,fullCustomer.companyId);
-        
+          customerData.contact = contact;
+           this.customerService.updateCustomer(this.currentCustomerId, customerData).subscribe(res => {
+          
+            if(res.message != ''){
+             this.dialogRef.close(res);
+           }
+        });
       }
       //add new user 
       else if(this.editFlag == false && this.deleteFlag == false){
         //check if customer already exists by id
-        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
-        if(findCustomer){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
-          return;
-        }
-        let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, activityStatus: "true", createdDate: null, contactID: null };
+        // let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
+        // if(findCustomer){
+        //   new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
+        //   return;
+        // }
+        let customerData: customer = { businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: new Date() };
         let contact: contact = { id: null, customerId: fullCustomer.companyId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: '',
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
-           result = this.customerService.addNewCustomer(customerData, contact);
+           customerData.contact = contact;
+           this.customerService.addNewCustomer(customerData).subscribe(res => {
+             
+             if(res.message != ''){
+              this.dialogRef.close(res);
+            }
+           });
       }
       //remove user
       else{
 
       }
-      if(result.message != ''){
-        this.dialogRef.close(result);
-      }
     }
     else{
       let res = { data: {customer: null, contact: null}, message: "נתונים שהוכנסו לא תקינים" };
-      this.dialogRef.close(result);
+      this.dialogRef.close(res);
     }
   }
 
   onDelete(){
-    let result = this.customerService.deleteCustomer(this.currentCustomer.customer);
-    console.log(result);
-    if(result.message != ''){
-      this.dialogRef.close(result);
-    }
+    let result = this.customerService.deleteCustomer(this.currentCustomerId).subscribe(res => {
+      
+      if(result.message != ''){
+        this.dialogRef.close(res);
+      }
+    });
   }
 
 

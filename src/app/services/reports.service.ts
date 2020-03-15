@@ -64,12 +64,12 @@ export class ReportsService {
   getReportById(reportId: number){
     let customerReportData = this.reports.find(r => r.id == reportId);
     if(customerReportData){
-      let customerData = this.customers.find(c => c.id == customerReportData.customerId);
+      let customerData = this.customers.find(c => c.businessId == customerReportData.customerId);
       if(customerData){
         let reportCustomerModel: CustomerReportModel = {
           reportID: customerReportData.id,
           arrivedToOffice: customerReportData.arrivedToOffice,
-          customerID: customerData.id,
+          customerID: customerData.businessId,
           companyName: customerData.companyName,
           companyEmail: null,
           date: customerReportData.reportDate,
@@ -91,11 +91,11 @@ export class ReportsService {
     let customersReports: CustomerReportModel[] = [];
     if (reports && customers) {
       for (let report of reports) {
-        let currentUser = customers.find(c => c.id == report.customerId);
+        let currentUser = customers.find(c => c.businessId == report.customerId);
         if (currentUser) {
           customersReports.push({
             reportID: report.id,
-            customerID: currentUser.id,
+            customerID: currentUser.businessId,
             arrivedToOffice: report.arrivedToOffice,
             companyName: currentUser.companyName,
             companyEmail: null,
@@ -120,48 +120,48 @@ export class ReportsService {
     }
   }
 
-  getFullCustomersDetails() {
-    if (this.customers) {
-      if (this.contacts) {
-        let fullModel: FullCustomerModel[] = [];
-        for (let customer of this.customers) {
-          fullModel.push(
-            {
-              customer: customer,
-              contact: this.contacts.find(c => c.customerId == customer.id),
-              newCustomerId: null,
-              clickableAdd: false,
-              clickableDelete: true,
-              displayAdd: false,
-              displayDelete: true,
-              displayEdit: true,
-              clickableEdit: true
-            }
-          );
-        }
-        return fullModel;
-      }
-      else {
-        let fullModel: FullCustomerModel[] = [];
-        for (let customer of this.customers) {
-          fullModel.push(
-            {
-              customer: customer,
-              contact: null,
-              newCustomerId: null,
-              clickableAdd: false,
-              clickableDelete: true,
-              displayAdd: false,
-              displayDelete: true,
-              displayEdit: true,
-              clickableEdit: true
-            }
-          );
-        }
-        return fullModel;
-      }
-    }
-  }
+  // getFullCustomersDetails() {
+  //   if (this.customers) {
+  //     if (this.contacts) {
+  //       let fullModel: FullCustomerModel[] = [];
+  //       for (let customer of this.customers) {
+  //         fullModel.push(
+  //           {
+  //             customer: customer,
+  //             contact: this.contacts.find(c => c.customerId == customer.businessId),
+  //             newCustomerId: null,
+  //             clickableAdd: false,
+  //             clickableDelete: true,
+  //             displayAdd: false,
+  //             displayDelete: true,
+  //             displayEdit: true,
+  //             clickableEdit: true
+  //           }
+  //         );
+  //       }
+  //       return fullModel;
+  //     }
+  //     else {
+  //       let fullModel: FullCustomerModel[] = [];
+  //       for (let customer of this.customers) {
+  //         fullModel.push(
+  //           {
+  //             customer: customer,
+  //             contact: null,
+  //             newCustomerId: null,
+  //             clickableAdd: false,
+  //             clickableDelete: true,
+  //             displayAdd: false,
+  //             displayDelete: true,
+  //             displayEdit: true,
+  //             clickableEdit: true
+  //           }
+  //         );
+  //       }
+  //       return fullModel;
+  //     }
+  //   }
+  // }
 
   getAllStatuses() {
     if (this.statuses) {
@@ -170,7 +170,7 @@ export class ReportsService {
   }
 
   updateCustomer(customer: customer, contact: contact, newCustomerId:string = null) {
-    let currentCustomer = this.customers.find(c => c.id == customer.id);
+    let currentCustomer = this.customers.find(c => c.businessId == customer.businessId);
     if (currentCustomer) {
       currentCustomer.companyName = customer.companyName;
       let currentCustomerContact = this.contacts.find(c => c.id == customer.contactID);
@@ -182,14 +182,14 @@ export class ReportsService {
         currentCustomerContact.street = contact.street;
         currentCustomerContact.imgUrl = contact.imgUrl;
         if(newCustomerId != null){
-          currentCustomer.id = newCustomerId;
+          currentCustomer.businessId = newCustomerId;
           currentCustomerContact.customerId = newCustomerId;
         }
       }
       else {
         //get latest contact id and increment by one to add contact
         let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.id : newCustomerId,isActive: true };
+        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.businessId : newCustomerId,isActive: true };
         this.contacts.push(newContact);
       }
       return { data: { customer: currentCustomer, contact: contact }, message: "לקוח עודכן בהצלחה" };
@@ -200,33 +200,33 @@ export class ReportsService {
     }
   }
 
-  addCustomer(customer: customer, contact: contact) {
-    //get incremental id from contacts
-    let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-    if (newContactId) {
-      let newCustomer: customer = { id: customer.id, contactID: newContactId, companyName: customer.companyName, activityStatus: "true", createdDate: new Date() };
-      let newContact: contact = { id: newContactId,imgUrl: '', customerId: customer.id, city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
-      this.customers.push(newCustomer);
-      this.contacts.push(newContact);
-      return { data: { customer: newCustomer, contact: newContact }, message: "לקוח נשמר בהצלחה" };
-    }
-    else {
-      return { data: null, message: "אירעה שגיאה בשמירת לקוח חדש" };
-    }
-  }
+  // addCustomer(customer: customer, contact: contact) {
+  //   //get incremental id from contacts
+  //   let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
+  //   if (newContactId) {
+  //     let newCustomer: customer = { businessId: customer.businessId, contactID: newContactId, companyName: customer.companyName, isActive: true, createdDate: new Date() };
+  //     let newContact: contact = { id: newContactId,imgUrl: '', customerId: customer.businessId, city: contact.city, phone: contact.phone, email: contact.email, street: contact.street, building: contact.building };
+  //     this.customers.push(newCustomer);
+  //     this.contacts.push(newContact);
+  //     return { data: { customer: newCustomer, contact: newContact }, message: "לקוח נשמר בהצלחה" };
+  //   }
+  //   else {
+  //     return { data: null, message: "אירעה שגיאה בשמירת לקוח חדש" };
+  //   }
+  // }
 
   deleteCustomer(customer: customer){
-    let currentCustomer = this.customers.findIndex(c => c.id == customer.id);
-    console.log("customer on delete",currentCustomer);
+    let currentCustomer = this.customers.findIndex(c => c.businessId == customer.businessId);
+    console.log(currentCustomer);
     if(currentCustomer != undefined){
       //set contact to inactive
-      let customerContact = this.contacts.findIndex(c => c.customerId == customer.id);
+      let customerContact = this.contacts.findIndex(c => c.customerId == customer.businessId);
       if(customerContact != undefined){
         //customerContact.isActive = false;
         this.contacts.splice(customerContact, 1);
       }
       //set all reports to inactive
-      let customerReports = this.reports.filter(r => r.customerId == customer.id);
+      let customerReports = this.reports.filter(r => r.customerId == customer.businessId);
       if(customerReports){
         for(let report of customerReports){
           //report.isActive = false;  

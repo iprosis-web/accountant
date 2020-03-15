@@ -34,10 +34,9 @@ export class CustomersHeaderComponent implements OnInit {
     private headerService: HeaderService) { }
 
   ngOnInit() {
-    this.customers = this.customerService.getFullCustomersDetails();
-    this.customersSubscription = this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
-      this.customers = data;
-    });
+     this.customerService.getFullCustomersDetails().subscribe(res => {
+       this.customers = res;
+     })
   }
 
   onFilterSubmitted() {

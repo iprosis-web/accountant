@@ -58,10 +58,10 @@ export class CustomersListComponent implements OnInit , OnDestroy {
 
   ngOnInit() {
     this.setTableData(this.customerId, this.statusId);
-    this.customersSubject=this.headerService.customersFilterSubject.subscribe((filterData: CustomersFilterModel) => {
-    this.customerId = filterData.companyId;
-    this.statusId = filterData.isActive;
-    this.setTableData(filterData.companyId,filterData.isActive);
+    
+    this.customersSubject=this.customerService.getFilteredCustomers(this.customerId, this.statusId).subscribe((filterData) => {
+      console.log(filterData);
+  
     });
 
     this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
@@ -69,8 +69,8 @@ export class CustomersListComponent implements OnInit , OnDestroy {
       this.setTableData(this.customerId, this.statusId);
     });
  
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   ngOnDestroy() {
@@ -81,7 +81,9 @@ export class CustomersListComponent implements OnInit , OnDestroy {
     this.dataTableArray = [];  
     
     console.log('setTableData parans: :::', customerId, statusId);
-    this.dataTableArray = this.customerService.getFilteredCustomers(customerId,statusId);
+    this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
+      this.dataTableArray = res;
+    });
     if (this.dataTableArray.length <= 0) {
       //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
     }
