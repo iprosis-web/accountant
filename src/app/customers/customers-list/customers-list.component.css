@@ -1,11 +1,11 @@
 .scroll-container {
-  max-height:60vh; 
+  max-height: 60vh;
   overflow: auto;
-  width:100%;
-  max-width:1000px;
-  transition: top 0.3s;  
+  width: 100%;
+  max-width: 1000px;
+  transition: top 0.3s;
   position: absolute;
-  left:50%;
+  left: 50%;
   transform: translate(-50%);
 }
 
@@ -17,61 +17,73 @@ table {
 
 th {
   color: black;
-  margin-right:100px;  
+  margin-right: 100px;
 }
 
-:host ::ng-deep .mat-sort-header-container{
+/* DO NOT DO IT!!!!!!! */
+/* :host ::ng-deep .mat-sort-header-container{
   display: flex;
   justify-content: center;
-} 
+}  */
 
 td {
   display: table-cell;
   vertical-align: initial;
-  padding-top:15px !important;
-  text-align:center !important;
+  padding-top: 15px !important;
+  text-align: start !important;
 }
 
-  tr.example-detail-row {
-    height: 0;
-  }
-  
-  tr.example-element-row:not(.example-expanded-row):hover {
-    background: whitesmoke;
-  }
-  
-  tr.example-element-row:not(.example-expanded-row):active {
-    background: #efefef;
-  }
-  
-  .example-element-row td {
-    border-bottom-width: 0;
-  }
-  
-  .example-element-detail {
-    overflow: hidden;
-    display: flex;
-  }
-  
-  .example-element-diagram {
-    width: 100%;
-    padding: 8px;
-    font-weight: lighter;
-    padding: 0;
-    height: 100%;
-  }
-  
-  .example-element-symbol {
-    font-weight: bold;
-    font-size: 40px;
-    line-height: normal;
-  }
-  
-  .example-element-description {
-    padding: 16px;
-  }
-  
-  .example-element-description-attribution {
-    opacity: 0.5;
-  }
+tr.example-detail-row {
+  height: 0;
+}
 
+.mat-column-isActive {
+  width: 15%;
+}
+
+.mat-column-companyName {
+  width: 50%;
+}
+
+.mat-column-id {
+  padding-right: 12px;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  width: 100%;
+  padding: 8px;
+  font-weight: lighter;
+  padding: 0;
+  height: 100%;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
