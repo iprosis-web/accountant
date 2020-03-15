@@ -33,9 +33,9 @@ export class CustomersService {
       this.fireStore
       .collection("customers").get().pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
-        actions.forEach(el => console.log(el.data()));
-        actions.forEach(el =>
-          customersArr.push({
+        actions.forEach(el => {
+          let d = new Date(el.data().createdDate.seconds);
+          let tempElem = {
             customer: el.data(),
             contact: el.data().contact,
             newCustomerId: el.id,
@@ -45,8 +45,10 @@ export class CustomersService {
             clickableDelete:  true,
             displayAdd: false,
             clickableAdd: false
-          })
-          )
+          };
+          tempElem.customer.createdDate = d;
+          customersArr.push(tempElem);
+        })
           return customersArr.filter(customer => 
             (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
             (customer.customer.isActive == status || status == undefined || status == null)
@@ -64,9 +66,9 @@ export class CustomersService {
         .collection("customers", c => c.where("customerId", "==", id))
         .get().pipe( map(actions => {
           let customersArr : FullCustomerModel[] = [];
-          actions.forEach(el => console.log(el.data()));
-          actions.forEach(el =>
-            customersArr.push({
+          actions.forEach(el => {
+            let d = new Date(el.data().createdDate.seconds);
+            let tempElem = {
               customer: el.data(),
               contact: el.data().contact,
               newCustomerId: el.id,
@@ -76,8 +78,10 @@ export class CustomersService {
               clickableDelete:  true,
               displayAdd: false,
               clickableAdd: false
-            })
-            )
+            };
+            tempElem.customer.createdDate = d;
+            customersArr.push(tempElem);
+          })
             return customersArr;
         }))
       )
@@ -89,9 +93,9 @@ export class CustomersService {
         .collection("customers", c => c.where("businessId", "==", businessId))
         .get().pipe( map(actions => {
           let customersArr : FullCustomerModel[] = [];
-          actions.forEach(el => console.log(el.data()));
-          actions.forEach(el =>
-            customersArr.push({
+          actions.forEach(el => {
+            let d = new Date(el.data().createdDate.seconds);
+            let tempElem = {
               customer: el.data(),
               contact: el.data().contact,
               newCustomerId: el.id,
@@ -101,8 +105,10 @@ export class CustomersService {
               clickableDelete:  true,
               displayAdd: false,
               clickableAdd: false
-            })
-            )
+            };
+            tempElem.customer.createdDate = d;
+            customersArr.push(tempElem);
+          })
             return customersArr;
         }))
       )
@@ -116,9 +122,9 @@ export class CustomersService {
         .get()
       ).pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
-        actions.forEach(el => console.log(el.data()));
-        actions.forEach(el =>
-          customersArr.push({
+        actions.forEach(el => {
+          let d = new Date(el.data().createdDate.seconds);
+          let tempElem = {
             customer: el.data(),
             contact: el.data().contact,
             newCustomerId: el.id,
@@ -128,8 +134,10 @@ export class CustomersService {
             clickableDelete:  true,
             displayAdd: false,
             clickableAdd: false
-          })
-          )
+          };
+          tempElem.customer.createdDate = d;
+          customersArr.push(tempElem);
+        })
           return customersArr;
       }))
 
@@ -139,16 +147,17 @@ export class CustomersService {
       let result: ApiResult;
       //check if businessId Already Exists
       return Observable.create((observer: Observer<ApiResult>) => {
-        this.getFullCustomerInfoByBusinessId(customer.businessId).subscribe(res => {
+        this.getFullCustomerInfoById(customerId).subscribe(res => {
           //user alredy exist with businessId id
           
-          if(res.length > 0){
+          if(res != null && res.length > 0 && res[0].customer.customerId != customerId){
              result = { data: null,success: false, message: 'לקוח עם מספר עוסק כבר קיים במערכת' };
              observer.next(result);
              observer.complete();
           }
           //user can be updated
           else{
+            console.log(customer);
             this.fireStore.collection("customers")
             .doc(customerId)
             .update(customer)

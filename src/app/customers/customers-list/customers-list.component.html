@@ -1,9 +1,9 @@
 <div class="scroll-container mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8" matSort>
 
-        <ng-container matColumnDef="id">
+        <ng-container matColumnDef="businessId">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> מספר לקוח </th>
-            <td mat-cell *matCellDef="let element">{{element.customer.id}}</td>
+            <td mat-cell *matCellDef="let element">{{element.customer.businessId}}</td>
         </ng-container>
 
         <ng-container matColumnDef="companyName">
@@ -13,7 +13,7 @@
 
         <ng-container matColumnDef="isActive">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> סטטוס </th>
-            <td mat-cell *matCellDef="let element"> {{element.customer.activityStatus}} </td>
+            <td mat-cell *matCellDef="let element"> {{element.customer.isActive == true ? "פעיל" : "לא פעיל"}} </td>
         </ng-container>
 
         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
