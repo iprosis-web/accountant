@@ -16,7 +16,9 @@
 }
 
 .newSection {
-    margin: 2%; 
+    margin: 1%; 
+    margin-top: 2%; 
+   
 }
 .card-title {
     text-align: right;
