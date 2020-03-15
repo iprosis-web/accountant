@@ -4,6 +4,6 @@ export class customer {
     companyName:string;
     contactID:number;
     createdDate: Date;
-    isActive: boolean = true;
+    activityStatus: string;
     
 }

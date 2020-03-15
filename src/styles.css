@@ -1,10 +1,110 @@
-@import '~bootstrap/dist/css/bootstrap.css';
-html, body {
-    height: 100%;
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif; 
-    width: 100%;
-    overflow: hidden;
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@font-face {
+  font-family: OpenSansHebrewLight;
+  src: url(assets/fonts/OPENSANSHEBREW-LIGHT_1.TTF);
+}
+@font-face {
+  font-family: OpenSansHebrew;
+  src: url(assets/fonts/OPENSANSHEBREW-REGULAR_3.TTF);
+}
+@font-face {
+  font-family: OpenSansHebrewExtrabold;
+  src: url(assets/fonts/OPENSANSHEBREW-EXTRABOLD_0.TTF);
+}
+@font-face {
+  font-family: OpenSansHebrewBold;
+  src: url(assets/fonts/OPENSANSHEBREW-BOLD_3.TTF);
+}
+
+@font-face {
+  font-family: OpenSansHebrewItalic;
+  src: url(assets/fonts/OPENSANSHEBREW-ITALIC.TTF);
+}
+
+/* NOTO SANS English: */
+@font-face {
+  font-family: NotoSansLight;
+  src: url(assets/fonts/NotoSans-Light.ttf);
+}
+
+@font-face {
+  font-family: NotoSans;
+  src: url(assets/fonts/NotoSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: NotoSansMedium;
+  src: url(assets/fonts/NotoSans-Medium.ttf);
+}
+
+@font-face {
+  font-family: NotoSansSemiBold;
+  src: url(assets/fonts/NotoSans-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: NotoSansBold;
+  src: url(assets/fonts/NotoSans-Bold.ttf);
+}
+
+/* NOTO SANS Hebrew: */
+@font-face {
+  font-family: NotoSansHebrewLight;
+  src: url(assets/fonts/NotoSansHebrew-Light.ttf);
+}
+
+@font-face {
+  font-family: NotoSansHebrew;
+  src: url(assets/fonts/NotoSansHebrew-Regular.ttf);
+}
+
+@font-face {
+  font-family: NotoSansHebrewMedium;
+  src: url(assets/fonts/NotoSansHebrew-Medium.ttf);
+}
+
+@font-face {
+  font-family: NotoSansSemiHebrewBold;
+  src: url(assets/fonts/NotoSansHebrew-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: NotoSansHebrewBold;
+  src: url(assets/fonts/NotoSansHebrew-Bold.ttf);
+}
+
+* {
+  font-family: "NotoSans", "NotoSansHebrew" !important;
+}
+
+* {
+  font-family: "NotoSans", "NotoSansHebrew" !important;
+}
+
+.material-icons {
+  font-family: "Material Icons" !important;
+}
+
+.mat-header-cell {
+  font-family: "NotoSansHebrewBold" !important;
+}
+
+.mat-header-cell * {
+  font-family: "NotoSansHebrewBold" !important;
+}
+
+th {
+  background-color: rgb(232, 234, 237) !important;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  /* font-family: Roboto, "Helvetica Neue", sans-serif; */
+  width: 100%;
+  overflow: hidden;
 }
 
 /* .style-snackbar{

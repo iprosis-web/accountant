@@ -10,6 +10,8 @@ export class ReportRealisticPaymentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log( Number(1200).toLocaleString('en-GB'));
+    
   }
 
 }
