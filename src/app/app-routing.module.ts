@@ -6,8 +6,8 @@ import { ReportsComponent } from "./reports/reports.component";
 import { CreateNewCustomerComponent } from "./customers/create-new-customer/create-new-customer.component";
 import { CustomerMonthlyReportComponent } from "./customer-monthly-report/customer-monthly-report.component";
 import { CustomerDetailsComponent } from "./customers/customer-details/customer-details.component";
-import { CustomersListComponent } from "./customers/customers-list/customers-list.component";
 import { ReportDetailsComponent } from "./reports/report-details/report-details.component";
+import { CustomersComponent } from './customers/customers.component';
 const routes: Routes = [
   { path: "", component: ReportsComponent },
   { path: "reports", component: ReportsComponent },
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: "createcustomer", component: CreateNewCustomerComponent },
   { path: "monthlyreport", component: CustomerMonthlyReportComponent },
   { path: "customerdetails", component: CustomerDetailsComponent },
-  { path: "customers", component: CustomersListComponent },
+  { path: "customers", component: CustomersComponent },
   { path: "testcomp", component: TestcompComponent },
   { path: "**", redirectTo: "/" }
 ];

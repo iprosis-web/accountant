@@ -63,6 +63,11 @@ export class CustomersListComponent implements OnInit , OnDestroy {
       console.log(filterData);
   
     });
+
+    this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
+      this.dataTableArray = data;
+      this.setTableData(this.customerId, this.statusId);
+    });
  
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;

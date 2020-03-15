@@ -14,6 +14,10 @@
 .customer-data{
     margin-top: 2%;
 }
+
+.newSection {
+    margin: 2%; 
+}
 .card-title {
     text-align: right;
 }
@@ -33,13 +37,13 @@
 
 :host ::ng-deep .mat-form-field{
     direction: ltr;  
-  }
+}
 
-  .status{
+.status{
     align-items: right;
-  }
+}
 
- .panel-title{
+.panel-title{
     display: flex;
     flex-grow: 0 !important;
-  }
+}

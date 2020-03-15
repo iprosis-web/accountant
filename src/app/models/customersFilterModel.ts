@@ -1,4 +1,4 @@
 export class CustomersFilterModel {
     companyId:string;
-    isActive: boolean;
+    isActive: string;
 }

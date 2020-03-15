@@ -6,6 +6,9 @@ import { CustomerCRUD } from 'src/app/Utils/Enums';
 import { CustomersService } from 'src/app/services/customers.service';
 import { CustomersFilterModel } from 'src/app/models/customersFilterModel';
 import { HeaderService } from 'src/app/services/header.service';
+import { Subscription } from 'rxjs';
+import { customer } from 'src/app/models/customer';
+import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
 
 @Component({
   selector: 'app-customers-header',
@@ -13,11 +16,12 @@ import { HeaderService } from 'src/app/services/header.service';
   styleUrls: ['./customers-header.component.css']
 })
 export class CustomersHeaderComponent implements OnInit {
-
+  customersSubscription: Subscription;
   private addDialog: MatDialogRef<CustomerEditComponent>;
-  customers = [];
+  customers: FullCustomerModel[] = [];
+  statuses: Array<string> = ["null", "פעיל","לא פעיל"];
   selectedCustomer: string = "null";
-  selectedStatus:boolean ;
+  selectedStatus: string = "null";
   
   filtersCustomerObject: CustomersFilterModel = {
     companyId: this.selectedCustomer,
@@ -38,8 +42,8 @@ export class CustomersHeaderComponent implements OnInit {
   onFilterSubmitted() {
     this.filtersCustomerObject.companyId = this.selectedCustomer == "null" ? null : this.selectedCustomer;
     //null boolean??
-    this.filtersCustomerObject.isActive = this.selectedStatus;
-    // this.headerService.updateFilterCustomer(this.filtersCustomerObject);
+    this.filtersCustomerObject.isActive = this.selectedStatus == "null" ? null : this.selectedStatus;
+    this.headerService.updateFilterCustomer(this.filtersCustomerObject);
     // console.log(this.filtersCustomerObject.companyId + " " ,this.filtersCustomerObject.isActive)
   }
 

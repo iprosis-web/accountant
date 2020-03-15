@@ -54,13 +54,13 @@ export class CustomerEditComponent implements OnInit {
       }
     }
           //add
-      else if(this.data.flag == CustomerCRUD.add){
-        this.editFlag = false;
-        this.deleteFlag = false;
-        this.fileUploadFlag = true;
-        this.currentCustomerImg = "";
-        this.currentCustomerId = this.data.customerId;
-      }
+          else if(this.data.flag == CustomerCRUD.add){
+            this.editFlag = false;
+            this.deleteFlag = false;
+            this.fileUploadFlag = true;
+            this.currentCustomerImg = "";
+            this.currentCustomerId = this.data.customerId;
+          }
   }
 
   setEditFormValues(){
