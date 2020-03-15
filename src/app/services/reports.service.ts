@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
 import { CustomerReportModel } from '../models/customerReportModel';
 import { DateFilterModel } from '../models/dateFilterModel';
 import { customer } from '../models/customer';
@@ -7,10 +6,14 @@ import { reports } from '../models/report';
 import { Indications, Statuses } from '../Utils/Enums'
 import { contact } from '../models/contact';
 import { FullCustomerModel } from '../models/fullCustomerModel';
+import { ReportDetailsModel } from '../models/reportDetailsModel';
 import { customersData } from '../mock-data/customersData';
 import { contactsData } from '../mock-data/contactData';
 import { reportsData } from '../mock-data/reportsData';
-
+import { Subject, Observable, Observer, observable } from 'rxjs';
+import { map } from 'rxjs/operators'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { ApiResult } from '../models/apiResult';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,7 +44,7 @@ export class ReportsService {
       name: "הסתיים"
     }];
 
-  constructor() { }
+  constructor(private fireStore: AngularFirestore) { }
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number) {
     //bring all reports
@@ -61,11 +64,11 @@ export class ReportsService {
     return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
   }
 
-  getReportById(reportId: number){
+  getReportById(reportId: number) {
     let customerReportData = this.reports.find(r => r.id == reportId);
-    if(customerReportData){
+    if (customerReportData) {
       let customerData = this.customers.find(c => c.businessId == customerReportData.customerId);
-      if(customerData){
+      if (customerData) {
         let reportCustomerModel: CustomerReportModel = {
           reportID: customerReportData.id,
           arrivedToOffice: customerReportData.arrivedToOffice,
@@ -169,7 +172,7 @@ export class ReportsService {
     }
   }
 
-  updateCustomer(customer: customer, contact: contact, newCustomerId:string = null) {
+  updateCustomer(customer: customer, contact: contact, newCustomerId: string = null) {
     let currentCustomer = this.customers.find(c => c.businessId == customer.businessId);
     if (currentCustomer) {
       currentCustomer.companyName = customer.companyName;
@@ -181,7 +184,7 @@ export class ReportsService {
         currentCustomerContact.phone = contact.phone;
         currentCustomerContact.street = contact.street;
         currentCustomerContact.imgUrl = contact.imgUrl;
-        if(newCustomerId != null){
+        if (newCustomerId != null) {
           currentCustomer.businessId = newCustomerId;
           currentCustomerContact.customerId = newCustomerId;
         }
@@ -189,7 +192,7 @@ export class ReportsService {
       else {
         //get latest contact id and increment by one to add contact
         let newContactId = Math.max.apply(Math, this.contacts.map(function (e) { return e.id })) + 1;
-        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.businessId : newCustomerId,isActive: true };
+        let newContact: contact = { id: newContactId, imgUrl: '', building: contact.building, city: contact.city, phone: contact.phone, street: contact.street, email: contact.email, customerId: newCustomerId == null ? customer.businessId : newCustomerId, isActive: true };
         this.contacts.push(newContact);
       }
       return { data: { customer: currentCustomer, contact: contact }, message: "לקוח עודכן בהצלחה" };
@@ -215,23 +218,23 @@ export class ReportsService {
   //   }
   // }
 
-  deleteCustomer(customer: customer){
+  deleteCustomer(customer: customer) {
     let currentCustomer = this.customers.findIndex(c => c.businessId == customer.businessId);
     console.log(currentCustomer);
-    if(currentCustomer != undefined){
+    if (currentCustomer != undefined) {
       //set contact to inactive
       let customerContact = this.contacts.findIndex(c => c.customerId == customer.businessId);
-      if(customerContact != undefined){
+      if (customerContact != undefined) {
         //customerContact.isActive = false;
         this.contacts.splice(customerContact, 1);
       }
       //set all reports to inactive
       let customerReports = this.reports.filter(r => r.customerId == customer.businessId);
-      if(customerReports){
-        for(let report of customerReports){
+      if (customerReports) {
+        for (let report of customerReports) {
           //report.isActive = false;  
           this.reports.splice(customerReports.indexOf(report), 1);
-        }   
+        }
       }
       //set user to inactive
       //currentCustomer.isActive = false;
@@ -239,31 +242,69 @@ export class ReportsService {
       console.log(this.customers);
       return { data: null, message: "לקוח נמחק בהצלחה" };
     }
-    else{
+    else {
       return { data: null, message: "אירעה שגיאה בעת מחיקת לקוח" };
     }
   }
 
-  updateArriveToOffice(reportId: number, newFlag){
+  updateArriveToOffice(reportId: number, newFlag) {
     //add arrivetooffice
     let report = this.reports.find(r => r.id == reportId);
-    if(newFlag == true){
-      if(report){
+    if (newFlag == true) {
+      if (report) {
         report.arrivedToOffice = new Date();
         return { data: report, message: 'עודכן בהצלחה' };
       }
-      else{
+      else {
         return { data: null, message: 'אירעה שגיאה' };
       }
     }
-    else{
-      if(report){
+    else {
+      if (report) {
         report.arrivedToOffice = null;
         return { data: report, message: 'עודכן בהצלחה' };
       }
-      else{
+      else {
         return { data: null, message: 'אירעה שגיאה' };
       }
     }
   }
+
+  getFullReportsDetails() {
+    return (
+      this.fireStore
+        .collection("reports")
+        .get()
+    ).pipe(map(actions => {
+      let reportsArr: ReportDetailsModel[] = [];
+      actions.forEach(el => console.log(el.data()));
+      actions.forEach(el =>
+        reportsArr.push({
+          fullCustomerData: el.data().fullCustomerData,
+          reports: el.data().reports,
+        })
+      )
+      return reportsArr;
+    }))
+  }
+
+  updateReports(reportId: string, reportData: ReportDetailsModel) {
+    let result: ApiResult;
+
+    return Observable.create((observer: Observer<ApiResult>) => {
+      this.fireStore.collection('reports')
+        .doc(reportId)
+        .update(reportData)
+        .then(
+          res => {
+            result = { data: reportData, success: true, message: 'עדכון הדיווח התבצע בהצלחה' };
+            observer.next(result);
+            observer.complete();
+          }
+        )
+
+    });
+
+  }
+
 }
