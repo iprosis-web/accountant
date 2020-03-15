@@ -15,14 +15,18 @@ export class CustomerDetailsComponent implements OnInit {
   faEdit = faEdit;
   faAdd = faUserPlus;
   faDelete = faUserMinus;
-  @Input('customerModel') currentCustomerModel: FullCustomerModel;
+  @Input('customerModel') currentCustomerModel: FullCustomerModel = {customer: null, contact: null,newCustomerId: null};
   @Input('fromTable') fromTableFlag: boolean = false;
   private editDialog: MatDialogRef<CustomerEditComponent>;
   currentCustomerId: string;
   constructor(public dialog: MatDialog, private customerService: CustomersService,private snackBar: MatSnackBar) { }
-
+  loading: boolean = true;
   ngOnInit() {
-     this.currentCustomerModel = this.customerService.getFullCustomersDetails()[0];
+     //this.currentCustomerModel = this.customerService.getFullCustomersDetails()[0];
+      // this.customerService.getFullCustomersDetails().subscribe(res => {
+      //   this.currentCustomerModel = res[0];
+      //   this.loading = false;
+      // });
   }
 
   //edit dialog
