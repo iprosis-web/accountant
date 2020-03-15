@@ -10,10 +10,27 @@
 }
 .hh{
     font-size:16px;
-    margin-left:176px;
+    margin-left:150px;
     font-weight: bolder;
 }
-/* :host ::ng-deep .mat-form-field-infix{
-    padding: 0.5rem 0 0.5rem 0 !important;   
-    width:85px;
+.row-flex{
+    display: flex;
+    flex-direction:column;
+    justify-content: right;
+}
+
+/* .margin-result{
+    margin-bottom: 10%;
 } */
+:host ::ng-deep .mat-form-field-underline{
+    width:0;
+}
+
+:host ::ng-deep .mat-form-field-wrapper{
+    padding-left:17%;
+}
+
+
+:host ::ng-deep .white-fill.mat-form-field-appearance-fill .mat-form-field-flex{
+    background-color: white;
+}
