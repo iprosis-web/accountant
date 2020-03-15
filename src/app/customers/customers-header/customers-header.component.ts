@@ -19,19 +19,19 @@ export class CustomersHeaderComponent implements OnInit {
   customersSubscription: Subscription;
   private addDialog: MatDialogRef<CustomerEditComponent>;
   customers: FullCustomerModel[] = [];
-  statuses: Array<string> = ["null", "פעיל","לא פעיל"];
+  statuses: Array<string> = ["null", "פעיל", "לא פעיל"];
   selectedCustomer: string = "null";
   selectedStatus: string = "null";
-  
+
   filtersCustomerObject: CustomersFilterModel = {
     companyId: this.selectedCustomer,
     isActive: this.selectedStatus
   };
-  
+
   constructor(public dialog: MatDialog,
-     private snackBar: MatSnackBar,
-     private customerService : CustomersService,
-     private headerService : HeaderService) { }
+    private snackBar: MatSnackBar,
+    private customerService: CustomersService,
+    private headerService: HeaderService) { }
 
   ngOnInit() {
     this.customers = this.customerService.getFullCustomersDetails();
@@ -42,33 +42,31 @@ export class CustomersHeaderComponent implements OnInit {
 
   onFilterSubmitted() {
     this.filtersCustomerObject.companyId = this.selectedCustomer == "null" ? null : this.selectedCustomer;
-    //null boolean??
     this.filtersCustomerObject.isActive = this.selectedStatus == "null" ? null : this.selectedStatus;
     this.headerService.updateFilterCustomer(this.filtersCustomerObject);
-    // console.log(this.filtersCustomerObject.companyId + " " ,this.filtersCustomerObject.isActive)
   }
 
-    //add dialog
-    openDialogForNew(){
-      this.addDialog = this.dialog.open(CustomerEditComponent, {
-        direction: 'rtl',
-        data: {
-          customerModel: null,
-          flag: CustomerCRUD.add
-        },
-        width: "400px",
-        maxHeight: '90vh'
-      });
-      
-  
-      this.addDialog.afterClosed().subscribe(result => {
-        if(result != undefined && result != null && result.message != '' && result.message != undefined){
-          new Helpers().displaySnackBar(this.snackBar,result.message,"");
-          if(result.data){
-            console.log(result);
-          }
+  //add dialog
+  openDialogForNew() {
+    this.addDialog = this.dialog.open(CustomerEditComponent, {
+      direction: 'rtl',
+      data: {
+        customerModel: null,
+        flag: CustomerCRUD.add
+      },
+      width: "400px",
+      maxHeight: '90vh'
+    });
+
+
+    this.addDialog.afterClosed().subscribe(result => {
+      if (result != undefined && result != null && result.message != '' && result.message != undefined) {
+        new Helpers().displaySnackBar(this.snackBar, result.message, "");
+        if (result.data) {
+          console.log(result);
         }
-      });
-    }
+      }
+    });
+  }
 
 }
