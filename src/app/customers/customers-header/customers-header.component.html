@@ -5,7 +5,7 @@
         <mat-label>בחר חברה</mat-label>
         <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
           <mat-option value=null>הכל</mat-option>
-          <mat-option *ngFor="let curcustomer of customers" [value]="curcustomer.customer.id">
+          <mat-option *ngFor="let curcustomer of customers" [value]="curcustomer.customer.customerId">
             {{curcustomer.customer.companyName}} </mat-option>
         </mat-select>
       </mat-form-field>

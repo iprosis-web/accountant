@@ -33,8 +33,8 @@ export class CustomerEditComponent implements OnInit {
       if(this.data.flag == CustomerCRUD.edit){
         this.editFlag = true;
         this.deleteFlag = false;
-        this.currentCustomerId = this.data.customerModel.customer.id;
-        // this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
+        this.currentCustomerId = this.data.customerModel.customer.customerId;
+        this.currentCustomer = this.data.customerModel;
         if(this.currentCustomer){
           
           if(this.currentCustomer.contact){
@@ -49,7 +49,7 @@ export class CustomerEditComponent implements OnInit {
       else if(this.data.flag == CustomerCRUD.delete){
         this.editFlag = false;
         this.deleteFlag = true;
-        this.currentCustomerId = this.data.customerModel.customer.id;
+        this.currentCustomerId = this.data.customerModel.customer.customerId;
         this.currentCustomer = this.data.customerModel;
       }
     }
@@ -65,6 +65,7 @@ export class CustomerEditComponent implements OnInit {
 
   setEditFormValues(){
     setTimeout(() => {
+      console.log(this.currentCustomer);
       this.customerForm.setValue({
         companyId: this.currentCustomer.customer.businessId,
         companyName: this.currentCustomer.customer.companyName,
@@ -102,10 +103,11 @@ export class CustomerEditComponent implements OnInit {
     
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
+      console.log(fullCustomer);
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){
-        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.businessId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: this.currentCustomer.customer.createdDate, contactID: this.currentCustomer.contact.id };
+        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: this.currentCustomer.customer.createdDate, contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
@@ -113,7 +115,10 @@ export class CustomerEditComponent implements OnInit {
            this.customerService.updateCustomer(this.currentCustomerId, customerData).subscribe(res => {
           
             if(res.message != ''){
-             this.dialogRef.close(res);
+            this.customerService.getFullCustomersDetails().subscribe(result => {
+              this.dialogRef.close(res);
+              this.customerService.fullCustomerDetailsSubject.next(result);
+            })
            }
         });
       }
@@ -133,7 +138,10 @@ export class CustomerEditComponent implements OnInit {
            this.customerService.addNewCustomer(customerData).subscribe(res => {
              
              if(res.message != ''){
-              this.dialogRef.close(res);
+              this.customerService.getFullCustomersDetails().subscribe(result => {
+                this.customerService.fullCustomerDetailsSubject.next(result);
+                this.dialogRef.close(res);
+              })
             }
            });
       }
@@ -152,7 +160,10 @@ export class CustomerEditComponent implements OnInit {
     let result = this.customerService.deleteCustomer(this.currentCustomerId).subscribe(res => {
       
       if(result.message != ''){
-        this.dialogRef.close(res);
+        this.customerService.getFullCustomersDetails().subscribe(result => {
+          this.customerService.fullCustomerDetailsSubject.next(result);
+          this.dialogRef.close(res);
+        })
       }
     });
   }
