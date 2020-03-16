@@ -15,8 +15,12 @@ import {
   MatSnackBarModule,
   MatSidenavModule,
   MatListModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,
+  MatProgressSpinnerModule
 } from "@angular/material";
+
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -50,6 +54,7 @@ import { TestcompComponent } from "./testcomp/testcomp.component";
 import { ReportInstitutionsPaymentsComponent } from './reports/report-details/report-institutions-payments/report-institutions-payments.component';
 // import { ReportInstitutionsPaymentsComponent } from './reportDetails/report-institutions-payments/report-institutions-payment';
 import { ReportRealisticPaymentComponent } from './reports/report-details/report-realistic-payment/report-realistic-payment.component';
+import { ProgressSpinnerComponent } from './Utils/progress-spinner/progress-spinner.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +74,8 @@ import { ReportRealisticPaymentComponent } from './reports/report-details/report
     ToggleDialogComponent,
     TestcompComponent,
     ReportInstitutionsPaymentsComponent,
-    ReportRealisticPaymentComponent
+    ReportRealisticPaymentComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -104,10 +110,14 @@ import { ReportRealisticPaymentComponent } from './reports/report-details/report
     AngularFirestoreModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatListModule 
+    MatListModule,
+    MatProgressSpinnerModule,
+    OverlayModule
   ],
   entryComponents: [CustomerEditComponent, ToggleDialogComponent],
-  providers: [],
+  providers: [
+    {provide: MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS , useValue: {disableToggleValue: false, disableDragValue: true}},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -38,14 +38,14 @@ export interface PeriodicElement {
 })
 export class CustomersListComponent implements OnInit , OnDestroy {
 
-  customersDataSubscription: Subscription;
+  filteredCustomersSubscription: Subscription;
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['businessId', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;
   dataTableArray: FullCustomerModel[] = [];
   customerId = null;
   statusId = null;
-  customersSubject;
+  allCustomersSubscription: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -57,15 +57,37 @@ export class CustomersListComponent implements OnInit , OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.setTableData(this.customerId, this.statusId);
-    
-    this.customersSubject=this.customerService.getFilteredCustomers(this.customerId, this.statusId).subscribe((filterData) => {
+    // this.setTableData(this.customerId, this.statusId);
+
+    this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(this.customerId, this.statusId).subscribe((filterData) => {
       this.dataTableArray = filterData;
-      this.setTableData(this.customerId, this.statusId);
+      if (this.dataTableArray.length <= 0) {
+        //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+      }
+      this.dataSource.data = this.dataTableArray;
+      // this.setTableData(this.customerId, this.statusId);
     });
 
-    this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
-      this.setTableData(this.customerId, this.statusId);
+    this.headerService.customersFilterSubject.subscribe(res => {
+      this.customerId = res.companyId;
+      this.statusId = res.isActive;
+      this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(res.companyId, res.isActive).subscribe((filterData) => {
+        this.dataTableArray = filterData;
+        if (this.dataTableArray.length <= 0) {
+          //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+        }
+        this.dataSource.data = this.dataTableArray;
+        // this.setTableData(this.customerId, this.statusId);
+      });
+    });
+
+    this.allCustomersSubscription = this.customerService.fullCustomerDetailsSubject.subscribe((data: FullCustomerModel[]) => {
+      this.dataTableArray = data;
+      if (this.dataTableArray.length <= 0) {
+        //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+      }
+      this.dataSource.data = this.dataTableArray;
+      // this.setTableData(this.customerId, this.statusId);
     });
  
     this.dataSource.paginator = this.paginator;
@@ -73,14 +95,15 @@ export class CustomersListComponent implements OnInit , OnDestroy {
   }
 
   ngOnDestroy() {
-    this.customersSubject.unsubscribe();
+    this.allCustomersSubscription.unsubscribe();
+    this.filteredCustomersSubscription.unsubscribe();
   }
 
   setTableData(customerId, statusId) {    
     this.dataTableArray = [];  
     
     console.log('setTableData parans: :::', customerId, statusId);
-    this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
+    this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
       this.dataTableArray = res;
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )

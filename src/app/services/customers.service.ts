@@ -12,6 +12,7 @@ import { ApiResult } from '../models/apiResult';
   providedIn: 'root'
 })
 export class CustomersService {
+  allCustomers: FullCustomerModel[] = [];
   fullCustomerDetailsSubject: Subject<FullCustomerModel[]> = new Subject<FullCustomerModel[]>();
   fullCustomersData: FullCustomerModel[] = [];
   constructor(private reportService: ReportsService,private fireStore: AngularFirestore) { }
@@ -22,7 +23,7 @@ export class CustomersService {
     if(statusString == null){
       status = null;
     }
-    else if (statusString === 'true') {
+    else if (statusString === 'פעיל') {
       status = true;
     }
     else {
@@ -49,9 +50,11 @@ export class CustomersService {
           tempElem.customer.createdDate = d;
           customersArr.push(tempElem);
         })
-          return customersArr.filter(customer => 
+          console.log(this.allCustomers);
+          return this.allCustomers = customersArr.filter(customer => 
             (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
             (customer.customer.isActive == status || status == undefined || status == null)
+
           )
       }))
     )

@@ -7,6 +7,7 @@ import { customer } from 'src/app/models/customer';
 import { contact } from 'src/app/models/contact';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { CustomerCRUD } from 'src/app/Utils/Enums';
+import { CustomersListComponent } from '../customers-list/customers-list.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -17,6 +18,10 @@ export class CustomerEditComponent implements OnInit {
   @ViewChild('cf') customerForm: NgForm;
   editFlag = false;
   deleteFlag = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   currentCustomerId: string = "318854125";
   currentCustomer: FullCustomerModel;
   currentCustomerImg: string;
@@ -100,7 +105,7 @@ export class CustomerEditComponent implements OnInit {
 
   onSubmit(customerForm){
     let result: any;
-    
+    this.loading = true;
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
       console.log(fullCustomer);
@@ -115,10 +120,9 @@ export class CustomerEditComponent implements OnInit {
            this.customerService.updateCustomer(this.currentCustomerId, customerData).subscribe(res => {
           
             if(res.message != ''){
-            this.customerService.getFullCustomersDetails().subscribe(result => {
+              this.customerService.fullCustomerDetailsSubject.next(this.customerService.allCustomers);
               this.dialogRef.close(res);
-              this.customerService.fullCustomerDetailsSubject.next(result);
-            })
+              this.loading = false;
            }
         });
       }
@@ -141,6 +145,7 @@ export class CustomerEditComponent implements OnInit {
               this.customerService.getFullCustomersDetails().subscribe(result => {
                 this.customerService.fullCustomerDetailsSubject.next(result);
                 this.dialogRef.close(res);
+                this.loading = false;
               })
             }
            });
@@ -153,16 +158,19 @@ export class CustomerEditComponent implements OnInit {
     else{
       let res = { data: {customer: null, contact: null}, message: "נתונים שהוכנסו לא תקינים" };
       this.dialogRef.close(res);
+      this.loading = false;
     }
   }
 
   onDelete(){
+    this.loading = true;
     let result = this.customerService.deleteCustomer(this.currentCustomerId).subscribe(res => {
       
       if(result.message != ''){
         this.customerService.getFullCustomersDetails().subscribe(result => {
           this.customerService.fullCustomerDetailsSubject.next(result);
           this.dialogRef.close(res);
+          this.loading = false;
         })
       }
     });
