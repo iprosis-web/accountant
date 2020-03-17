@@ -1,4 +1,4 @@
-.customer-form-container .mat-form-field + .mat-form-field {
+ .customer-form-container .mat-form-field + .mat-form-field {
     margin-left: 8px;
     margin-top: 5px;
   }
@@ -8,11 +8,18 @@
   }
 
   .mat-form-field {
-    width: 100%;
+    /* width: 100%; */
+    width: 220px;
+    height: 50px;
+    margin-bottom: 20px;
   }
 
-  .mat-dialog-container {
-    overflow: hidden;
-  }
+/*  .mat-form-field-appearance-outline {
+    width: 220px;
+    margin: 8px;
+    text-align: right;
+    line-height: 1.725;
+    /* height: 50px; *//*
+} */
   
 

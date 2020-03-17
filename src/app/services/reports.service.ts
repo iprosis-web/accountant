@@ -27,6 +27,7 @@ export class ReportsService {
   private customerId: string = null;
   private status: number = null;
 
+  
   statuses = [
     {
       id: 1,

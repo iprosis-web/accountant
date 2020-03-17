@@ -32,7 +32,7 @@
           readonly>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker [startAt]="date" #picker2 startView="multi-year" (yearSelected)="chosenEndYearHandler($event)"
-          (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>
+          (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">
         </mat-datepicker>
       </mat-form-field>
       <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">

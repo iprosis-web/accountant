@@ -54,7 +54,7 @@ export class CustomersHeaderComponent implements OnInit {
         customerModel: null,
         flag: CustomerCRUD.add
       },
-      width: "400px",
+      width: "300px",
       maxHeight: '90vh'
     });
 

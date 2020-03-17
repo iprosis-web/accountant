@@ -41,6 +41,14 @@
     direction: ltr;  
 }
 
+.mat-form-field-appearance-outline {
+    width: 220px;
+    height: 50px;
+    line-height: 1.725;
+    margin: 3px;
+    text-align: right;
+}
+
 .status{
     align-items: right;
 }

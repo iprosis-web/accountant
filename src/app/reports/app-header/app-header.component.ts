@@ -48,7 +48,7 @@ export class AppHeaderComponent implements OnInit {
   statuses = [];
   selectedCustomer: string = "null";
   selectedStatus: string = "null";
-  selectedStartDate = new FormControl(moment());
+  selectedStartDate = new FormControl(moment().startOf());
   selectedEndDate = new FormControl(moment());
 
   constructor(private reportsService: ReportsService,
