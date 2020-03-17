@@ -7,6 +7,7 @@ import { customer } from 'src/app/models/customer';
 import { contact } from 'src/app/models/contact';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { CustomerCRUD } from 'src/app/Utils/Enums';
+import { CustomersListComponent } from '../customers-list/customers-list.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -17,10 +18,15 @@ export class CustomerEditComponent implements OnInit {
   @ViewChild('cf') customerForm: NgForm;
   editFlag = false;
   deleteFlag = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   currentCustomerId: string = "318854125";
   currentCustomer: FullCustomerModel;
   currentCustomerImg: string;
   fileUploadFlag = false;
+  currentFile = null;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
    private customerService: CustomersService,
@@ -33,10 +39,10 @@ export class CustomerEditComponent implements OnInit {
       if(this.data.flag == CustomerCRUD.edit){
         this.editFlag = true;
         this.deleteFlag = false;
-        this.currentCustomerId = this.data.customerModel.customer.id;
-        this.currentCustomer = this.customerService.getFullCustomerInfoById(this.currentCustomerId);
+        this.currentCustomerId = this.data.customerModel.customer.customerId;
+        this.currentCustomer = this.data.customerModel;
         if(this.currentCustomer){
-          console.log(this.currentCustomer);
+          
           if(this.currentCustomer.contact){
             this.fileUploadFlag = true;
             this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
@@ -49,7 +55,7 @@ export class CustomerEditComponent implements OnInit {
       else if(this.data.flag == CustomerCRUD.delete){
         this.editFlag = false;
         this.deleteFlag = true;
-        this.currentCustomerId = this.data.customerModel.customer.id;
+        this.currentCustomerId = this.data.customerModel.customer.customerId;
         this.currentCustomer = this.data.customerModel;
       }
     }
@@ -65,8 +71,9 @@ export class CustomerEditComponent implements OnInit {
 
   setEditFormValues(){
     setTimeout(() => {
+      console.log(this.currentCustomer);
       this.customerForm.setValue({
-        companyId: this.currentCustomer.customer.id,
+        companyId: this.currentCustomer.customer.businessId,
         companyName: this.currentCustomer.customer.companyName,
         customerEmail: this.currentCustomer.contact.email,
         customerPhone: this.currentCustomer.contact.phone,
@@ -81,79 +88,110 @@ export class CustomerEditComponent implements OnInit {
     if(event.target.files && event.target.files.length){
       let file = event.target.files[0];
       //check if file is img
-      if(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/gif"){
-        this.currentCustomerImg = file.name;
+      if(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/gif" || file.type == "image/jpeg"){
+        let reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.currentCustomerImg = event.target.result;
+        }
+        reader.readAsDataURL(file);
         this.fileUploadFlag = true;
+        this.currentFile = file;
         
       }
       else{
         this.currentCustomerImg = null;
         this.fileUploadFlag = false;
+        this.currentFile = null;
       }
     }
     else{
       this.fileUploadFlag = true;
       this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
+      this.currentFile = null;
     }
   }
 
   onSubmit(customerForm){
     let result: any;
-    console.log(customerForm);
+    this.loading = true;
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
+      console.log(fullCustomer);
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){
-        //check if customer already exists by id
-        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
-        if(findCustomer && findCustomer.customer.id != this.currentCustomerId){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
-          return;
-        }
-        let customerData: customer = { id: this.currentCustomerId, companyName: fullCustomer.companyName, activityStatus: this.currentCustomer.customer.activityStatus, createdDate: null, contactID: this.currentCustomer.contact.id };
+        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: this.currentCustomer.customer.createdDate, contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
-        result = this.customerService.updateCustomer(customerData, contact,fullCustomer.companyId);
+          customerData.contact = contact;
         
+           this.customerService.updateCustomer(this.currentCustomerId, customerData,this.currentFile).subscribe(res => {
+          
+            if(res.message != ''){
+              this.customerService.getFullCustomersDetails().subscribe(result => {
+              this.customerService.fullCustomerDetailsSubject.next(result);
+              this.dialogRef.close(res);
+              this.loading = false;
+              });
+           }
+        });
       }
       //add new user 
       else if(this.editFlag == false && this.deleteFlag == false){
         //check if customer already exists by id
-        let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
-        if(findCustomer){
-          new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
-          return;
-        }
-        let customerData: customer = { id: fullCustomer.companyId, companyName: fullCustomer.companyName, activityStatus: "true", createdDate: null, contactID: null };
+        // let findCustomer = this.customerService.getFullCustomerInfoById(fullCustomer.companyId);
+        // if(findCustomer){
+        //   new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
+        //   return;
+        // }
+        let customerData: customer = { businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: new Date() };
         let contact: contact = { id: null, customerId: fullCustomer.companyId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: '',
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
-           result = this.customerService.addNewCustomer(customerData, contact);
+           customerData.contact = contact;
+           this.customerService.addNewCustomer(customerData).subscribe(res => {
+             
+             if(res.success != false){
+              this.customerService.getFullCustomersDetails().subscribe(result => {
+                this.customerService.fullCustomerDetailsSubject.next(result);
+                this.dialogRef.close(res);
+                this.loading = false;
+              })
+            }
+           });
       }
       //remove user
       else{
 
       }
-      if(result.message != ''){
-        this.dialogRef.close(result);
-      }
     }
     else{
       let res = { data: {customer: null, contact: null}, message: "נתונים שהוכנסו לא תקינים" };
-      this.dialogRef.close(result);
+      this.dialogRef.close(res);
+      this.loading = false;
     }
   }
 
   onDelete(){
-    let result = this.customerService.deleteCustomer(this.currentCustomer.customer);
-    console.log(result);
-    if(result.message != ''){
-      this.dialogRef.close(result);
-    }
+    this.loading = true;
+    let result = this.customerService.deleteCustomer(this.currentCustomerId,this.currentCustomer).subscribe(res => {
+      console.log(res);
+      if(res.message != ''){
+        this.customerService.getFullCustomersDetails().subscribe(result => {
+          this.customerService.fullCustomerDetailsSubject.next(result);
+          this.dialogRef.close(res);
+          this.loading = false;
+        })
+      }
+    });
   }
 
 
 
 }
+
+
+
+
+

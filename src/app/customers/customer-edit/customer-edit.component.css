@@ -22,4 +22,9 @@
     /* height: 50px; *//*
 } */
   
+  .img-responsive {
+    width: 100%;
+    max-width: 150px;
+    height: auto; 
+  }
 

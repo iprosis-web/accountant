@@ -78,7 +78,7 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   getCustomersDetails(customerId) {
-    this.customerData = this.customerService.getFullCustomerInfoById(customerId);
+    // this.customerData = this.customerService.getFullCustomerInfoById(customerId);
   }
 
   saveReportData() {

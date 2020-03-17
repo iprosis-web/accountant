@@ -1,9 +1,12 @@
+import { contact } from './contact';
+
 export class customer {
     
-    id:string;
-    companyName:string;
-    contactID:number;
-    createdDate: Date;
-    activityStatus: string;
-    
+    customerId?: string;  
+    businessId?: string;
+    companyName?: string;
+    contactID?: number;
+    createdDate?: Date;
+    isActive?: boolean = true;
+    contact?: contact;
 }
