@@ -46,7 +46,7 @@ import { ReportDetailsComponent } from "./reports/report-details/report-details.
 import { CustomersHeaderComponent } from "./customers/customers-header/customers-header.component";
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFirestoreModule, AngularFirestore } from "@angular/fire/firestore";
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CustomersComponent } from './customers/customers.component';
 import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
@@ -55,6 +55,7 @@ import { ReportInstitutionsPaymentsComponent } from './reports/report-details/re
 // import { ReportInstitutionsPaymentsComponent } from './reportDetails/report-institutions-payments/report-institutions-payment';
 import { ReportRealisticPaymentComponent } from './reports/report-details/report-realistic-payment/report-realistic-payment.component';
 import { ProgressSpinnerComponent } from './Utils/progress-spinner/progress-spinner.component';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -117,6 +118,8 @@ import { ProgressSpinnerComponent } from './Utils/progress-spinner/progress-spin
   entryComponents: [CustomerEditComponent, ToggleDialogComponent],
   providers: [
     {provide: MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS , useValue: {disableToggleValue: false, disableDragValue: true}},
+    AngularFireStorage,
+    AngularFirestore
   ],
   bootstrap: [AppComponent]
 })

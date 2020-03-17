@@ -5,10 +5,6 @@
     border: 2px solid black;
 }
 
-.customerDetailsList {
-
-}
-
 .mat-card{
    width: 100%;
    text-align:center;
@@ -53,15 +49,25 @@
       width:50px;
       height: 50px;
     }
+    .img-responsive-table {
+      width: 50px;
+      height: 50px;
+    }
     .table-init-info {
       margin-left: 20%;
     }
   }
 
+  .img-responsive {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+  }
+
   .img-responsive-table {
-      width: 100px;
-      height: 100px;
-      margin-top: 15px;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
       
   }
 
