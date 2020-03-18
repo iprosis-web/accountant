@@ -12,9 +12,11 @@ export const environment = {
     storageBucket: "accountantapp-d3d66.appspot.com",
     messagingSenderId: "1067290737827",
     appId: "1:1067290737827:web:b976c2dcc70c8831e01316",
-    measurementId: "G-DWNG1463ED"
+    measurementId: "G-DWNG1463ED",
+    reportCreatInitialFlag:false
   }
 };
+
 
 /*
  * For easier debugging in development mode, you can import the following file

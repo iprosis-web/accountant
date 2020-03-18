@@ -25,7 +25,6 @@ export class ServtestService {
   // R: Read
   // 1. Example1 by data range where id1 = data.id, id2 = data.name
   getData(data) {
-    console.log("Service get data:::", data);
     let id1 = data.id;
     let id2 = data.name;
     return (

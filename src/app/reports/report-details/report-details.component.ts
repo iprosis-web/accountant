@@ -44,6 +44,7 @@ export class ReportDetailsComponent implements OnInit {
   customerData: FullCustomerModel;
   panelOpenState = false;
   reportId: string;
+  loadFlag = false;
   reportsData;
   selectePCNReportdDate = new FormControl(new Date());
   selectedArrivedDate = new FormControl(new Date());
@@ -68,17 +69,30 @@ export class ReportDetailsComponent implements OnInit {
       this.reportId = params["id"];
       this.getReportDetails(this.reportId)
     });
-    // console.log(this.selectePCNReportdDate.value);
 
   }
 
   getReportDetails(reportId) {
+  //  this.reportService.getFullReportsDetailsById(reportId).subscribe(result => {
+
+  //   });
     this.reportsData = this.reportService.getReportById(reportId);
     this.getCustomersDetails(this.reportsData.customerID);
   }
 
   getCustomersDetails(customerId) {
-    // this.customerData = this.customerService.getFullCustomerInfoById(customerId);
+    ////////we willllllllllllllllll receive customer Data with customer id
+    customerId = "515151515";
+    this.customerService.getFullCustomerInfoByBusinessId(customerId).subscribe((res) => {
+      try {        
+        this.customerData = res[0];
+        this.loadFlag = true;
+
+
+      } catch (err) {
+        this.customerData = null;
+      }
+    });
   }
 
   saveReportData() {
@@ -87,9 +101,6 @@ export class ReportDetailsComponent implements OnInit {
     this.selectedDates.selectedStartJobDate = this.selectedStartJobDate.value.toString();
     this.selectedDates.selectedModifiedDate = this.selectedModifiedDate.value.toString();
     this.selectedDates.selectedEndReportDate = this.selectedEndReportDate.value.toString();
-
-    console.log('event', this.selectedDates);
-
 
   }
 }

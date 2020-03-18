@@ -71,7 +71,6 @@ export class CustomerEditComponent implements OnInit {
 
   setEditFormValues(){
     setTimeout(() => {
-      console.log(this.currentCustomer);
       this.customerForm.setValue({
         companyId: this.currentCustomer.customer.businessId,
         companyName: this.currentCustomer.customer.companyName,
@@ -116,7 +115,6 @@ export class CustomerEditComponent implements OnInit {
     this.loading = true;
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
-      console.log(fullCustomer);
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){
@@ -176,7 +174,6 @@ export class CustomerEditComponent implements OnInit {
   onDelete(){
     this.loading = true;
     let result = this.customerService.deleteCustomer(this.currentCustomerId,this.currentCustomer).subscribe(res => {
-      console.log(res);
       if(res.message != ''){
         this.customerService.getFullCustomersDetails().subscribe(result => {
           this.customerService.fullCustomerDetailsSubject.next(result);

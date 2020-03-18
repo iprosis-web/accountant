@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-report-institutions-payments',
   templateUrl: './report-institutions-payments.component.html',
-  styleUrls: ['../report-payments.component.css']
+  styleUrls: ['./report-institutions-payments.component.css']
 })
 export class ReportInstitutionsPaymentsComponent implements OnInit {
 
@@ -15,7 +15,7 @@ export class ReportInstitutionsPaymentsComponent implements OnInit {
   generalExemptionTurnoverJ: number;
   advanceTurnoverK: number;
   fInputTaxF: number;
-  retentionTaxG:number;
+  retentionTaxG: number;
   percentageOfAdvancesH: number;
   paypalVATN: number;
   calculatedDownPaymentL: number;
@@ -28,12 +28,12 @@ export class ReportInstitutionsPaymentsComponent implements OnInit {
     this.generalVATTurnoverI = this.taxableTurnoverA + this.taxableCapitalTurnoverB;
     this.generalExemptionTurnoverJ = this.exemptionTurnoverC + this.exemptionCapitalTurnoverD;
     this.advanceTurnoverK = this.taxableTurnoverA + this.exemptionTurnoverC;
-    this.paypalVATN = ((17/100) * this.taxableTurnoverA-(this.fInputTaxF+this.retentionTaxG));
+    this.paypalVATN = ((17 / 100) * this.taxableTurnoverA - (this.fInputTaxF + this.retentionTaxG));
     this.calculatedDownPaymentL = (this.percentageOfAdvancesH * this.advanceTurnoverK - this.retentionTaxG);
   }
 
   onSaveMethod() {
-    
+
   }
 
 }

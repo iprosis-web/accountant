@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-report-realistic-payment',
   templateUrl: './report-realistic-payment.component.html',
-  styleUrls: ['../report-payments.component.css']
+  styleUrls: ['./report-realistic-payment.component.css']
 })
 export class ReportRealisticPaymentComponent implements OnInit {
 
@@ -13,4 +12,8 @@ export class ReportRealisticPaymentComponent implements OnInit {
     console.log( Number(1200).toLocaleString('en-GB')); 
   }
 
+
+  saveReportActualCharge(){
+    
+  }
 }

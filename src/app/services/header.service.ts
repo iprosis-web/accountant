@@ -21,7 +21,6 @@ export class HeaderService {
   }
 
   updateFilterCustomer(filterData: CustomersFilterModel) {
-// console.log('Header service:::::: ', filterData);
 
     this.customersFilterData = filterData;
     this.customersFilterSubject.next(filterData);

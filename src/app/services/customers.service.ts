@@ -56,6 +56,7 @@ export class CustomersService {
     return (
       collectionRef.get().pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
+
         actions.forEach(el => {
           let d = new Date(el.data().createdDate.seconds);
           let tempElem = {
@@ -186,13 +187,11 @@ export class CustomersService {
             //first upload image
             let filePath = customer.customerId + "/images/" + file.name;
             let storageRef = this.storage.ref(filePath);
-            console.log(storageRef);
             let metadata = {
               contentType: file.type
             }
             let uploadedImgURL = null;
             let uploadTask = this.storage.upload(filePath, file, metadata);
-            console.log(uploadTask);
             uploadTask.snapshotChanges().pipe(
               finalize(() => storageRef.getDownloadURL().subscribe(ref => {
                 uploadedImgURL = ref;
@@ -243,7 +242,6 @@ export class CustomersService {
       return Observable.create((observer: Observer<ApiResult>) => {
         this.getFullCustomerInfoByBusinessId(newCustomer.businessId).subscribe(res => {
           //user alredy exist with businessId id
-          console.log(res.length);
           if(res.length > 0){
              result = { data: null,success: false, message: 'לקוח עם מספר עוסק כבר קיים במערכת' };
              observer.next(result);
@@ -277,10 +275,8 @@ export class CustomersService {
           //first delete image file then delete customer
           try{
             if(customer.contact.imgUrl != null && customer.contact.imgUrl != ""){
-              console.log(customer.contact.imgUrl);
               let fileStorageRef = this.storage.storage.refFromURL(customer.contact.imgUrl);
               fileStorageRef.delete().then(ref => {
-                console.log(ref);
                 this.fireStore.collection("customers")
                 .doc(customerId)
                 .delete()

@@ -27,8 +27,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
-  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
-  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), -1);
+  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
+  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth() + 1, -1);
   date = { startDate: this.firstDay, endDate: this.endDay };
   customerId = null;
   statusId = null;
@@ -48,7 +48,6 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    
     this.setTableData(this.date, this.customerId, this.statusId);
     this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
       let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
@@ -69,18 +68,17 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   setTableData(date, customerId, statusId) {    
     this.dataTableArray = [];
-    this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
-    console.log(this.dataTableArray);
+    this.reportsService.getCustomersReports(date, customerId, statusId).subscribe(result => {
+      this.dataTableArray = result;
+      this.dataSource.data = this.dataTableArray;
+    });
     if (this.dataTableArray.length <= 0) {
       new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
-      this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
     }
-    this.dataSource.data = this.dataTableArray;
   }
 
   getRowData(reportData){
       let rowData = JSON.stringify(reportData);    
-      new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
       this.router.navigate(['/report', reportData.reportID]);
   }
 
@@ -98,7 +96,6 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
     this.dialogRef.afterClosed().subscribe((res) => {
         this.setTableData(this.date, this.customerId, this.statusId);
-        //console.log(this.dataTableArray);
     });
   }
 
