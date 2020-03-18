@@ -34,9 +34,11 @@ export class ToggleDialogComponent implements OnInit {
   }
 
   onSubmit(){
-    let res = this.reportService.updateArriveToOffice(this.reportElement.reportID, this.addFlag);
-    new Helpers().displaySnackBar(this.snackBar, "נשמר בהצלחה","");
-    this.dialogRef.close(res);
+    this.reportService.updateArriveToOffice(this.reportElement.reportID, this.addFlag).subscribe(res => {
+      new Helpers().displaySnackBar(this.snackBar, "נשמר בהצלחה","");
+      this.dialogRef.close(res);
+    })
+
   }
 
 }

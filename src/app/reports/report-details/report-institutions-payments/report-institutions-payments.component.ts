@@ -35,12 +35,12 @@ export class ReportInstitutionsPaymentsComponent implements OnInit {
     this.generalVATTurnoverI = this.taxableTurnoverA + this.taxableCapitalTurnoverB;
     this.generalExemptionTurnoverJ = this.exemptionTurnoverC + this.exemptionCapitalTurnoverD;
     this.advanceTurnoverK = this.taxableTurnoverA + this.exemptionTurnoverC;
-    this.paypalVATN = ((17/100) * this.taxableTurnoverA-(this.fInputTaxF+this.retentionTaxG));
+    this.paypalVATN = ((17 / 100) * this.taxableTurnoverA - (this.fInputTaxF + this.retentionTaxG));
     this.calculatedDownPaymentL = (this.percentageOfAdvancesH * this.advanceTurnoverK - this.retentionTaxG);
   }
 
   onSaveMethod() {
-    
+
   }
 
 }

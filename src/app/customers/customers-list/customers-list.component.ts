@@ -101,9 +101,7 @@ export class CustomersListComponent implements OnInit , OnDestroy {
 
   setTableData(customerId, statusId) {    
     this.dataTableArray = [];  
-    
-    console.log('setTableData parans: :::', customerId, statusId);
-    this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
+        this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
       this.dataTableArray = res;
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
@@ -111,13 +109,11 @@ export class CustomersListComponent implements OnInit , OnDestroy {
       this.dataSource.data = this.dataTableArray;
     });
 
-    console.log(this.dataTableArray);
     
   }
 
   getRowData(customertData){
     let rowData = JSON.stringify(customertData);
-    console.log(rowData);  
     //new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + customertData.reportID,""  )
 
   }

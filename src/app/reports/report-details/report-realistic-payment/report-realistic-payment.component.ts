@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-report-realistic-payment',
   templateUrl: './report-realistic-payment.component.html',
@@ -12,4 +11,8 @@ export class ReportRealisticPaymentComponent implements OnInit {
   ngOnInit() {
   }
 
+
+  saveReportActualCharge(){
+    
+  }
 }

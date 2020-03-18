@@ -11,8 +11,8 @@
   </mat-toolbar>
 </div>
 
-<mat-sidenav-container class="app-side-nav" [hasBackdrop]="false">
-  <mat-sidenav  #sidenav mode="side" position="end" opened="false">
+<mat-sidenav-container class="app-side-nav" [hasBackdrop]="mobileQuery.matches ? true : false">
+  <mat-sidenav  #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" position="end" [opened]="mobileQuery.matches ? false : true">
     <mat-nav-list>
       <button class="close-button" mat-menu-item (click)="sidenav.toggle()" routerLinkActive="active">
         <mat-icon>arrow_forward</mat-icon>

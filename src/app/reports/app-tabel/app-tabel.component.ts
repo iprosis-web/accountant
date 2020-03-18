@@ -21,14 +21,18 @@ import { ToggleDialogComponent } from '../toggle-dialog/toggle-dialog.component'
   styleUrls: ['./app-tabel.component.css']
 })
 export class AppTabelComponent implements OnInit, OnDestroy {
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   toggleEnabled: boolean = false;
   reportsFilterSubscription: Subscription;
   displayedColumns: string[] = ['arrivedToOffice','companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
-  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
-  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), -1);
+  firstDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 1);
+  endDay = new Date(this.currDate.getFullYear(), this.currDate.getMonth() + 1, -1);
   date = { startDate: this.firstDay, endDate: this.endDay };
   customerId = null;
   statusId = null;
@@ -48,16 +52,14 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    
     this.setTableData(this.date, this.customerId, this.statusId);
-    this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe((filterData: ReportsFilterModel) => {
-      let dateFilter: DateFilterModel = { startDate: new Date(filterData.startDate.getFullYear(), filterData.startDate.getMonth(), 1)
-        , endDate: new Date(filterData.endDate.getFullYear(), filterData.endDate.getMonth()+1, -1)
+    this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe(res=> {
+      let dateFilter: DateFilterModel = { startDate: new Date(res.startDate.getFullYear(), res.startDate.getMonth(), 1)
+        , endDate: new Date(res.endDate.getFullYear(), res.endDate.getMonth()+1, -1)
       };
-      this.date = dateFilter;
-      this.customerId = filterData.company;
-      this.statusId = filterData.status;
-      this.setTableData(dateFilter, filterData.company, filterData.status);
+      this.customerId = res.company;
+      this.statusId = res.status;
+      this.setTableData(dateFilter, this.customerId,this.statusId);
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -69,22 +71,26 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   setTableData(date, customerId, statusId) {    
     this.dataTableArray = [];
-    this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
-    console.log(this.dataTableArray);
-    if (this.dataTableArray.length <= 0) {
-      new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
-      this.dataTableArray = this.reportsService.getCustomersReports(date, customerId, statusId);
-    }
-    this.dataSource.data = this.dataTableArray;
+    this.reportsService.getCustomersReports(date, customerId, statusId).subscribe(result => {
+      this.dataTableArray = result;      
+      this.dataSource.data = this.dataTableArray;
+      if (this.dataTableArray.length <= 0) {
+        new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+        this.dataSource.data = [];
+  
+      }
+      this.loading = false;
+    });
+
   }
 
   getRowData(reportData){
       let rowData = JSON.stringify(reportData);    
-      new Helpers().displaySnackBar(this.snackBar,"לקוח : " + reportData.companyName + " *****  " + 'תאריך דיווח : ' + reportData.dateStr,""  )
       this.router.navigate(['/report', reportData.reportID]);
   }
 
   arrivedToOfficeChange(event, element){
+   
     event.stopPropagation();
     this.dialogRef = this.confirmDialog.open(ToggleDialogComponent,  {
       direction: 'rtl',
@@ -97,8 +103,8 @@ export class AppTabelComponent implements OnInit, OnDestroy {
     });
 
     this.dialogRef.afterClosed().subscribe((res) => {
+      this.loading = true;
         this.setTableData(this.date, this.customerId, this.statusId);
-        //console.log(this.dataTableArray);
     });
   }
 

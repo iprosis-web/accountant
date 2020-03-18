@@ -5,7 +5,7 @@ import { customer } from '../models/customer';
 import { contact } from '../models/contact';
 import { Subject, Observable, Observer } from 'rxjs';
 import { map, finalize } from 'rxjs/operators'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ApiResult } from '../models/apiResult';
 
@@ -31,11 +31,32 @@ export class CustomersService {
     else {
       status = false;
     }
+    let collectionRef: AngularFirestoreCollection;
+    if(customerId != null || customerId != undefined){
+      if(status != null || status != undefined ){
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("customerId", "==", customerId).where("isActive", "==", status))
+      }
+      else{
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("customerId", "==", customerId))
+      }
+    }
+    else{
+      if(status != null || status != undefined){
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("isActive", "==", status))
+      }
+      else{
+        collectionRef = this.fireStore.collection("customers")
+      }
+      
+    }
     
     return (
-      this.fireStore
-      .collection("customers").get().pipe( map(actions => {
+      collectionRef.get().pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
+
         actions.forEach(el => {
           let d = new Date(el.data().createdDate.seconds);
           let tempElem = {
@@ -53,11 +74,12 @@ export class CustomersService {
           customersArr.push(tempElem);
         })
           console.log(this.allCustomers);
-          return this.allCustomers = customersArr.filter(customer => 
-            (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
-            (customer.customer.isActive == status || status == undefined || status == null)
+          return this.allCustomers = customersArr;
+          //. filter(customer => 
+          //   (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
+          //   (customer.customer.isActive == status || status == undefined || status == null)
 
-          )
+          // )
       }))
     )
     
@@ -165,13 +187,11 @@ export class CustomersService {
             //first upload image
             let filePath = customer.customerId + "/images/" + file.name;
             let storageRef = this.storage.ref(filePath);
-            console.log(storageRef);
             let metadata = {
               contentType: file.type
             }
             let uploadedImgURL = null;
             let uploadTask = this.storage.upload(filePath, file, metadata);
-            console.log(uploadTask);
             uploadTask.snapshotChanges().pipe(
               finalize(() => storageRef.getDownloadURL().subscribe(ref => {
                 uploadedImgURL = ref;
@@ -222,7 +242,6 @@ export class CustomersService {
       return Observable.create((observer: Observer<ApiResult>) => {
         this.getFullCustomerInfoByBusinessId(newCustomer.businessId).subscribe(res => {
           //user alredy exist with businessId id
-          console.log(res.length);
           if(res.length > 0){
              result = { data: null,success: false, message: 'לקוח עם מספר עוסק כבר קיים במערכת' };
              observer.next(result);
@@ -256,10 +275,8 @@ export class CustomersService {
           //first delete image file then delete customer
           try{
             if(customer.contact.imgUrl != null && customer.contact.imgUrl != ""){
-              console.log(customer.contact.imgUrl);
               let fileStorageRef = this.storage.storage.refFromURL(customer.contact.imgUrl);
               fileStorageRef.delete().then(ref => {
-                console.log(ref);
                 this.fireStore.collection("customers")
                 .doc(customerId)
                 .delete()
