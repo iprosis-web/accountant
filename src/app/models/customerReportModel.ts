@@ -1,5 +1,5 @@
 export class CustomerReportModel{
-    reportID: number
+    reportID: string
     customerID: string
     companyName: string
     companyEmail: string

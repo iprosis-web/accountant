@@ -8,7 +8,7 @@ import { CustomersFilterModel } from '../models/customersFilterModel';
 })
 export class HeaderService {
   reportsFilterSubject: Subject<ReportsFilterModel> = new Subject<ReportsFilterModel>();
-  reportsFilterData: ReportsFilterModel = {startDate: new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  reportsFilterData: ReportsFilterModel = {startDate: new Date(),
      endDate: new Date(), company: null,status: null};
 
   customersFilterSubject: Subject<CustomersFilterModel>= new Subject<CustomersFilterModel>();

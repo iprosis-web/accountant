@@ -73,17 +73,21 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   getReportDetails(reportId) {
-  //  this.reportService.getFullReportsDetailsById(reportId).subscribe(result => {
-
-  //   });
-    this.reportsData = this.reportService.getReportById(reportId);
-    this.getCustomersDetails(this.reportsData.customerID);
+   this.reportService.getReportById(reportId).subscribe(result => {
+     try{
+      this.reportsData = result;
+      this.getCustomersDetails(this.reportsData.customerId);
+     }catch(err) {
+      this.reportsData = null;
+      this.getCustomersDetails(null);
+     }
+    });
   }
 
   getCustomersDetails(customerId) {
     ////////we willllllllllllllllll receive customer Data with customer id
-    customerId = "515151515";
-    this.customerService.getFullCustomerInfoByBusinessId(customerId).subscribe((res) => {
+    
+    this.customerService.getFullCustomerInfoById(customerId).subscribe((res) => {
       try {        
         this.customerData = res[0];
         this.loadFlag = true;

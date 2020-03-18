@@ -9,6 +9,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 import { ReportsService } from 'src/app/services/reports.service';
+import {CustomersService} from '../../services/customers.service';
 import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
 import { HeaderService } from 'src/app/services/header.service';
 
@@ -52,7 +53,8 @@ export class AppHeaderComponent implements OnInit {
   selectedEndDate = new FormControl(moment());
 
   constructor(private reportsService: ReportsService,
-    private headerService: HeaderService, ) {
+    private headerService: HeaderService,
+    private customerService :CustomersService ) {
   }
 
   filtersDataObject: ReportsFilterModel = {
@@ -62,7 +64,9 @@ export class AppHeaderComponent implements OnInit {
     endDate: new Date()
   };
   ngOnInit() {
-    this.customers = this.reportsService.getAllCustomers();
+    this.customerService.getFullCustomersDetails().subscribe(res => {
+      this.customers = res;
+    })
     this.statuses = this.reportsService.getAllStatuses();
     
   }
@@ -84,7 +88,7 @@ export class AppHeaderComponent implements OnInit {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
     this.selectedStartDate.setValue(ctrlValue);
-    this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
+    this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();    
     datepicker.close();
 
   }

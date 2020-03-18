@@ -9,7 +9,7 @@ export class reportsData {
             id: 1,
             customerId: "318854125",
             reportDate: new Date('2019-01-16'),
-            creatDate: new Date('2019-01-16').getTime(),
+            createDateNum: new Date('2019-01-16').getTime(),
             status: +Statuses.working,
             indication: Indications.fail,
             comment: "חסרים דיווחי משכורות",
