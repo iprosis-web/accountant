@@ -4,6 +4,7 @@
       צפי תשלומים למוסדות
     </div>
     <div class="card">
+
       <div class="row">
         <div class="col-md-12">
           <div class="row">
@@ -11,12 +12,11 @@
               <div class="title card-title">
                 פרמטרים חודשיים
               </div>
-                <mat-form-field class="mat-form-field-class" appearance="outline">
-                  <mat-label class="hh">מחזור חייב</mat-label>
-                  <mat-icon matPrefix>₪</mat-icon>
-                  <input matInput type="number" [(ngModel)]="taxableTurnoverA" (change)=getGeneralVAT()>
-
-                </mat-form-field>
+              <mat-form-field class="mat-form-field-class" appearance="outline">
+                <mat-label class="hh">מחזור חייב</mat-label>
+                <mat-icon matPrefix>₪</mat-icon>
+                <input matInput type="number" [(ngModel)]="taxableTurnoverA" (change)=getGeneralVAT()>
+              </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור הוני חייב</mat-label>
                 <input matInput type="number" [(ngModel)]="taxableCapitalTurnoverB" (change)=getGeneralVAT()>
@@ -34,7 +34,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">תשומות</mat-label>
-                <input matInput type="number">
+                <input matInput type="number" [(ngModel)]="inputsE" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
@@ -54,7 +54,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור חשבונית עצמתית (ס.20)</mat-label>
-                <input matInput type="number">
+                <input matInput type="number" [(ngModel)]="invoicingM" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <!-- </div> -->
@@ -78,7 +78,7 @@
                 <input matInput type="number" [readonly]="true" [(ngModel)]="generalExemptionTurnoverJ">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
-              <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace">
+              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>
@@ -95,7 +95,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">סה"כ ניכויים</mat-label>
-                <input matInput type="number" [readonly]="true">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="totalDeductions">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
             </div>
@@ -110,7 +110,7 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">ערך מע"מ</mat-label>
-                <input matInput type="number" [readonly]="true">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="vatValue">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
@@ -130,12 +130,12 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מקדמות בפועל</mat-label>
-                <input matInput type="number" [readonly]="true">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="actualDownPaymentsFee">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">ניכויים למ"ה</mat-label>
-                <input matInput type="number" [readonly]="true">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="incomeTaxDeductions">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
             </div>
@@ -149,7 +149,5 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </div>

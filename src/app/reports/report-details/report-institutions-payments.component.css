@@ -1,13 +1,14 @@
-.row{
+
+/* .row{
     margin:0;
     text-align: center;
-}
+} */
 
 .c-row{
-    display: flex;
-    flex-direction:row;
+    /* display: flex; */
+    /* flex-direction:row; */
     justify-content: center;
-} 
+}  
 
 .title{
     display: flex;
@@ -20,13 +21,22 @@
     background-color: rgb(192, 216, 216);
 }
 
-.hh {
-    font-weight: bold;
-    /* text-align: center; */
-    margin-right: 20px;
+.primaryTitle3 {
+    background-color: rgb(207, 241, 241);
 }
 
-.mat-form-field-appearance-outline {
+.hh {
+    font-weight: bold;
+}
+
+:host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: rgba(238, 238, 238, 0.993) !important;
+}
+:host ::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+}
+
+/* .mat-form-field-appearance-outline {
     width: 220px;
     height: 50px;
     line-height: 1.725;
@@ -34,13 +44,9 @@
     text-align: right;
 }
 
-:host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: rgba(238, 238, 238, 0.993) !important;
-}
 
-:host::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
-    color: white !important;
-}
+
+
 
 :host ::ng-deep .mat-form-field-infix {
     padding: 6px 0 3px 0;
@@ -54,7 +60,7 @@
 
 .mat-form-field-should-float {
     text-align: right !important;
- } 
+ }  */
 
 .saveButton {
      width: 150px;
@@ -65,7 +71,40 @@
      color: white;
  }
 
-.button-row {
-     direction: ltr;
-     margin: 10px;
+ .card {
+     text-align: center;
  }
+.button-row {
+     /* margin: 10px; */
+     text-align: left;
+ }
+
+
+ /* .customer-form-container .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+    margin-top: 5px;
+  }
+
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0 0.5em 0 !important;
+  } */
+
+  div.mat-form-field { 
+    /* width: 100%; */
+     max-width: 220px;
+    height: 50px;
+    margin: 10px;
+    margin-bottom: 20px;
+    
+  } 
+
+:host ::ng-deep .mat-form-field-infix {
+     /* padding: 6px 0 3px 0; */ 
+     /* margin-left: -42px;
+    font-size: 18px;
+    border-top: 0.8em solid transparent !important; */
+    text-align: right;
+} 
+/* ::ng-deep .mat-form-field-label{
+transform: translateY(-1.7em)  translateX(-1em) scale(0.75) !important;
+} */

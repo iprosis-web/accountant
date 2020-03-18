@@ -1,15 +1,11 @@
 .report-container{
-    /* margin:1% 5% 0 5%; */
-    overflow-y: auto;
-    max-height:550px;
+    overflow: auto;
     width: 100%;
-
-
+    margin-top: 13px;
+    margin-bottom: 80px;
+    padding: 8px;
 }
 
-.row{
-    margin:0;
-}
 
 .customer-data{
     margin-top: 2%;
@@ -18,8 +14,8 @@
 .newSection {
     margin: 1%; 
     margin-top: 2%; 
-   
 }
+/*
 .card-title {
     text-align: right;
 }
@@ -29,31 +25,110 @@
     justify-content: center;
 }
 
-.border-title{
-    font-weight: bold;
-}
 
+*/
 .res{
-    margin-right:1%;
-}
-
-:host ::ng-deep .mat-form-field{
-    direction: ltr;  
-}
-
-.mat-form-field-appearance-outline {
-    width: 220px;
-    height: 50px;
-    line-height: 1.725;
-    margin: 3px;
+   text-align: right;
+} 
+ .border-title{
+    font-weight: bold;
+    width: 100px;
     text-align: right;
 }
 
-.status{
-    align-items: right;
-}
+/* .res{
+    padding-right:50px;
+     width: 100px; 
+}  */
+
+
+:host ::ng-deep .mat-form-field-appearance-outline{
+    direction: ltr; 
+} 
+/* 
+
+
 
 .panel-title{
     display: flex;
     flex-grow: 0 !important;
+} */
+
+/*  6666666666666666666666 */
+
+/* .row{
+    margin:1px;
+     margin-top: 4px; 
+    text-align: right;
 }
+*/
+.c-row{
+    display: flex;
+    flex-direction:row;
+    /* justify-content: right; */
+    height: 50px;
+    margin-right: 10px;
+} 
+.title{
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    margin: 3px;
+}
+
+.primaryTitle1 {
+    background-color: rgb(250, 245, 248);
+}
+
+.primaryTitle2 {
+    background-color: rgb(196, 181, 189);
+}
+
+.hh {
+    font-weight: bold;
+}
+
+.jjj{
+    margin-right:1%;
+}
+
+/* .mat-form-field-appearance-outline {
+    width: 100%;
+    height: 50px;
+    line-height: 1.725;
+    margin: 4px;
+    text-align: right;
+} */
+
+ :host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: rgba(238, 238, 238, 0.993) !important;
+}
+
+:host ::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+} 
+
+.saveButton {
+     width: 150px;
+     background-color:#3f51b5;
+     direction: ltr;
+     margin-left: 0;
+     display: initial;
+     color: white;
+ }
+
+.button-row {
+     margin: 10px;
+     text-align: left;
+ }
+
+:host ::ng-deep .outline-date .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding:0px !important;
+    width:150px !important;
+    margin-right:0;
+}
+
+.outline-date{
+    text-align: right;
+}
+

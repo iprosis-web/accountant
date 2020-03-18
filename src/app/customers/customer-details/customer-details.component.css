@@ -3,11 +3,14 @@
     justify-content: center;
     align-items: center;
     border: 2px solid black;
+
+
 }
 
 .mat-card{
    width: 100%;
    text-align:center;
+   background-color: #f8f9fa;
 }
 
 .mat-card-content {

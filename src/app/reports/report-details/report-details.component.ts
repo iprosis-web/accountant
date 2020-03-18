@@ -68,13 +68,19 @@ export class ReportDetailsComponent implements OnInit {
       this.reportId = params["id"];
       this.getReportDetails(this.reportId)
     });
+    this.customerService.getFullCustomersDetails().subscribe(res => {
+      console.log(res);
+      if(res.length > 0)
+      this.customerData = res[0];
+    })
     // console.log(this.selectePCNReportdDate.value);
 
   }
 
   getReportDetails(reportId) {
     this.reportsData = this.reportService.getReportById(reportId);
-    this.getCustomersDetails(this.reportsData.customerID);
+    // this.getCustomersDetails(this.reportsData.customerID);
+
   }
 
   getCustomersDetails(customerId) {

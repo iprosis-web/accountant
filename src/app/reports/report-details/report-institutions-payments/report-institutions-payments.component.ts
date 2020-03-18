@@ -7,18 +7,25 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class ReportInstitutionsPaymentsComponent implements OnInit {
 
-  taxableTurnoverA: number=null;
-  taxableCapitalTurnoverB: number;
-  generalVATTurnoverI: number;
-  exemptionTurnoverC: number;
-  exemptionCapitalTurnoverD: number;
-  generalExemptionTurnoverJ: number;
-  advanceTurnoverK: number;
-  fInputTaxF: number;
-  retentionTaxG:number;
-  percentageOfAdvancesH: number;
-  paypalVATN: number;
-  calculatedDownPaymentL: number;
+  taxableTurnoverA: number=0;
+  taxableCapitalTurnoverB: number=0;
+  generalVATTurnoverI: number=0;
+  exemptionTurnoverC: number=0;
+  exemptionCapitalTurnoverD: number=0;
+  inputsE: number=0;
+  generalExemptionTurnoverJ: number=0;
+  advanceTurnoverK: number=0;
+  fInputTaxF: number=0;
+  retentionTaxG:number=0;
+  percentageOfAdvancesH: number=0;
+  paypalVATN: number=0;
+  invoicingM:number=0;
+  calculatedDownPaymentL: number=0;
+  
+  totalDeductions: number=0;
+  vatValue: number=0;
+  actualDownPaymentsFee: number=0;
+  incomeTaxDeductions: number=0;
   constructor() { }
 
   ngOnInit() {
