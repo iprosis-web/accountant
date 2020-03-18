@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
@@ -11,6 +11,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 import { ReportsService } from 'src/app/services/reports.service';
 import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
 import { HeaderService } from 'src/app/services/header.service';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 const moment = _rollupMoment || _moment;
 
@@ -43,7 +44,11 @@ export const MY_FORMATS = {
     { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
 })
-export class AppHeaderComponent implements OnInit {
+export class AppHeaderComponent implements OnInit, OnDestroy {
+  mobileQuery: MediaQueryList;
+
+  private _mobileQueryListener: () => void;
+
   customers = [];
   statuses = [];
   selectedCustomer: string = "null";
@@ -52,7 +57,9 @@ export class AppHeaderComponent implements OnInit {
   selectedEndDate = new FormControl(moment());
 
   constructor(private reportsService: ReportsService,
-    private headerService: HeaderService, ) {
+    private headerService: HeaderService,
+    private changeDetectorRef: ChangeDetectorRef,
+     private media: MediaMatcher) {
   }
 
   filtersDataObject: ReportsFilterModel = {
@@ -62,6 +69,12 @@ export class AppHeaderComponent implements OnInit {
     endDate: new Date()
   };
   ngOnInit() {
+        //match media to max-width of 600
+    this.mobileQuery = this.media.matchMedia('(max-width: 920px)');
+    //activate litsener to media to be able to listen to media changes
+    this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+
     this.customers = this.reportsService.getAllCustomers();
     this.statuses = this.reportsService.getAllStatuses();
     
@@ -104,5 +117,10 @@ export class AppHeaderComponent implements OnInit {
     this.filtersDataObject.endDate = this.selectedEndDate.value.toDate();
     datepicker.close();
   }
+
+  ngOnDestroy(){
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
 
 }

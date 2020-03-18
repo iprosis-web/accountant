@@ -1,6 +1,6 @@
 <div class="navbar" fxFlexFill>
   <form #f="ngForm">
-    <div class=".mat-form-field-appearance-outline .mat-form-field-infix">
+    <div class="navbar-container .mat-form-field-appearance-outline .mat-form-field-infix">
       <mat-form-field appearance="outline">
         <mat-label>בחר חברה</mat-label>
         <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
@@ -35,10 +35,14 @@
           (monthSelected)="chosenEndMonthHandler($event, picker2)" panelClass="example-month-picker">>
         </mat-datepicker>
       </mat-form-field>
-      <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
+      <div *ngIf="!mobileQuery.matches" class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
         <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
           (click)="onFilterSubmitted()">סנן</button>
       </div>
+    </div>
+    <div *ngIf="mobileQuery.matches" class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
+      <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
+        (click)="onFilterSubmitted()">סנן</button>
     </div>
   </form>
 </div>
