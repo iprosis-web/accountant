@@ -7,6 +7,7 @@ import { customer } from 'src/app/models/customer';
 import { contact } from 'src/app/models/contact';
 import { Helpers } from 'src/app/Utils/Helpers';
 import { CustomerCRUD } from 'src/app/Utils/Enums';
+import { CustomersListComponent } from '../customers-list/customers-list.component';
 
 @Component({
   selector: 'app-customer-edit',
@@ -17,10 +18,15 @@ export class CustomerEditComponent implements OnInit {
   @ViewChild('cf') customerForm: NgForm;
   editFlag = false;
   deleteFlag = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   currentCustomerId: string = "318854125";
   currentCustomer: FullCustomerModel;
   currentCustomerImg: string;
   fileUploadFlag = false;
+  currentFile = null;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data:any,
    private customerService: CustomersService,
@@ -81,25 +87,32 @@ export class CustomerEditComponent implements OnInit {
     if(event.target.files && event.target.files.length){
       let file = event.target.files[0];
       //check if file is img
-      if(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/gif"){
-        this.currentCustomerImg = file.name;
+      if(file.type == "image/png" || file.type == "image/jpg" || file.type == "image/gif" || file.type == "image/jpeg"){
+        let reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.currentCustomerImg = event.target.result;
+        }
+        reader.readAsDataURL(file);
         this.fileUploadFlag = true;
+        this.currentFile = file;
         
       }
       else{
         this.currentCustomerImg = null;
         this.fileUploadFlag = false;
+        this.currentFile = null;
       }
     }
     else{
       this.fileUploadFlag = true;
       this.currentCustomerImg = this.currentCustomer.contact.imgUrl;
+      this.currentFile = null;
     }
   }
 
   onSubmit(customerForm){
     let result: any;
-    
+    this.loading = true;
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
@@ -110,13 +123,15 @@ export class CustomerEditComponent implements OnInit {
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
           customerData.contact = contact;
-           this.customerService.updateCustomer(this.currentCustomerId, customerData).subscribe(res => {
+        
+           this.customerService.updateCustomer(this.currentCustomerId, customerData,this.currentFile).subscribe(res => {
           
             if(res.message != ''){
-            this.customerService.getFullCustomersDetails().subscribe(result => {
-              this.dialogRef.close(res);
+              this.customerService.getFullCustomersDetails().subscribe(result => {
               this.customerService.fullCustomerDetailsSubject.next(result);
-            })
+              this.dialogRef.close(res);
+              this.loading = false;
+              });
            }
         });
       }
@@ -135,10 +150,11 @@ export class CustomerEditComponent implements OnInit {
            customerData.contact = contact;
            this.customerService.addNewCustomer(customerData).subscribe(res => {
              
-             if(res.message != ''){
+             if(res.success != false){
               this.customerService.getFullCustomersDetails().subscribe(result => {
                 this.customerService.fullCustomerDetailsSubject.next(result);
                 this.dialogRef.close(res);
+                this.loading = false;
               })
             }
            });
@@ -151,16 +167,18 @@ export class CustomerEditComponent implements OnInit {
     else{
       let res = { data: {customer: null, contact: null}, message: "נתונים שהוכנסו לא תקינים" };
       this.dialogRef.close(res);
+      this.loading = false;
     }
   }
 
   onDelete(){
-    let result = this.customerService.deleteCustomer(this.currentCustomerId).subscribe(res => {
-      
-      if(result.message != ''){
+    this.loading = true;
+    let result = this.customerService.deleteCustomer(this.currentCustomerId,this.currentCustomer).subscribe(res => {
+      if(res.message != ''){
         this.customerService.getFullCustomersDetails().subscribe(result => {
           this.customerService.fullCustomerDetailsSubject.next(result);
           this.dialogRef.close(res);
+          this.loading = false;
         })
       }
     });
@@ -169,3 +187,8 @@ export class CustomerEditComponent implements OnInit {
 
 
 }
+
+
+
+
+

@@ -59,6 +59,8 @@
           <mat-label for="customerImg" mat-raised-button color="primary"> העלה תמונה: </mat-label>
           <input name="customerImg" id="customerImg" #customerImg multiple type="file" (change)="fileChange($event)">
           <mat-error *ngIf="!fileUploadFlag && currentCustomerImg == null">תמונה חייבת להיות מסוגים: jpg,png,gif</mat-error>
+          <img class="img-responsive" *ngIf="fileUploadFlag && currentCustomerImg != null"
+          [src]="currentCustomerImg">
         </div>
         <br>
         <span matTooltip="חובה למלא שדות בהתאם" [matTooltipDisabled]="customerForm.valid && (fileUploadFlag || currentCustomerImg != null)">
@@ -81,3 +83,7 @@
       <button mat-raised-button mat-dialog-close tabindex="-1">ביטול</button>
     </mat-dialog-actions>
   </div>
+
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="loading">
+</app-progress-spinner>

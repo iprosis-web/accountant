@@ -15,8 +15,12 @@ import {
   MatSnackBarModule,
   MatSidenavModule,
   MatListModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,
+  MatProgressSpinnerModule
 } from "@angular/material";
+
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
@@ -42,7 +46,7 @@ import { ReportDetailsComponent } from "./reports/report-details/report-details.
 import { CustomersHeaderComponent } from "./customers/customers-header/customers-header.component";
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { AngularFirestoreModule, AngularFirestore } from "@angular/fire/firestore";
 import {MatExpansionModule} from '@angular/material/expansion';
 import { CustomersComponent } from './customers/customers.component';
 import { ToggleDialogComponent } from "./reports/toggle-dialog/toggle-dialog.component";
@@ -50,6 +54,8 @@ import { TestcompComponent } from "./testcomp/testcomp.component";
 import { ReportInstitutionsPaymentsComponent } from './reports/report-details/report-institutions-payments/report-institutions-payments.component';
 // import { ReportInstitutionsPaymentsComponent } from './reportDetails/report-institutions-payments/report-institutions-payment';
 import { ReportRealisticPaymentComponent } from './reports/report-details/report-realistic-payment/report-realistic-payment.component';
+import { ProgressSpinnerComponent } from './Utils/progress-spinner/progress-spinner.component';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -69,7 +75,8 @@ import { ReportRealisticPaymentComponent } from './reports/report-details/report
     ToggleDialogComponent,
     TestcompComponent,
     ReportInstitutionsPaymentsComponent,
-    ReportRealisticPaymentComponent
+    ReportRealisticPaymentComponent,
+    ProgressSpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -104,10 +111,16 @@ import { ReportRealisticPaymentComponent } from './reports/report-details/report
     AngularFirestoreModule,
     MatExpansionModule,
     MatSidenavModule,
-    MatListModule 
+    MatListModule,
+    MatProgressSpinnerModule,
+    OverlayModule
   ],
   entryComponents: [CustomerEditComponent, ToggleDialogComponent],
-  providers: [],
+  providers: [
+    {provide: MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS , useValue: {disableToggleValue: false, disableDragValue: true}},
+    AngularFireStorage,
+    AngularFirestore
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

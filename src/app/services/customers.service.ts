@@ -4,17 +4,20 @@ import { FullCustomerModel } from '../models/fullCustomerModel';
 import { customer } from '../models/customer';
 import { contact } from '../models/contact';
 import { Subject, Observable, Observer } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map, finalize } from 'rxjs/operators'
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { ApiResult } from '../models/apiResult';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomersService {
+  allCustomers: FullCustomerModel[] = [];
   fullCustomerDetailsSubject: Subject<FullCustomerModel[]> = new Subject<FullCustomerModel[]>();
   fullCustomersData: FullCustomerModel[] = [];
-  constructor(private reportService: ReportsService,private fireStore: AngularFirestore) { }
+  constructor(private reportService: ReportsService,
+    private fireStore: AngularFirestore,private storage: AngularFireStorage) { }
 
   getFilteredCustomers(customerId: string, statusString:string) {
 // changing status to string , adding statuses string array + changing to string in DB
@@ -22,7 +25,7 @@ export class CustomersService {
     if(statusString == null){
       status = null;
     }
-    else if (statusString === 'true') {
+    else if (statusString === 'פעיל') {
       status = true;
     }
     else {
@@ -50,9 +53,10 @@ export class CustomersService {
           tempElem.customer.createdDate = d;
           customersArr.push(tempElem);
         })
-          return customersArr.filter(customer => 
+          return this.allCustomers = customersArr.filter(customer => 
             (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
             (customer.customer.isActive == status || status == undefined || status == null)
+
           )
       }))
     )
@@ -144,7 +148,7 @@ export class CustomersService {
 
     }  
 
-    updateCustomer(customerId: string,customer: customer){
+    updateCustomer(customerId: string,customer: customer, file){
       let result: ApiResult;
       //check if businessId Already Exists
       return Observable.create((observer: Observer<ApiResult>) => {
@@ -157,17 +161,53 @@ export class CustomersService {
              observer.complete();
           }
           //user can be updated
-          else{
-            this.fireStore.collection("customers")
-            .doc(customerId)
-            .update(customer)
-            .then(
-              res => {
-                result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
-                observer.next(result);
-                observer.complete();
-              }
-            );
+          else if(file != null){
+            //first upload image
+            let filePath = customer.customerId + "/images/" + file.name;
+            let storageRef = this.storage.ref(filePath);
+            let metadata = {
+              contentType: file.type
+            }
+            let uploadedImgURL = null;
+            let uploadTask = this.storage.upload(filePath, file, metadata);
+            uploadTask.snapshotChanges().pipe(
+              finalize(() => storageRef.getDownloadURL().subscribe(ref => {
+                uploadedImgURL = ref;
+                if(uploadedImgURL == null){
+                  result = {data: customer, success: false, message: "אירעה שגיאה בשמירת תמונה"}
+                  observer.next(result);
+                  observer.complete();
+                }
+                else{
+                  customer.contact.imgUrl = uploadedImgURL;
+                  this.fireStore.collection("customers")
+                  .doc(customerId)
+                  .update(customer)
+                  .then(
+                    res => {
+                      result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
+                      observer.next(result);
+                      observer.complete();
+                    }
+                  );
+                }
+              }))
+            )
+            .subscribe(ref => {
+              
+            })
+        }
+        else{
+          this.fireStore.collection("customers")
+          .doc(customerId)
+          .update(customer)
+          .then(
+            res => {
+              result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
+              observer.next(result);
+              observer.complete();
+            }
+          );
         }
       });
      });
@@ -205,21 +245,47 @@ export class CustomersService {
       })
     }
 
-    deleteCustomer(customerId: string){
+    deleteCustomer(customerId: string,customer: customer){
       let result: ApiResult;
       //check if businessId Already Exists
       return Observable.create((observer: Observer<ApiResult>) => {
           //user can be updated
-            this.fireStore.collection("customers")
-            .doc(customerId)
-            .delete()
-            .then(
-              (res: any) => {
-                result = {data: res, success: true, message: 'לקוח עודכן בהצלחה'}
-                observer.next(result);
-                observer.complete();
-              }
-            );
+          //first delete image file then delete customer
+          try{
+            if(customer.contact.imgUrl != null && customer.contact.imgUrl != ""){
+              let fileStorageRef = this.storage.storage.refFromURL(customer.contact.imgUrl);
+              fileStorageRef.delete().then(ref => {
+                this.fireStore.collection("customers")
+                .doc(customerId)
+                .delete()
+                .then(
+                  (res: any) => {
+                    result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
+                    observer.next(result);
+                    observer.complete();
+                  }
+                );
+              })
+            }
+            else{
+              //if no img then just delete user
+              this.fireStore.collection("customers")
+              .doc(customerId)
+              .delete()
+              .then(
+                (res: any) => {
+                  result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
+                  observer.next(result);
+                  observer.complete();
+                }
+              );
+            }
+          }
+          catch(er){
+            result = {data: null, success: false, message: 'אירעה שגיאה במחיקת לקוח'}
+            observer.next(result);
+            observer.complete();
+          }
      });
     }
 
