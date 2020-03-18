@@ -1,6 +1,6 @@
 <div class="customers-navbar" fxFlexFill>
   <form #f="ngForm" class="form-container">
-    <div class="filter-container">
+    <div class="filter-container" >
       <mat-form-field appearance="outline">
         <mat-label>בחר חברה</mat-label>
         <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
@@ -20,10 +20,11 @@
         </mat-select>
       </mat-form-field>
 
-      <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
-        <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
-          (click)="onFilterSubmitted()">סנן</button>
-      </div>
+
+    </div>
+    <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
+      <button mat-raised-button class="toolbarButton" type="submit" [disabled]="!f.valid"
+        (click)="onFilterSubmitted()">סנן</button>
     </div>
 
     <div class="person_add-icon">

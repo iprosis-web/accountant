@@ -18,6 +18,15 @@
     padding: 0.3rem 0 0.3rem 0 !important;   
 }
 
+@media only screen and (max-width: 800px) {
+  .navbar-container{
+    margin-left: 50%;
+  
+  }
+}
+
+
+
 .buttonTooltipSubmitt {
   display: inline;
 }

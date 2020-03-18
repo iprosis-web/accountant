@@ -5,7 +5,7 @@ import { customer } from '../models/customer';
 import { contact } from '../models/contact';
 import { Subject, Observable, Observer } from 'rxjs';
 import { map, finalize } from 'rxjs/operators'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ApiResult } from '../models/apiResult';
 
@@ -31,10 +31,30 @@ export class CustomersService {
     else {
       status = false;
     }
+    let collectionRef: AngularFirestoreCollection;
+    if(customerId != null || customerId != undefined){
+      if(status != null || status != undefined ){
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("customerId", "==", customerId).where("isActive", "==", status))
+      }
+      else{
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("customerId", "==", customerId))
+      }
+    }
+    else{
+      if(status != null || status != undefined){
+        collectionRef = this.fireStore.collection("customers", ref =>
+        ref.where("isActive", "==", status))
+      }
+      else{
+        collectionRef = this.fireStore.collection("customers")
+      }
+      
+    }
     
     return (
-      this.fireStore
-      .collection("customers").get().pipe( map(actions => {
+      collectionRef.get().pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
 
         actions.forEach(el => {
@@ -53,11 +73,13 @@ export class CustomersService {
           tempElem.customer.createdDate = d;
           customersArr.push(tempElem);
         })
-          return this.allCustomers = customersArr.filter(customer => 
-            (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
-            (customer.customer.isActive == status || status == undefined || status == null)
+          console.log(this.allCustomers);
+          return this.allCustomers = customersArr;
+          //. filter(customer => 
+          //   (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
+          //   (customer.customer.isActive == status || status == undefined || status == null)
 
-          )
+          // )
       }))
     )
     
