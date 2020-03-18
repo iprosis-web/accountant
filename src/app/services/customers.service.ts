@@ -33,6 +33,7 @@ export class CustomersService {
       this.fireStore
       .collection("customers").get().pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
+
         actions.forEach(el => {
           let d = new Date(el.data().createdDate.seconds);
           let tempElem = {
@@ -157,7 +158,6 @@ export class CustomersService {
           }
           //user can be updated
           else{
-            console.log(customer);
             this.fireStore.collection("customers")
             .doc(customerId)
             .update(customer)
@@ -180,7 +180,6 @@ export class CustomersService {
       return Observable.create((observer: Observer<ApiResult>) => {
         this.getFullCustomerInfoByBusinessId(newCustomer.businessId).subscribe(res => {
           //user alredy exist with businessId id
-          console.log(res.length);
           if(res.length > 0){
              result = { data: null,success: false, message: 'לקוח עם מספר עוסק כבר קיים במערכת' };
              observer.next(result);

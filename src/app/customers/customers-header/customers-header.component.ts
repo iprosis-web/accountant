@@ -62,7 +62,6 @@ export class CustomersHeaderComponent implements OnInit {
       if (result != undefined && result != null && result.message != '' && result.message != undefined) {
         new Helpers().displaySnackBar(this.snackBar, result.message, "");
         if (result.data) {
-          console.log(result);
         }
       }
     });

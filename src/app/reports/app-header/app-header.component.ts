@@ -75,7 +75,6 @@ export class AppHeaderComponent implements OnInit {
 
   chosenStartYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.selectedStartDate.value;
-    console.log(ctrlValue);
     ctrlValue.year(normalizedYear.year());
     this.selectedStartDate.setValue(ctrlValue);
 

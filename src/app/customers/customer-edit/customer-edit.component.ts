@@ -65,7 +65,6 @@ export class CustomerEditComponent implements OnInit {
 
   setEditFormValues(){
     setTimeout(() => {
-      console.log(this.currentCustomer);
       this.customerForm.setValue({
         companyId: this.currentCustomer.customer.businessId,
         companyName: this.currentCustomer.customer.companyName,
@@ -103,7 +102,6 @@ export class CustomerEditComponent implements OnInit {
     
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
-      console.log(fullCustomer);
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
       //edit current user
       if(this.editFlag){

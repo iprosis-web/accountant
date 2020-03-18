@@ -12,8 +12,9 @@ import { contactsData } from '../mock-data/contactData';
 import { reportsData } from '../mock-data/reportsData';
 import { Subject, Observable, Observer, observable } from 'rxjs';
 import { map } from 'rxjs/operators'
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ApiResult } from '../models/apiResult';
+import Timestamp from 'firebase-firestore-timestamp';
 @Injectable({
   providedIn: 'root'
 })
@@ -44,26 +45,149 @@ export class ReportsService {
       name: "הסתיים"
     }];
 
-  constructor(private fireStore: AngularFirestore) { }
+  constructor(private firestore: AngularFirestore) { }
 
   getCustomersReports(dateFilter: DateFilterModel, customerId: string, status: number) {
-    //bring all reports
-    if (dateFilter == null || dateFilter == undefined) {
-      dateFilter = new DateFilterModel();
+    let startDate =  dateFilter.startDate.getTime();
+    let endDate =  dateFilter.endDate.getTime()
+    let collectionRef: AngularFirestoreCollection;
+    if (customerId != null || customerId != undefined) {
+      if (dateFilter != null || dateFilter != undefined) {
+        if (status != null || status != undefined) {
+          collectionRef = this.firestore.collection("reports", ref =>
+            ref.where("customerId", "==", customerId)
+              .where("status", "==", status)
+              .where('creatDate', '>=', startDate)
+              .where('creatDate', '<=',endDate))
+        }
+        else {
+          collectionRef = this.firestore.collection("customers", ref =>
+            ref.where("customerId", "==", customerId)
+              .where('creatDate', '>=', startDate)
+              .where('creatDate', '<=', endDate))
+        }
+      }
+      else {
+        if (status != null || status != undefined) {
+          collectionRef = this.firestore.collection("reports", ref =>
+            ref.where("customerId", "==", customerId)
+              .where("status", "==", status))
+        } else {
+          collectionRef = this.firestore.collection("reports", ref =>
+            ref.where("customerId", "==", customerId))
+        }
+      }
     }
-    this.dateFilter = dateFilter;
-    this.customerId = customerId;
-    this.status = status;
-    let filteredReports = this.reports.filter(report =>
-      (report.customerId == customerId || customerId == undefined || customerId == null) &&
-      (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate)) &&
-      (report.status == status || status == undefined || status == null)).sort((a, b) => {
-        return <any>new Date(b.reportDate) - <any>new Date(a.reportDate);
-      });
+    else {
+      if (dateFilter != null || dateFilter != undefined) {
+        if (status != null || status != undefined) {
+          collectionRef = this.firestore.collection("reports", ref =>
+            ref.where("status", "==", status)
+              .where('creatDate', '>=', startDate)
+              .where('creatDate', '<=', endDate))
+        } else {
+          collectionRef = this.firestore.collection("reports", ref =>
+            ref.where('creatDate', '>=',startDate)
+              .where('creatDate', '<=',endDate))
 
-    return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
+        }
+      }
+      else {
+        collectionRef = this.firestore.collection("reports")
+      }
+
+    }
+
+    return (
+    
+      collectionRef.get().pipe(map(actions => {
+        let reportsArr: CustomerReportModel[] = [];
+        let customerIds: string[] = [];
+        actions.forEach(el => {
+          let d = new Date(el.data().creatDate);
+          customerIds.push(el.data().customerId);
+          let tempElem = {
+            reportID: el.data().id,
+            customerID: el.data().customerId,
+            companyName:null,
+            companyEmail: null,
+            date: d,
+            dateStr: d.getMonth() + 1 + '.' + d.getFullYear(),
+            status:  this.statuses.find(s => s.id ==  el.data().status).name,
+            statusNum: el.data().status,
+            indication:  el.data().indication,
+            indicationStr: el.data().indication == Indications.fail ? "חרג בזמן" : "",
+            comment: el.data().comment,
+            indicationColor:  el.data().indication == Indications.fail ? "rgba(255,128,171,.4)" :  el.data().indication == Indications.pending ? "rgb(255,255,153)" :  el.data().indication== Indications.successfull ? "rgba(0,200,0,.4)" : "white",
+            arrivedToOffice:  el.data().arrivedToOffice
+          };
+          reportsArr.push(tempElem);
+        })
+        
+        this.firestore.collection("customers", ref => ref.where("customerId", "in", customerIds))
+        .get().pipe(map(actions => {
+          actions.forEach(el=>{
+            let reportEl = reportsArr.find(r => r.customerID == el.data().customerId);
+            if(reportEl){
+              reportEl.companyName = el.data().companyName;
+              reportEl.companyEmail = el.data().contact.email;
+            }
+          })
+          
+        })).subscribe(res => {})
+        return reportsArr;
+      }))
+    )
+
+
+    // let filteredReports = this.reports.filter(report =>
+    //   (customerId == customerId || customerId == undefined || customerId == null) &&
+    //   (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate)) &&
+    //   (status == status || status == undefined || status == null)).sort((a, b) => {
+    //     return <any>new Date(b.reportDate) - <any>new Date(a.reportDate);
+    //   });
+    // )
+    // return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
   }
 
+
+
+  checkIfCustomerReportExist(customerIdArr: string[]) {
+    let currDate = new Date();
+    let firstDay = new Date(currDate.getFullYear(), currDate.getMonth(), 1).getTime();
+    let endDay = new Date(currDate.getFullYear(), currDate.getMonth() + 1, -1).getTime();
+    return (
+      this.firestore
+        .collection("reports", ref => ref.where('creatDate', '>=', firstDay).where('creatDate', '<=', endDay))
+        .get()
+        .pipe(
+          map(actions => {
+            let noReportCustomerIds = [];
+
+            if (actions.empty) {
+              return customerIdArr;
+            }
+            else {
+              for (let i of customerIdArr) {
+                let appear = false;
+                actions.forEach(el => {
+                  if (el.data().customerId == i) {
+                    appear = true;
+                  }
+                })
+                if (appear == false) {
+                  noReportCustomerIds.push(i);
+                }
+              }
+
+              return noReportCustomerIds;
+            }
+          })
+        )
+
+
+    )
+  }
   getReportById(reportId: number) {
     let customerReportData = this.reports.find(r => r.id == reportId);
     if (customerReportData) {
@@ -122,6 +246,102 @@ export class ReportsService {
       return this.customers.slice();
     }
   }
+
+
+  createReportForCustomersByLastMonth(customersIdArray) {
+    return Observable.create((observer: Observer<ApiResult>) => {
+      let result: ApiResult;
+      let reportsCustomersArray;
+      let newReport: reports[] = [];
+      this.checkIfCustomerReportExist(customersIdArray).subscribe(res => {
+        for (let el of res) {
+
+          newReport.push({
+            id: null,
+            customerId: el,
+            status: Statuses.notStarted,
+            indication: Indications.pending,
+            reportDate: new Date(),
+            creatDate: (new Date()).getTime(),
+            comment: null,
+            isActive: true,
+            lease: null,
+            actualDownPaymentsFee: null,
+            salariesVat: null,
+            deductions: null,
+            deductionsFee: null,
+            downPaymentPercentage: null,
+            downPaymentsCycleFee: null,
+            addedValueFee: null,
+            addedValueKFee: null,
+            arrivedToOffice: null,
+            workers: null,
+            exemptCapitalCycleFee: null,
+            exemptCycleFee: null,
+            reportHandler: null,
+            reportEndDate: null,
+            reportLastChangeDate: null,
+            reportNumber: null,
+            reportStartDate: null,
+            requiredCapitalCycleFee: null,
+            requiredCycleVal: null,
+            totalContractors: null,
+            totalDeductions: null,
+            incomeTaxDeductions: null,
+            incomeTaxDeductionsDate: null,
+            incomeTaxDeductionsPeriodType: null,
+            incomeTaxDeductionsVal: null,
+            incomeTaxDownPaymentAppointedDate: null,
+            incomeTaxDownPaymentsPeriodType: null,
+            incomeTaxDownPaymentsVal: null,
+            incomeTaxSalaries: null,
+            incomeTaxWorkers: null,
+            generalCycleVat: null,
+            generalRequiredCycleFee: null,
+            leasePaymentPeriodType: null,
+            leaseVal: null,
+            leaseVat: null,
+            calculatedDownPayment: null,
+            contractors: null,
+            contractorsEmployerPeriodType: null,
+            contractorsVal: null,
+            contractorsVat: null,
+            vatAppointedDate: null,
+            vatPayment: null,
+            vatReportPeriodType: null,
+            vatValue: null,
+            nationalInsuranceDeductionsPeriodType: null,
+            nationalInsuranceDeductionsVal: null,
+            nationalInsuranceDownPaymentsPeriodType: null,
+            nationalInsuranceDownPaymentsVal: null
+          });
+        }
+        for (let report of newReport) {
+          this.firestore.collection("reports")
+            .add(report)
+            .then(ref => {
+              ref.set({
+                id: ref.id
+              }, { merge: true })
+                .then(
+                  ref => {
+
+                  }
+                )
+            })
+        }
+      })
+
+
+      result = { data: newReport, success: true, message: 'לקוח התווסף בהצלחה' }
+      observer.next(result);
+      observer.complete();
+    });
+
+
+  }
+
+
 
   // getFullCustomersDetails() {
   //   if (this.customers) {
@@ -220,7 +440,6 @@ export class ReportsService {
 
   deleteCustomer(customer: customer) {
     let currentCustomer = this.customers.findIndex(c => c.businessId == customer.businessId);
-    console.log(currentCustomer);
     if (currentCustomer != undefined) {
       //set contact to inactive
       let customerContact = this.contacts.findIndex(c => c.customerId == customer.businessId);
@@ -232,14 +451,13 @@ export class ReportsService {
       let customerReports = this.reports.filter(r => r.customerId == customer.businessId);
       if (customerReports) {
         for (let report of customerReports) {
-          //report.isActive = false;  
+          // isActive = false;  
           this.reports.splice(customerReports.indexOf(report), 1);
         }
       }
       //set user to inactive
       //currentCustomer.isActive = false;
       this.customers.splice(currentCustomer, 1);
-      console.log(this.customers);
       return { data: null, message: "לקוח נמחק בהצלחה" };
     }
     else {
@@ -271,28 +489,26 @@ export class ReportsService {
   }
 
   getFullReportsDetails() {
+    // let ReportCustomerId;
+    // let reportsArr: ReportDetailsModel[] = [];
     return (
-      this.fireStore
+      this.firestore
         .collection("reports")
         .get()
-    ).pipe(map(actions => {
-      let reportsArr: ReportDetailsModel[] = [];
-      actions.forEach(el => console.log(el.data()));
-      actions.forEach(el =>
-        reportsArr.push({
-          fullCustomerData: el.data().fullCustomerData,
-          reports: el.data().reports,
-        })
-      )
-      return reportsArr;
-    }))
+        .pipe(map(actions => {
+          actions.forEach(el => {
+
+          })
+        }))
+
+    )
   }
 
   updateReports(reportId: string, reportData: ReportDetailsModel) {
     let result: ApiResult;
 
     return Observable.create((observer: Observer<ApiResult>) => {
-      this.fireStore.collection('reports')
+      this.firestore.collection('reports')
         .doc(reportId)
         .update(reportData)
         .then(
