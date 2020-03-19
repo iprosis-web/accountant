@@ -16,7 +16,6 @@ import {
   MatSidenavModule,
   MatListModule,
   MatSlideToggleModule,
-  MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,
   MatProgressSpinnerModule
 } from "@angular/material";
 
@@ -117,7 +116,6 @@ import { AngularFireStorage } from '@angular/fire/storage';
   ],
   entryComponents: [CustomerEditComponent, ToggleDialogComponent],
   providers: [
-    {provide: MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS , useValue: {disableToggleValue: false, disableDragValue: true}},
     AngularFireStorage,
     AngularFirestore
   ],

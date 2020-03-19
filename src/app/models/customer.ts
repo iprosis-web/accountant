@@ -7,6 +7,7 @@ export class customer {
     companyName?: string;
     contactID?: number;
     createdDate?: Date;
+    createdDateNum?: number;
     isActive?: boolean = true;
     contact?: contact;
 }

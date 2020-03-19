@@ -64,6 +64,7 @@ export class CustomersListComponent implements OnInit , OnDestroy {
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
+      console.log(this.dataTableArray);
       this.dataSource.data = this.dataTableArray;
       // this.setTableData(this.customerId, this.statusId);
     });

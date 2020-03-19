@@ -116,15 +116,17 @@ export class CustomerEditComponent implements OnInit {
     if(customerForm.valid){
       let fullCustomer = customerForm.value;
       let newCustomerImg = this.currentCustomerImg == null ? this.currentCustomer.contact.imgUrl : this.currentCustomerImg;
+      
       //edit current user
       if(this.editFlag){
-        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDate: this.currentCustomer.customer.createdDate, contactID: this.currentCustomer.contact.id };
+        let previousImg = this.currentCustomer.contact.imgUrl != "" ? this.currentCustomer.contact.imgUrl : null;
+        let customerData: customer = { customerId: this.currentCustomerId,businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: this.currentCustomer.customer.isActive, createdDateNum: this.currentCustomer.customer.createdDate.getTime(), contactID: this.currentCustomer.contact.id };
         let contact: contact = { id: this.currentCustomer.contact.id, customerId: this.currentCustomerId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: newCustomerImg, 
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };
           customerData.contact = contact;
         
-           this.customerService.updateCustomer(this.currentCustomerId, customerData,this.currentFile).subscribe(res => {
+           this.customerService.updateCustomer(this.currentCustomerId, customerData,this.currentFile,previousImg).subscribe(res => {
           
             if(res.message != ''){
               this.customerService.getFullCustomersDetails().subscribe(result => {
@@ -143,7 +145,7 @@ export class CustomerEditComponent implements OnInit {
         //   new Helpers().displaySnackBar(this.snackBar, "לקוח עם מספר חברה זה קיים במערכת","");
         //   return;
         // }
-        let customerData: customer = { businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDate: new Date() };
+        let customerData: customer = { businessId: fullCustomer.companyId, companyName: fullCustomer.companyName, isActive: true, createdDateNum: new Date().getTime() };
         let contact: contact = { id: null, customerId: fullCustomer.companyId,
            city: fullCustomer.customerCity, street: fullCustomer.customerAddress, imgUrl: '',
            building: fullCustomer.customerBuilding, email: fullCustomer.customerEmail, phone: fullCustomer.customerPhone };

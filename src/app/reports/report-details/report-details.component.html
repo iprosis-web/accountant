@@ -1,4 +1,4 @@
-<div class="report-container">
+<div *ngIf="!loading" class="report-container">
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card h-100">
@@ -14,7 +14,7 @@
 
 						<div class="c-row">
 							<p class="border-title"> לקוח:</p>
-							<p class="res"> {{reportsData.companyName}} </p>
+							<p class="res"> {{customerData.customer.companyName}} </p>
 						</div>
 						<div class="c-row">
 							<p class="border-title"> גורם מטפל:</p>
@@ -124,10 +124,10 @@
 								פרטי יצירת קשר ללקוח
 							</mat-panel-title>
 							<mat-panel-description>
-								{{reportsData.companyName}}
+								{{customerData.customer.companyName}}
 							</mat-panel-description>
 						</mat-expansion-panel-header>
-							<app-customer-details *ngIf="loadFlag" [customerModel]="customerData"></app-customer-details>
+							<app-customer-details [customerModel]="customerData"></app-customer-details>
 					</mat-expansion-panel>
 				</mat-accordion>
 			</div>
@@ -142,3 +142,7 @@
 	</div>
 
 </div>
+
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="loading">
+</app-progress-spinner>
