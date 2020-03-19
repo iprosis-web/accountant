@@ -86,6 +86,8 @@ export class CustomersService {
   }
 
     getFullCustomerInfoById(id: string){
+      console.log('customer id serveice ' , id);
+      
       // let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);
       // return customer;
       return (
@@ -94,7 +96,7 @@ export class CustomersService {
         .get().pipe( map(actions => {
           let customersArr : FullCustomerModel[] = [];
           actions.forEach(el => {
-            let d = new Date(el.data().createdDate.seconds);
+            let d = new Date(el.data().createdDate);
             let tempElem = {
               customer: el.data(),
               contact: el.data().contact,

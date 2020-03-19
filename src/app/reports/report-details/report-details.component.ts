@@ -9,9 +9,10 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MatDatepicker } from '@angular/material/datepicker';
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
+import { Helpers } from 'src/app/Utils/Helpers';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
+import { customer } from 'src/app/models/customer';
 const moment = _rollupMoment || _moment;
 
 export const MY_FORMATS = {
@@ -46,6 +47,7 @@ export class ReportDetailsComponent implements OnInit {
   reportId: string;
   loadFlag = false;
   reportsData;
+  statusStr;
   selectePCNReportdDate = new FormControl(new Date());
   selectedArrivedDate = new FormControl(new Date());
   selectedStartJobDate = new FormControl(new Date());
@@ -67,6 +69,8 @@ export class ReportDetailsComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.reportId = params["id"];
+      console.log('report id' , this.reportId);
+      
       this.getReportDetails(this.reportId)
     });
     this.customerService.getFullCustomersDetails().subscribe(res => {
@@ -79,9 +83,12 @@ export class ReportDetailsComponent implements OnInit {
   }
 
   getReportDetails(reportId) {
+
    this.reportService.getReportById(reportId).subscribe(result => {
-     try{
+     try{   
       this.reportsData = result;
+      this.selectePCNReportdDate = this.reportsData.pcnReportDate;
+      this.statusStr =  new Helpers().getSatusNameById(this.reportsData.status);      
       this.getCustomersDetails(this.reportsData.customerId);
      }catch(err) {
       this.reportsData = null;
@@ -90,10 +97,8 @@ export class ReportDetailsComponent implements OnInit {
     });
   }
 
-  getCustomersDetails(customerId) {
-    ////////we willllllllllllllllll receive customer Data with customer id
-    
-    this.customerService.getFullCustomerInfoById(customerId).subscribe((res) => {
+  getCustomersDetails(customerId) {        
+    this.customerService.getFullCustomerInfoById(customerId).subscribe(res => {
       try {        
         this.customerData = res[0];
         this.loadFlag = true;

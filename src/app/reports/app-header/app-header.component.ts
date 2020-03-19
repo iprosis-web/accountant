@@ -79,7 +79,6 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     //activate litsener to media to be able to listen to media changes
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
     this.statuses = this.reportsService.getAllStatuses();
     
   }
