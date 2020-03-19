@@ -51,6 +51,7 @@ export class reports {
     nationalInsuranceDeductionsVal?: number;
     contractorsVal?: number;
     leaseVal?: number;
+    //סוג דיווח
     vatReportPeriodType?: number;
     incomeTaxDownPaymentsPeriodType?: number;
     incomeTaxDeductionsPeriodType?: number;
@@ -58,6 +59,7 @@ export class reports {
     nationalInsuranceDeductionsPeriodType?: number;
     contractorsEmployerPeriodType?: number;
     leasePaymentPeriodType?: number;
+    // מועד מע"מ
     vatAppointedDate?: Date;
     vatAppointedDateNum?: number;
     incomeTaxDeductionsDate?: Date;
