@@ -45,6 +45,10 @@ export class ReportDetailsComponent implements OnInit {
   panelOpenState = false;
   reportId: string;
   loadFlag = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   reportsData;
   selectePCNReportdDate = new FormControl(new Date());
   selectedArrivedDate = new FormControl(new Date());
@@ -65,14 +69,23 @@ export class ReportDetailsComponent implements OnInit {
     private customerService: CustomersService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.reportId = params["id"];
       this.getReportDetails(this.reportId)
     });
     this.customerService.getFullCustomersDetails().subscribe(res => {
-      console.log(res);
       if(res.length > 0)
       this.customerData = res[0];
+      //read only data
+      this.customerData.clickableAdd = false;
+      this.customerData.clickableDelete = false;
+      this.customerData.clickableEdit = false;
+      this.customerData.displayAdd = false;
+      this.customerData.displayDelete = false;
+      this.customerData.displayEdit = false;
+      this.loading = false;
+      console.log(this.customerData);
     })
     // console.log(this.selectePCNReportdDate.value);
 
@@ -80,6 +93,7 @@ export class ReportDetailsComponent implements OnInit {
 
   getReportDetails(reportId) {
    this.reportService.getReportById(reportId).subscribe(result => {
+     console.log(result);
      try{
       this.reportsData = result;
       this.getCustomersDetails(this.reportsData.customerId);
@@ -97,7 +111,13 @@ export class ReportDetailsComponent implements OnInit {
       try {        
         this.customerData = res[0];
         this.loadFlag = true;
-
+        this.customerData.clickableAdd = false;
+        this.customerData.clickableDelete = false;
+        this.customerData.clickableEdit = false;
+        this.customerData.displayAdd = false;
+        this.customerData.displayDelete = false;
+        this.customerData.displayEdit = false;
+        this.loading = false;
 
       } catch (err) {
         this.customerData = null;
