@@ -7,24 +7,19 @@
     padding: 0.5em 0 0.5em 0 !important;
   }
 
-  .mat-form-field {
-    /* width: 100%; */
-    width: 220px;
-    height: 50px;
-    margin-bottom: 20px;
-  }
 
-/*  .mat-form-field-appearance-outline {
-    width: 220px;
-    margin: 8px;
-    text-align: right;
-    line-height: 1.725;
-    /* height: 50px; *//*
-} */
-  
+
   .img-responsive {
     width: 100%;
     max-width: 150px;
     height: auto; 
+  }
+
+  .dialog-container {
+    text-align: right;
+  }
+
+  .buttons{
+    text-align: left;
   }
 

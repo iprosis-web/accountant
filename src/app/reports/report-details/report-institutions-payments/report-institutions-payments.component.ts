@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-report-institutions-payments',
@@ -6,6 +7,9 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
   styleUrls: ['../report-institutions-payments.component.css'],
 })
 export class ReportInstitutionsPaymentsComponent implements OnInit {
+
+  mobileQuery: MediaQueryList;
+  private _mobileQueryListener: () => void;
 
   taxableTurnoverA: number=0;
   taxableCapitalTurnoverB: number=0;
@@ -26,9 +30,17 @@ export class ReportInstitutionsPaymentsComponent implements OnInit {
   vatValue: number=0;
   actualDownPaymentsFee: number=0;
   incomeTaxDeductions: number=0;
-  constructor() { }
+  constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) { }
 
   ngOnInit() {
+      //match media to max-width of 768
+      this.mobileQuery = this.media.matchMedia('(max-width: 768px)');
+      this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
+      this.mobileQuery.addListener(this._mobileQueryListener);
+  }
+
+  ngOnDestroy(){
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   getGeneralVAT() {

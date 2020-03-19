@@ -104,7 +104,8 @@
                 <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
                 <mat-datepicker #picker6></mat-datepicker>
                 </mat-form-field>
-                <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace">
+                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace"> -->
+                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>
@@ -178,7 +179,8 @@
                   <input matInput type="number" [(ngModel)]="workers">
                   <mat-icon matPrefix>₪</mat-icon>
                 </mat-form-field>
-                <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace">
+                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace"> -->
+                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>
@@ -197,7 +199,8 @@
                   <input matInput type="number" [(ngModel)]="salariesVat">
                   <mat-icon matPrefix>₪</mat-icon>
                 </mat-form-field>
-                <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace"> 
+                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace">  -->
+                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>

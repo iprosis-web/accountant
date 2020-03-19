@@ -38,7 +38,7 @@ export class CustomerDetailsComponent implements OnInit {
         customerModel: this.currentCustomerModel,
         flag: CustomerCRUD.edit
       },
-      width: "300px",
+      width: "320px",
       maxHeight: '90vh'
     });
 
@@ -60,7 +60,7 @@ export class CustomerDetailsComponent implements OnInit {
         customerModel: null,
         flag: CustomerCRUD.add
       },
-      width: "300px",
+      width: "320px",
       maxHeight: '90vh'
     });
     

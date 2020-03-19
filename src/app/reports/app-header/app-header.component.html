@@ -20,7 +20,7 @@
 
       <mat-form-field class="stratDate" appearance="outline">
         <mat-label> מתאריך</mat-label>
-        <input matInput [matDatepicker]="picker" [formControl]="selectedStartDate" readonly>
+        <input matInput [max]="filtersDataObject.endDate" [matDatepicker]="picker" [formControl]="selectedStartDate" readonly>
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker startView="multi-year" (yearSelected)="chosenStartYearHandler($event)"
           (monthSelected)="chosenStartMonthHandler($event, picker)" panelClass="example-month-picker">>

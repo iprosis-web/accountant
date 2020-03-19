@@ -9,6 +9,7 @@ import { HeaderService } from 'src/app/services/header.service';
 import { Subscription } from 'rxjs';
 import { customer } from 'src/app/models/customer';
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
+import { faAlignCenter } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-customers-header',
@@ -60,7 +61,7 @@ export class CustomersHeaderComponent implements OnInit {
         customerModel: null,
         flag: CustomerCRUD.add
       },
-      width: "300px",
+      width: "320px",
       maxHeight: '90vh'
     });
 

@@ -5,22 +5,21 @@
   position: sticky;
 } 
 
-/* :host ::ng-deep .mat-form-field{
+:host ::ng-deep .mat-form-field{
   direction: ltr;
   margin-left:8px;
   width:160px;
 
-} */
-.mat-form-field-appearance-outline {
+}
+/* .mat-form-field-appearance-outline {
   width: 160px;
   height: 50px;
   line-height: 1.725;
   margin: 8px;
   text-align: right;
   direction: ltr;
-}
+} */
 
-/*                  */
 
 :host ::ng-deep .mat-form-field-label, .mat-select-value{text-align: right;}
 :host ::ng-deep .mat-option-text {margin-right: 10px;text-align: right; }
