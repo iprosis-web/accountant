@@ -1,4 +1,4 @@
-<div class="report-container">
+<div *ngIf="!loading" class="report-container">
 	<div class="row">
 		<div class="col-md-6">
 			<div class="card h-100">
@@ -43,8 +43,7 @@
 						<div class="outline-date">
 							<mat-form-field appearance="outline">
 								<mat-label> PCN דיווח </mat-label>
-								<input matInput [matDatepicker]="picker1" [formControl]="selectePCNReportdDate"
-									readonly>
+								<input matInput [matDatepicker]="picker1" [formControl]="selectePCNReportdDate" readonly>
 								<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 								<mat-datepicker #picker1></mat-datepicker>
 							</mat-form-field>
@@ -124,10 +123,10 @@
 								פרטי יצירת קשר ללקוח
 							</mat-panel-title>
 							<mat-panel-description>
-								{{reportsData.companyName}}
+								{{customerData.customer.companyName}}
 							</mat-panel-description>
 						</mat-expansion-panel-header>
-							<app-customer-details *ngIf="loadFlag" [customerModel]="customerData"></app-customer-details>
+							<app-customer-details [customerModel]="customerData"></app-customer-details>
 					</mat-expansion-panel>
 				</mat-accordion>
 			</div>
@@ -142,3 +141,7 @@
 	</div>
 
 </div>
+
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
+ [displayProgressSpinner]="loading">
+</app-progress-spinner>

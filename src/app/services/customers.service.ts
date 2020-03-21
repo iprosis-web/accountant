@@ -58,7 +58,7 @@ export class CustomersService {
         let customersArr : FullCustomerModel[] = [];
 
         actions.forEach(el => {
-          let d = new Date(el.data().createdDate.seconds);
+          let d = el.data().createdDateNum != null ? new Date(el.data().createdDateNum) : new Date();
           let tempElem = {
             customer: el.data(),
             contact: el.data().contact,
@@ -96,7 +96,7 @@ export class CustomersService {
         .get().pipe( map(actions => {
           let customersArr : FullCustomerModel[] = [];
           actions.forEach(el => {
-            let d = new Date(el.data().createdDate);
+            let d = el.data().createdDateNum != null ? new Date(el.data().createdDateNum) : new Date();
             let tempElem = {
               customer: el.data(),
               contact: el.data().contact,
@@ -123,7 +123,7 @@ export class CustomersService {
         .get().pipe( map(actions => {
           let customersArr : FullCustomerModel[] = [];
           actions.forEach(el => {
-            let d = new Date(el.data().createdDate.seconds);
+            let d = el.data().createdDateNum != null ? new Date(el.data().createdDateNum) : new Date();
             let tempElem = {
               customer: el.data(),
               contact: el.data().contact,
@@ -152,7 +152,7 @@ export class CustomersService {
       ).pipe( map(actions => {
         let customersArr : FullCustomerModel[] = [];
         actions.forEach(el => {
-          let d = new Date(el.data().createdDate.seconds);
+          let d = el.data().createdDateNum != null ? new Date(el.data().createdDateNum) : new Date();
           let tempElem = {
             customer: el.data(),
             contact: el.data().contact,
@@ -172,7 +172,7 @@ export class CustomersService {
 
     }  
 
-    updateCustomer(customerId: string,customer: customer, file){
+    updateCustomer(customerId: string,customer: customer, file, previousImg: string){
       let result: ApiResult;
       //check if businessId Already Exists
       return Observable.create((observer: Observer<ApiResult>) => {
@@ -186,6 +186,10 @@ export class CustomersService {
           }
           //user can be updated
           else if(file != null){
+            let oldFileStorageRef = null;
+            if(previousImg != null){
+              oldFileStorageRef = this.storage.storage.refFromURL(previousImg);
+            }
             //first upload image
             let filePath = customer.customerId + "/images/" + file.name;
             let storageRef = this.storage.ref(filePath);
@@ -203,17 +207,35 @@ export class CustomersService {
                   observer.complete();
                 }
                 else{
-                  customer.contact.imgUrl = uploadedImgURL;
-                  this.fireStore.collection("customers")
-                  .doc(customerId)
-                  .update(customer)
-                  .then(
-                    res => {
-                      result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
-                      observer.next(result);
-                      observer.complete();
-                    }
-                  );
+                  //delete previous img if exists
+                  if(previousImg != null){
+                    oldFileStorageRef.delete().then(ref => {
+                      customer.contact.imgUrl = uploadedImgURL;
+                      this.fireStore.collection("customers")
+                      .doc(customerId)
+                      .update(customer)
+                      .then(
+                        res => {
+                          result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
+                          observer.next(result);
+                          observer.complete();
+                        }
+                      );
+                    })
+                  }
+                  else{
+                    customer.contact.imgUrl = uploadedImgURL;
+                    this.fireStore.collection("customers")
+                    .doc(customerId)
+                    .update(customer)
+                    .then(
+                      res => {
+                        result = {data: customer, success: true, message: 'לקוח עודכן בהצלחה'}
+                        observer.next(result);
+                        observer.complete();
+                      }
+                    );
+                  }
                 }
               }))
             )
@@ -269,40 +291,86 @@ export class CustomersService {
       })
     }
 
+    deleteCustomerReports(customerId: string){
+      try{
+        return (
+          this.fireStore.collection("reports", ref => ref.where("customerId", "==", customerId))
+          .get()
+        ).pipe( map(actions => {
+            let batch = this.fireStore.firestore.batch();
+  
+            actions.forEach(el => {
+              console.log(el);
+              batch.delete(el.ref);
+            })
+            batch.commit();
+            return { data: null, success: true, message: 'דיווחי לקוח נמחקו בהצלחה' }
+        }))
+      }
+      catch{
+        return Observable.create((observer: Observer<ApiResult>) =>{
+          observer.next({ data: null, success: false, message: 'אירעה שגיאה במחיקת דיווחי לקוח' });
+          observer.complete();
+        }) 
+      }
+    }
+
     deleteCustomer(customerId: string,customer: customer){
       let result: ApiResult;
       //check if businessId Already Exists
       return Observable.create((observer: Observer<ApiResult>) => {
           //user can be updated
-          //first delete image file then delete customer
+          //first delete image file then delete reports then customer
           try{
             if(customer.contact.imgUrl != null && customer.contact.imgUrl != ""){
               let fileStorageRef = this.storage.storage.refFromURL(customer.contact.imgUrl);
               fileStorageRef.delete().then(ref => {
-                this.fireStore.collection("customers")
-                .doc(customerId)
-                .delete()
-                .then(
-                  (res: any) => {
-                    result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
+                //delete reports
+                this.deleteCustomerReports(customerId).subscribe(ref => {
+                  //delete customers if all reports deleted successfully
+                  if(ref.success == true){
+                    this.fireStore.collection("customers")
+                    .doc(customerId)
+                    .delete()
+                    .then(
+                      (res: any) => {
+                        result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
+                        observer.next(result);
+                        observer.complete();
+                      }
+                    );
+                  }
+                  else{
+                    result = ref;
                     observer.next(result);
                     observer.complete();
                   }
-                );
+                })
               })
             }
             else{
-              //if no img then just delete user
-              this.fireStore.collection("customers")
-              .doc(customerId)
-              .delete()
-              .then(
-                (res: any) => {
-                  result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
-                  observer.next(result);
-                  observer.complete();
-                }
-              );
+              //if no img then just delete reports then customer
+                //delete reports
+                this.deleteCustomerReports(customerId).subscribe(ref => {
+                  //delete customers if all reports deleted successfully
+                  if(ref.success == true){
+                    this.fireStore.collection("customers")
+                    .doc(customerId)
+                    .delete()
+                    .then(
+                      (res: any) => {
+                        result = {data: res, success: true, message: 'לקוח נמחק בהצלחה'}
+                        observer.next(result);
+                        observer.complete();
+                      }
+                    );
+                  }
+                  else{
+                    result = ref;
+                    observer.next(result);
+                    observer.complete();
+                  }
+                })
             }
           }
           catch(er){

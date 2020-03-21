@@ -8,7 +8,7 @@ import { HeaderService } from 'src/app/services/header.service';
 import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
 import { DateFilterModel } from 'src/app/models/dateFilterModel';
 import { Helpers } from 'src/app/Utils/Helpers';
-import { MatSnackBar, MatDialog, MatDialogRef } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef, MatSliderChange } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PeriodicElement } from 'src/app/customers/customers-list/customers-list.component';
 import { Subscription } from 'rxjs';
@@ -89,8 +89,16 @@ export class AppTabelComponent implements OnInit, OnDestroy {
       this.router.navigate(['/report', reportData.reportID]);
   }
 
+  disablePropagationEvent(event){
+    console.log(event);
+    if(event.source.checked == true)
+      event.source.checked = false;
+    else
+      event.source.checked = true;  
+  }
+
   arrivedToOfficeChange(event, element){
-   
+    
     event.stopPropagation();
     this.dialogRef = this.confirmDialog.open(ToggleDialogComponent,  {
       direction: 'rtl',

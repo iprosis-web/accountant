@@ -46,6 +46,10 @@ export class ReportDetailsComponent implements OnInit {
   panelOpenState = false;
   reportId: string;
   loadFlag = false;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  loading = false;
   reportsData;
   statusStr;
   selectePCNReportdDate = new FormControl(new Date());
@@ -67,6 +71,7 @@ export class ReportDetailsComponent implements OnInit {
     private customerService: CustomersService) { }
 
   ngOnInit() {
+    this.loading = true;
     this.route.params.subscribe(params => {
       this.reportId = params["id"];
       console.log('report id' , this.reportId);
@@ -74,9 +79,17 @@ export class ReportDetailsComponent implements OnInit {
       this.getReportDetails(this.reportId)
     });
     this.customerService.getFullCustomersDetails().subscribe(res => {
-      console.log(res);
       if(res.length > 0)
       this.customerData = res[0];
+      //read only data
+      this.customerData.clickableAdd = false;
+      this.customerData.clickableDelete = false;
+      this.customerData.clickableEdit = false;
+      this.customerData.displayAdd = false;
+      this.customerData.displayDelete = false;
+      this.customerData.displayEdit = false;
+      this.loading = false;
+      console.log(this.customerData);
     })
     // console.log(this.selectePCNReportdDate.value);
 
@@ -87,7 +100,7 @@ export class ReportDetailsComponent implements OnInit {
    this.reportService.getReportById(reportId).subscribe(result => {
      try{   
       this.reportsData = result;
-      this.selectePCNReportdDate = this.reportsData.pcnReportDate;
+      // this.selectePCNReportdDate = this.reportsData.pcnReportDate == null ? new FormControl(new Date()).value.toUTCString() : this.reportsData.pcnReportDate;      
       this.statusStr =  new Helpers().getSatusNameById(this.reportsData.status);      
       this.getCustomersDetails(this.reportsData.customerId);
      }catch(err) {
@@ -102,7 +115,13 @@ export class ReportDetailsComponent implements OnInit {
       try {        
         this.customerData = res[0];
         this.loadFlag = true;
-
+        this.customerData.clickableAdd = false;
+        this.customerData.clickableDelete = false;
+        this.customerData.clickableEdit = false;
+        this.customerData.displayAdd = false;
+        this.customerData.displayDelete = false;
+        this.customerData.displayEdit = false;
+        this.loading = false;
 
       } catch (err) {
         this.customerData = null;

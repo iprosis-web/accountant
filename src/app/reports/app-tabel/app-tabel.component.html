@@ -12,7 +12,7 @@
             [checked]="element.arrivedToOffice != null" 
             [disabled]="element.status == 3"
             (click)="arrivedToOfficeChange($event,element)"
-            slideToggle="false"
+            (change)="disablePropagationEvent($event)"
             ></mat-slide-toggle>
         </td>
     </ng-container>

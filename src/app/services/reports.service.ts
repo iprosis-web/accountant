@@ -139,16 +139,6 @@ export class ReportsService {
         return reportsArr;
       }))
     )
-
-
-    // let filteredReports = this.reports.filter(report =>
-    //   (customerId == customerId || customerId == undefined || customerId == null) &&
-    //   (dateFilter.startDate == null || dateFilter.startDate == undefined || (report.reportDate >= dateFilter.startDate && report.reportDate <= dateFilter.endDate)) &&
-    //   (status == status || status == undefined || status == null)).sort((a, b) => {
-    //     return <any>new Date(b.reportDate) - <any>new Date(a.reportDate);
-    //   });
-    // )
-    // return this.mapReportsToCustomerReports(filteredReports, this.getAllCustomers());
   }
 
 
@@ -223,6 +213,9 @@ export class ReportsService {
                 reportLastChangeDate: el.data().reportLastChangeDateNum != null ? new Date(el.data().reportLastChangeDateNum) : null,
                 reportNumber: el.data().reportNumber,
                 reportStartDate: el.data().reportStartDateNum != null ? new Date(el.data().reportStartDateNum) : null,
+                pcnRequirement: el.data().pcnRequirement,
+                pcnReportDate: el.data().pcnReportDate != null ? new Date(el.data().reportStartDateNum) : null,
+                pcnReportDateNum: el.data().pcnReportDateNum,
                 requiredCapitalCycleFee: el.data().requiredCapitalCycleFee,
                 requiredCycleVal: el.data().requiredCycleVal,
                 totalContractors: el.data().totalContractors,
@@ -331,6 +324,9 @@ export class ReportsService {
             reportLastChangeDateNum: null,
             reportNumber: null,
             reportStartDateNum: null,
+            pcnRequirement: null,
+            pcnReportDate: null,
+            pcnReportDateNum: null,
             requiredCapitalCycleFee: null,
             requiredCycleVal: null,
             totalContractors: null,
