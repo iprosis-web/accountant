@@ -27,7 +27,6 @@ export class CustomerDetailsComponent implements OnInit {
     //     this.currentCustomerModel = res[0];
     //     this.loading = false;
     //   });
-    console.log(this.currentCustomerModel);
   }
 
   //edit dialog

@@ -90,7 +90,6 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   }
 
   disablePropagationEvent(event){
-    console.log(event);
     if(event.source.checked == true)
       event.source.checked = false;
     else

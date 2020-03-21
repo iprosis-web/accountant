@@ -98,14 +98,12 @@
               <div class="row-flex">
                 <mat-form-field appearance="outline">
                   <mat-label class="sub-title">מועד מע"מ</mat-label>
-                  <!-- <input matInput type="number"  [(ngModel)]="vatAppointedDate">
-                  <mat-icon matPrefix>₪</mat-icon> -->
-                  <input matInput [matDatepicker]="picker6" [(ngModel)]="vatAppointedDate">
-                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
-                <mat-datepicker #picker6></mat-datepicker>
+                  <input matInput [matDatepicker]="picker6" [formControl]="vatAppointedDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                  <mat-datepicker #picker6></mat-datepicker>
                 </mat-form-field>
-                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace"> -->
-                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
+                <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline"
+                  class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>
@@ -113,22 +111,16 @@
 
                 <mat-form-field appearance="outline" class="unedited">
                   <mat-label class="sub-title">מועד ניכויים מ"ה</mat-label>
-                  <!-- <input matInput type="number" [(ngModel)]="incomeTaxDeductionsDate" readonly>
-                  <mat-icon matPrefix>₪</mat-icon> -->
-                  <input matInput [matDatepicker]="picker7" [(ngModel)]="incomeTaxDeductionsDate"
-                  disabled readonly>
-                <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
-                <mat-datepicker #picker7></mat-datepicker>
+                  <input matInput [matDatepicker]="picker7" [formControl]="incomeTaxDeductionsDate" disabled readonly>
+                  <mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>
+                  <mat-datepicker #picker7></mat-datepicker>
                 </mat-form-field>
 
                 <mat-form-field appearance="outline">
                   <mat-label class="sub-title">מועד מקדמות מ"ה</mat-label>
-                  <!-- <input matInput type="number" [(ngModel)]="incomeTaxDownPaymentAppointedDate">
-                  <mat-icon matPrefix>₪</mat-icon> -->
-                  <input matInput [matDatepicker]="picker8" [(ngModel)]="incomeTaxDownPaymentAppointedDate"
-                  >
-                <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
-                <mat-datepicker #picker8></mat-datepicker>
+                  <input matInput [matDatepicker]="picker8" [formControl]="incomeTaxDownPaymentAppointedDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker8"></mat-datepicker-toggle>
+                  <mat-datepicker #picker8></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
@@ -179,15 +171,15 @@
                   <input matInput type="number" [(ngModel)]="workers">
                   <mat-icon matPrefix>₪</mat-icon>
                 </mat-form-field>
-                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace"> -->
-                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
+                <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline"
+                  class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                   <mat-label class="sub-title">סה"כ קבלנים</mat-label>
-                  <input matInput type="number"  [(ngModel)]="totalContractors">
+                  <input matInput type="number" [(ngModel)]="totalContractors">
                   <mat-icon matPrefix>₪</mat-icon>
                 </mat-form-field>
               </div>
@@ -199,8 +191,8 @@
                   <input matInput type="number" [(ngModel)]="salariesVat">
                   <mat-icon matPrefix>₪</mat-icon>
                 </mat-form-field>
-                <!-- <mat-form-field fxShow.gt-xs="true"  fxHide.xs="true" appearance="outline" class="whiteSpace">  -->
-                  <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
+                <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline"
+                  class="whiteSpace">
                   <mat-label></mat-label>
                   <input matInput readonly>
                   <mat-icon matPrefix></mat-icon>
@@ -249,11 +241,9 @@
               <div class="row-flex">
                 <mat-form-field appearance="outline">
                   <mat-label class="sub-title">מועד ניכויים מ"ה</mat-label>
-                  <!--<input matInput type="number" [(ngModel)]="incomeTaxDeductionsDate">
-                  <mat-icon matPrefix>₪</mat-icon> -->
-                  <input matInput [matDatepicker]="picker9" [(ngModel)]="incomeTaxDeductionsDate">
-                <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
-                <mat-datepicker #picker9></mat-datepicker>
+                  <input matInput [matDatepicker]="picker9" [formControl]="incomeTaxDeductionsDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker9"></mat-datepicker-toggle>
+                  <mat-datepicker #picker9></mat-datepicker>
                 </mat-form-field>
               </div>
             </div>
@@ -262,7 +252,7 @@
       </div>
       <div class="button-row">
         <div class="col-md-12">
-      <button mat-button class="saveButton" (click)="saveReportData()">שמור</button>
+          <button mat-button class="saveButton" (click)="saveReportData()">שמור</button>
         </div>
       </div>
 
