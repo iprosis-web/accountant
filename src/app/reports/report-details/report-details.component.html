@@ -10,7 +10,7 @@
 				</div>
 
 				<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 50%;">
 
 						<div class="c-row">
 							<p class="border-title"> לקוח:</p>
@@ -31,7 +31,7 @@
 							<p class="res">{{reportsData.pcnRequirement}}</p>
 						</div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6" style="width: 50%;">
 						<div class="c-row">
 							<p class="border-title"> חודש/שנה:</p>
 							<p class="res"> {{reportsData.dateStr}} </p>
@@ -40,7 +40,7 @@
 							<p class="border-title"> ניכויים:</p>
 							<p class="res">{{reportsData.deductions}}</p>
 						</div>
-						<div class="outline-date">
+						<div class="outline-date-PCN">
 							<mat-form-field appearance="outline">
 								<mat-label> PCN דיווח </mat-label>
 								<input matInput [matDatepicker]="picker1" [formControl]="selectePCNReportdDate" readonly>
@@ -60,7 +60,7 @@
 
 				<div class="status">
 					<div class="row">
-						<div class="col-md-6">							
+						<div class="col-md-6" style="width: 50%;">							
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label> הגיע למשרד</mat-label>
@@ -81,7 +81,7 @@
 							</div>
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-6" style="width: 50%;">
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label>תאריך שינוי אחרון</mat-label>
@@ -134,10 +134,10 @@
 	</div>
 
 	<div class="newSection">
-		<app-report-institutions-payments></app-report-institutions-payments>
+		<app-report-institutions-payments [reportId]="reportId"></app-report-institutions-payments>
 	</div>
 	<div class="newSection">
-		<app-report-realistic-payment></app-report-realistic-payment>
+		<app-report-realistic-payment [reportId]="reportId"></app-report-realistic-payment>
 	</div>
 
 </div>

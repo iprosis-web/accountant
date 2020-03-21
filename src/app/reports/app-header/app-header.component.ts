@@ -54,14 +54,19 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   statuses = [];
   selectedCustomer: string = "null";
   selectedStatus: string = "null";
-  selectedStartDate = new FormControl(moment().startOf());
+  selectedStartDate = new FormControl(moment());
   selectedEndDate = new FormControl(moment());
+  //getting last month  
+  currDate = new Date();
+  monthBeforeFirstdate = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
+  monthBeforeLastdate = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 0);
 
   constructor(private reportsService: ReportsService,
     private headerService: HeaderService,
     private customerService :CustomersService,
     private changeDetectorRef: ChangeDetectorRef,
      private media: MediaMatcher) {
+
   }
 
   filtersDataObject: ReportsFilterModel = {
@@ -71,6 +76,8 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     endDate: new Date()
   };
   ngOnInit() {
+    this.selectedStartDate.patchValue(moment(this.monthBeforeFirstdate));
+    this.selectedEndDate.patchValue(moment(this.monthBeforeLastdate));
     this.customerService.getFullCustomersDetails().subscribe(res => {
       this.customers = res;
     })

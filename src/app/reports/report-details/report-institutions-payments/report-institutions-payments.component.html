@@ -78,7 +78,7 @@
                 <input matInput type="number" [readonly]="true" [(ngModel)]="generalRequiredCycleFee">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
-              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
+              <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>
@@ -103,7 +103,8 @@
               <div class="title card-title">
                 תשלום בפועל
               </div>
-              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
+
+              <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>
@@ -113,17 +114,18 @@
                 <input matInput type="number" [readonly]="true" [(ngModel)]="vatValue">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
-              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
+              <!-- <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace"> -->
+              <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>
               </mat-form-field>
-              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
+              <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>
               </mat-form-field>
-              <mat-form-field fxShow.gt-xs="true" fxHide.xs="true" appearance="outline" class="whiteSpace">
+              <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
                 <mat-label class="hh"></mat-label>
                 <input matInput type="number" [readonly]="true">
                 <mat-icon matPrefix></mat-icon>

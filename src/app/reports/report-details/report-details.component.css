@@ -129,6 +129,20 @@
 }
 
 .outline-date{
+    text-align: center;
+}
+
+.outline-date-PCN{
     text-align: right;
 }
+:host ::ng-deep .outline-date-PCN .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding:0px !important;
+    width:150px !important;
+    margin-right:0;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+
+   text-align: right;
+} 
 
