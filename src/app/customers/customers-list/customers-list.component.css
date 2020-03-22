@@ -95,3 +95,16 @@ tr.example-element-row:not(.example-expanded-row):active {
 .example-element-description-attribution {
   opacity: 0.5;
 }
+
+
+
+.filterInput {
+  width: 100% !important;
+}
+
+.filterInput .mat-form-field {
+  width: 100% !important;
+  direction: rtl !important;
+  text-align: right !important;
+  padding: 5px;
+}

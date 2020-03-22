@@ -25,7 +25,8 @@
 }
 
 .buttonTooltipSubmitt {
-  display: inline;
+  margin-top: 5px;
+  text-align: center;
 }
 
 ::ng-deep .mat-raised-button {
@@ -40,15 +41,16 @@
 .toolbarButton{
   justify-content: center;
   height: 34px;
+  outline: none;
 }
 
 .toolbarButton:hover{
-  border:2px solid gray;
+  
 }
 
 .person_add-icon {
-  height: 34px; 
-  margin-right: 50px;
+   margin-right: 10px;
+   margin-top: 5px;
   /* line-height: 48px; */
 }
 

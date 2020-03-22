@@ -23,6 +23,7 @@
 
   .close-button {
     text-align: left;
+    outline: none;
   } 
 
   /* .content-div {

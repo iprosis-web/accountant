@@ -37,12 +37,14 @@ export interface PeriodicElement {
 
 })
 export class CustomersListComponent implements OnInit , OnDestroy {
-
+  activeFlag: boolean = true;
+  filterValue: string = '';
   filteredCustomersSubscription: Subscription;
   dataSource = new MatTableDataSource<FullCustomerModel>();
   columnsToDisplay: string[] = ['businessId', 'companyName', 'isActive'];
   expandedElement: PeriodicElement | null;
   dataTableArray: FullCustomerModel[] = [];
+  tempFilteredArray: FullCustomerModel[] = [];
   customerId = null;
   statusId = null;
   allCustomersSubscription: Subscription;
@@ -61,10 +63,13 @@ export class CustomersListComponent implements OnInit , OnDestroy {
 
     this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(this.customerId, this.statusId).subscribe((filterData) => {
       this.dataTableArray = filterData;
+      this.tempFilteredArray = filterData;
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
       this.dataSource.data = this.dataTableArray;
+      this.filterValue = '';
+      this.activeFlag = this.statusId == null ? true : this.statusId == "לא פעיל" ? false : true;
       // this.setTableData(this.customerId, this.statusId);
     });
 
@@ -77,6 +82,9 @@ export class CustomersListComponent implements OnInit , OnDestroy {
           //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
         }
         this.dataSource.data = this.dataTableArray;
+        this.tempFilteredArray = this.dataTableArray;
+        this.filterValue = '';
+        this.activeFlag = this.statusId == null ? true : this.statusId == "לא פעיל" ? false : true;
         // this.setTableData(this.customerId, this.statusId);
       });
     });
@@ -87,6 +95,9 @@ export class CustomersListComponent implements OnInit , OnDestroy {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
       this.dataSource.data = this.dataTableArray;
+      this.tempFilteredArray = this.dataTableArray;
+      this.filterValue = '';
+      this.activeFlag = this.statusId == null ? true : this.statusId == "לא פעיל" ? false : true;
       // this.setTableData(this.customerId, this.statusId);
     });
  
@@ -97,6 +108,17 @@ export class CustomersListComponent implements OnInit , OnDestroy {
   ngOnDestroy() {
     this.allCustomersSubscription.unsubscribe();
     this.filteredCustomersSubscription.unsubscribe();
+  }
+
+  applyFilter() {
+    this.dataSource.data = this.dataTableArray.filter(c => (c.customer.businessId.includes(this.filterValue)
+    || c.customer.companyName.includes(this.filterValue))
+    && c.customer.isActive == this.activeFlag);
+  }
+
+  toggleActive(){
+    this.activeFlag = !this.activeFlag;
+    this.applyFilter();
   }
 
   setTableData(customerId, statusId) {    

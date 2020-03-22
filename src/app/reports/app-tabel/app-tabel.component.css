@@ -61,3 +61,15 @@ tr.row-click-material:not(.example-expanded-row):active {
 .mat-column-comment {
   width: 20%;
 }
+
+.filterInput {
+  width: 100% !important;
+}
+
+.filterInput .mat-form-field {
+  width: 100% !important;
+  padding: 0 !important;
+  direction: rtl !important;
+  text-align: right !important;
+  
+}

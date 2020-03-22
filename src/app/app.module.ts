@@ -16,7 +16,8 @@ import {
   MatSidenavModule,
   MatListModule,
   MatSlideToggleModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatCheckboxModule
 } from "@angular/material";
 
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -112,7 +113,8 @@ import { AngularFireStorage } from '@angular/fire/storage';
     MatSidenavModule,
     MatListModule,
     MatProgressSpinnerModule,
-    OverlayModule
+    OverlayModule,
+    MatCheckboxModule
   ],
   entryComponents: [CustomerEditComponent, ToggleDialogComponent],
   providers: [

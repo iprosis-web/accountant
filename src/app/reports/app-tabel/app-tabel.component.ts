@@ -21,6 +21,7 @@ import { ToggleDialogComponent } from '../toggle-dialog/toggle-dialog.component'
   styleUrls: ['./app-tabel.component.css']
 })
 export class AppTabelComponent implements OnInit, OnDestroy {
+  filterValue: string = '';
   color = 'primary';
   mode = 'indeterminate';
   value = 50;
@@ -69,11 +70,18 @@ export class AppTabelComponent implements OnInit, OnDestroy {
     this.reportsFilterSubscription.unsubscribe();
   }
 
+  applyFilter(){
+   this.dataSource.data =  this.dataTableArray.filter(r => (r.companyName != null && r.companyName.includes(this.filterValue))
+   || (r.status != null && r.status.includes(this.filterValue)) || (r.indicationStr != null && r.indicationStr.includes(this.filterValue))
+   || (r.comment != null && r.comment.includes(this.filterValue)));
+  }
+
   setTableData(date, customerId, statusId) {    
     this.dataTableArray = [];
     this.reportsService.getCustomersReports(date, customerId, statusId).subscribe(result => {
       this.dataTableArray = result;      
       this.dataSource.data = this.dataTableArray;
+      this.filterValue = '';
       if (this.dataTableArray.length <= 0) {
         new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
         this.dataSource.data = [];

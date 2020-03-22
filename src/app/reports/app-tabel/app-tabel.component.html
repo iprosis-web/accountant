@@ -1,4 +1,10 @@
 <div class="scroll-container mat-elevation-z8">
+    <div class="filterInput">
+        <mat-form-field>
+            <mat-label>חיפוש</mat-label>
+            <input matInput autocomplete="off" [(ngModel)]="filterValue" (keyup)="applyFilter()">
+        </mat-form-field>
+        </div>
   <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- Checkbox Column -->
