@@ -73,7 +73,6 @@ export class CustomersService {
           tempElem.customer.createdDate = d;
           customersArr.push(tempElem);
         })
-          console.log(this.allCustomers);
           return this.allCustomers = customersArr;
           //. filter(customer => 
           //   (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
@@ -85,7 +84,7 @@ export class CustomersService {
     
   }
 
-    getFullCustomerInfoById(id: string){
+    getFullCustomerInfoById(id: string){      
       // let customer = this.reportService.getFullCustomersDetails().find(c => c.customer.id === id);
       // return customer;
       return (
@@ -298,7 +297,6 @@ export class CustomersService {
             let batch = this.fireStore.firestore.batch();
   
             actions.forEach(el => {
-              console.log(el);
               batch.delete(el.ref);
             })
             batch.commit();

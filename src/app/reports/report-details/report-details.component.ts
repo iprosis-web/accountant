@@ -1,15 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ReportsService } from "../../services/reports.service";
-import { CustomerReportModel } from "src/app/models/customerReportModel";
 import { CustomersService } from 'src/app/services/customers.service';
 import { FormControl } from '@angular/forms';
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatDatepicker } from '@angular/material/datepicker';
 import { FullCustomerModel } from 'src/app/models/fullCustomerModel';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
+import { Helpers } from 'src/app/Utils/Helpers';
 import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 const moment = _rollupMoment || _moment;
@@ -50,6 +47,7 @@ export class ReportDetailsComponent implements OnInit {
   value = 50;
   loading = false;
   reportsData;
+  statusStr;
   selectePCNReportdDate = new FormControl(new Date());
   selectedArrivedDate = new FormControl(new Date());
   selectedStartJobDate = new FormControl(new Date());
@@ -75,8 +73,8 @@ export class ReportDetailsComponent implements OnInit {
       this.getReportDetails(this.reportId)
     });
     this.customerService.getFullCustomersDetails().subscribe(res => {
-      if(res.length > 0)
-      this.customerData = res[0];
+      if (res.length > 0)
+        this.customerData = res[0];
       //read only data
       this.customerData.clickableAdd = false;
       this.customerData.clickableDelete = false;
@@ -85,30 +83,31 @@ export class ReportDetailsComponent implements OnInit {
       this.customerData.displayDelete = false;
       this.customerData.displayEdit = false;
       this.loading = false;
-      console.log(this.customerData);
     })
-    // console.log(this.selectePCNReportdDate.value);
-
   }
 
   getReportDetails(reportId) {
-   this.reportService.getReportById(reportId).subscribe(result => {
-     console.log(result);
-     try{
-      this.reportsData = result;
-      this.getCustomersDetails(this.reportsData.customerId);
-     }catch(err) {
-      this.reportsData = null;
-      this.getCustomersDetails(null);
-     }
+
+    this.reportService.getReportById(reportId).subscribe(result => {
+      try {
+        this.reportsData = result;
+        this.selectePCNReportdDate = this.reportsData.pcnReportDate == null ? new FormControl(new Date()) : this.reportsData.pcnReportDate;
+        this.selectedArrivedDate = this.reportsData.arrivedToOffice == null ? new FormControl(new Date()) : this.reportsData.arrivedToOffice;
+        this.selectedStartJobDate = this.reportsData.reportStartDate == null ? new FormControl(new Date()) : this.reportsData.reportStartDate;
+        this.selectedModifiedDate = this.reportsData.reportLastChangeDate == null ? new FormControl(new Date()) : this.reportsData.reportLastChangeDate;
+        this.selectedEndReportDate = this.reportsData.reportEndDate == null ? new FormControl(new Date()) : this.reportsData.reportEndDate;
+        this.statusStr = new Helpers().getSatusNameById(this.reportsData.status);
+        this.getCustomersDetails(this.reportsData.customerId);
+      } catch (err) {
+        this.reportsData = null;
+        this.getCustomersDetails(null);
+      }
     });
   }
 
   getCustomersDetails(customerId) {
-    ////////we willllllllllllllllll receive customer Data with customer id
-    
-    this.customerService.getFullCustomerInfoById(customerId).subscribe((res) => {
-      try {        
+    this.customerService.getFullCustomerInfoById(customerId).subscribe(res => {
+      try {
         this.customerData = res[0];
         this.loadFlag = true;
         this.customerData.clickableAdd = false;

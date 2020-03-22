@@ -19,7 +19,6 @@ export class TestcompComponent implements OnInit {
   ngOnInit() {}
 
   getData() {
-    console.log("Data :", this.data);
     const localData = this.data;
     this.service.getData(localData).subscribe(res => {
       res.forEach(el => console.log("Got data between ID:", localData.id, localData.name, el.data()));
@@ -27,7 +26,6 @@ export class TestcompComponent implements OnInit {
   }
 
   postData() {
-    console.log("New Data :", this.data);
     this.service
       .postData(this.data)
       .then(res => {

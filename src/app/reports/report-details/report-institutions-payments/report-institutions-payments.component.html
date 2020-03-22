@@ -15,46 +15,46 @@
               <mat-form-field class="mat-form-field-class" appearance="outline">
                 <mat-label class="hh">מחזור חייב</mat-label>
                 <mat-icon matPrefix>₪</mat-icon>
-                <input matInput type="number" [(ngModel)]="taxableTurnoverA" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="requiredCycleVal" (change)=getGeneralVAT()>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור הוני חייב</mat-label>
-                <input matInput type="number" [(ngModel)]="taxableCapitalTurnoverB" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="requiredCapitalCycleFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור פטור</mat-label>
-                <input matInput type="number" [(ngModel)]="exemptionTurnoverC" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="exemptCycleFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור הוני פטור</mat-label>
-                <input matInput type="number" [(ngModel)]="exemptionCapitalTurnoverD" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="exemptCapitalCycleFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">תשומות</mat-label>
-                <input matInput type="number" [(ngModel)]="inputsE" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="addedValueFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">תשומות ק</mat-label>
-                <input matInput type="number" [(ngModel)]="fInputTaxF" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="addedValueKFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מס שנוכה</mat-label>
-                <input matInput type="number" [(ngModel)]="retentionTaxG" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="deductionsFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">אחוז מקדמות</mat-label>
-                <input matInput type="number" [(ngModel)]="percentageOfAdvancesH" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="downPaymentPercentage" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label class="hh">מחזור חשבונית עצמתית (ס.20)</mat-label>
-                <input matInput type="number" [(ngModel)]="invoicingM" (change)=getGeneralVAT()>
+                <input matInput type="number" [(ngModel)]="personalInvoiceCycleFee" (change)=getGeneralVAT()>
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <!-- </div> -->
@@ -65,17 +65,17 @@
               </div>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מחזור כללי למע"מ</mat-label>
-                <input matInput type="number" [readonly]="true" [(ngModel)]="generalVATTurnoverI">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="generalCycleVat">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מע"מ לתשלום</mat-label>
-                <input matInput type="number" [readonly]="true" [(ngModel)]="paypalVATN">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="vatPayment">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מחזור כללי פטור</mat-label>
-                <input matInput type="number" [readonly]="true" [(ngModel)]="generalExemptionTurnoverJ">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="generalRequiredCycleFee">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field [fxHide]="mobileQuery.matches ? 'true' : 'false'" appearance="outline" class="whiteSpace">
@@ -85,12 +85,12 @@
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מחזור מקדמות</mat-label>
-                <input matInput type="number" [readonly]="true" [(ngModel)]="advanceTurnoverK">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="downPaymentsCycleFee">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
                 <mat-label class="hh">מקדמה מחושב</mat-label>
-                <input matInput type="number" [readonly]="true" [(ngModel)]="calculatedDownPaymentL">
+                <input matInput type="number" [readonly]="true" [(ngModel)]="calculatedDownPayment">
                 <mat-icon matPrefix>₪</mat-icon>
               </mat-form-field>
               <mat-form-field appearance="outline" class="unedited">
