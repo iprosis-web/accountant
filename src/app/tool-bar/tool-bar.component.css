@@ -16,6 +16,7 @@
 
   .close-button {
     text-align: left;
+    outline: none;
   } 
 
   .app-side-nav  {

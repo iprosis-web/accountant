@@ -28,11 +28,12 @@
 .toolbarButton{
   justify-content: center;
   height: 34px;
+  outline: none;
 }
 
-.toolbarButton:hover{
-  border:2px solid gray;
-}
+/* .toolbarButton:hover{
+  
+} */
 
 .person_add-icon {
   height: 34px; 

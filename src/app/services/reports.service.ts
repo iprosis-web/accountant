@@ -192,7 +192,7 @@ export class ReportsService {
                 status: el.data().status,
                 indication: el.data().indication,
                 reportDate: new Date(el.data().reportDateNum),
-                createDate: new Date(el.data().createDate),
+                createDate: new Date(el.data().createDateNum),
                 comment: el.data().comment,
                 isActive: el.data().isActive,
                 lease: el.data().lease,
@@ -550,8 +550,7 @@ export class ReportsService {
   }
 
   updateReports(reportId: string, reportData: ReportDetailsModel) {
-    let result: ApiResult;
-
+    let result: ApiResult;        
     return Observable.create((observer: Observer<ApiResult>) => {
       this.firestore.collection('reports')
         .doc(reportId)
