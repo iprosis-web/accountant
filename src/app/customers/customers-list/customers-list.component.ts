@@ -36,7 +36,7 @@ export interface PeriodicElement {
   ],
 
 })
-export class CustomersListComponent implements OnInit , OnDestroy {
+export class CustomersListComponent implements OnInit, OnDestroy {
 
   filteredCustomersSubscription: Subscription;
   dataSource = new MatTableDataSource<FullCustomerModel>();
@@ -51,21 +51,18 @@ export class CustomersListComponent implements OnInit , OnDestroy {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(
     private reportsService: ReportsService,
-    private customerService : CustomersService,
+    private customerService: CustomersService,
     //private snackBar: MatSnackBar,
     private headerService: HeaderService
   ) { }
 
   ngOnInit() {
-    // this.setTableData(this.customerId, this.statusId);
-
     this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(this.customerId, this.statusId).subscribe((filterData) => {
       this.dataTableArray = filterData;
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
       this.dataSource.data = this.dataTableArray;
-      // this.setTableData(this.customerId, this.statusId);
     });
 
     this.headerService.customersFilterSubject.subscribe(res => {
@@ -77,7 +74,6 @@ export class CustomersListComponent implements OnInit , OnDestroy {
           //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
         }
         this.dataSource.data = this.dataTableArray;
-        // this.setTableData(this.customerId, this.statusId);
       });
     });
 
@@ -87,9 +83,8 @@ export class CustomersListComponent implements OnInit , OnDestroy {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
       this.dataSource.data = this.dataTableArray;
-      // this.setTableData(this.customerId, this.statusId);
     });
- 
+
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
@@ -99,23 +94,20 @@ export class CustomersListComponent implements OnInit , OnDestroy {
     this.filteredCustomersSubscription.unsubscribe();
   }
 
-  setTableData(customerId, statusId) {    
-    this.dataTableArray = [];  
-        this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(customerId,statusId).subscribe(res => {
+  setTableData(customerId, statusId) {
+    this.dataTableArray = [];
+    this.filteredCustomersSubscription = this.customerService.getFilteredCustomers(customerId, statusId).subscribe(res => {
       this.dataTableArray = res;
       if (this.dataTableArray.length <= 0) {
         //new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
       }
       this.dataSource.data = this.dataTableArray;
     });
-
-    
   }
 
-  getRowData(customertData){
+  getRowData(customertData) {
     let rowData = JSON.stringify(customertData);
     //new Helpers().displaySnackBar(this.snackBar,"דיווח מספר : " + customertData.reportID,""  )
-
   }
 
 }

@@ -1,21 +1,14 @@
   .navbar {
-    /* direction: rtl; */
     padding: 0;
   }
 
-  
   .fill-remaining-space {
     /* This fills the remaining space, by using flexbox. 
        Every toolbar row uses a flexbox row layout. */
     /* flex: 1 1 auto;  */
     top:0;
     padding: 0;
-    /* direction:rtl; */
   }
-/*
-  .mat-menu-item {
-    text-align: right;
-  }  */
 
   .mat-menu-item {
     text-align: right;
@@ -24,10 +17,6 @@
   .close-button {
     text-align: left;
   } 
-
-  /* .content-div {
-    height: 100%;
-  } */
 
   .app-side-nav  {
     height: 100%;

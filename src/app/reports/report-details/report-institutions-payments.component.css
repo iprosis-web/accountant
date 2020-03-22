@@ -1,6 +1,4 @@
 .c-row{
-    /* display: flex;
-    flex-direction:row; */
     justify-content: center;
 }  
 
@@ -23,14 +21,6 @@
     font-weight: bold;
 }
 
-:host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: rgba(238, 238, 238, 0.993) !important;
-}
-:host ::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
-    color: white !important;
-}
-
-
 .saveButton {
      width: 150px;
      background-color:#3f51b5;
@@ -40,32 +30,29 @@
      color: white;
  }
 
- .card {
+.card {
      text-align: center;
  }
+
 .button-row {
-     /* margin: 10px; */
      text-align: left;
  }
 
-
- /* .customer-form-container .mat-form-field + .mat-form-field {
-    margin-left: 8px;
-    margin-top: 5px;
-  }
-
-  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0.5em 0 0.5em 0 !important;
-  } */
-
-mat-form-field { 
+.mat-form-field { 
     max-width: 210px;
     height: 50px;
     margin: 10px;
     margin-bottom: 20px;
-    
   } 
 
-:host ::ng-deep .mat-form-field-infix {
-    text-align: right;
+.primaryInstitutionsCard .mat-form-field-appearance-outline{
+    direction: ltr; 
 } 
+
+:host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
+    background-color: rgba(238, 238, 238, 0.993) !important;
+}
+:host ::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: white !important;
+}
+

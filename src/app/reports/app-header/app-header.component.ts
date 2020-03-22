@@ -9,7 +9,7 @@ import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
 import { ReportsService } from 'src/app/services/reports.service';
-import {CustomersService} from '../../services/customers.service';
+import { CustomersService } from '../../services/customers.service';
 import { ReportsFilterModel } from 'src/app/models/reportsFilterModel';
 import { HeaderService } from 'src/app/services/header.service';
 import { MediaMatcher } from '@angular/cdk/layout';
@@ -58,14 +58,14 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
   selectedEndDate = new FormControl(moment());
   //getting last month  
   currDate = new Date();
-  monthBeforeFirstdate = new Date(this.currDate.getFullYear(), this.currDate.getMonth()-1, 1);
+  monthBeforeFirstdate = new Date(this.currDate.getFullYear(), this.currDate.getMonth() - 1, 1);
   monthBeforeLastdate = new Date(this.currDate.getFullYear(), this.currDate.getMonth(), 0);
 
   constructor(private reportsService: ReportsService,
     private headerService: HeaderService,
-    private customerService :CustomersService,
+    private customerService: CustomersService,
     private changeDetectorRef: ChangeDetectorRef,
-     private media: MediaMatcher) {
+    private media: MediaMatcher) {
 
   }
 
@@ -75,19 +75,19 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     startDate: new Date(),
     endDate: new Date()
   };
+
   ngOnInit() {
     this.selectedStartDate.patchValue(moment(this.monthBeforeFirstdate));
     this.selectedEndDate.patchValue(moment(this.monthBeforeLastdate));
     this.customerService.getFullCustomersDetails().subscribe(res => {
       this.customers = res;
     })
-        //match media to max-width of 600
     this.mobileQuery = this.media.matchMedia('(max-width: 920px)');
-    //activate litsener to media to be able to listen to media changes
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
     this.statuses = this.reportsService.getAllStatuses();
-    
+
   }
 
   onFilterSubmitted() {
@@ -100,23 +100,20 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.year(normalizedYear.year());
     this.selectedStartDate.setValue(ctrlValue);
-
   }
 
   chosenStartMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
     const ctrlValue = this.selectedStartDate.value;
     ctrlValue.month(normalizedMonth.month());
     this.selectedStartDate.setValue(ctrlValue);
-    this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();    
+    this.filtersDataObject.startDate = this.selectedStartDate.value.toDate();
     datepicker.close();
-
   }
 
   chosenEndYearHandler(normalizedYear: Moment) {
     const ctrlValue = this.selectedEndDate.value;
     ctrlValue.year(normalizedYear.year());
     this.selectedEndDate.setValue(ctrlValue);
-
   }
 
   chosenEndMonthHandler(normalizedMonth: Moment, datepicker: MatDatepicker<Moment>) {
@@ -127,7 +124,7 @@ export class AppHeaderComponent implements OnInit, OnDestroy {
     datepicker.close();
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 

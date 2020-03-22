@@ -35,19 +35,19 @@ export class CustomersHeaderComponent implements OnInit {
     private headerService: HeaderService) { }
 
   ngOnInit() {
-     this.customerService.getFullCustomersDetails().subscribe(res => {
-       this.customers = res;
-     })
+    this.customerService.getFullCustomersDetails().subscribe(res => {
+      this.customers = res;
+    })
 
-     this.customerService.fullCustomerDetailsSubject.subscribe(res => {
-       this.selectedCustomer = "null";
-       this.selectedStatus = "null";
-       this.customers = res;
-     })
+    this.customerService.fullCustomerDetailsSubject.subscribe(res => {
+      this.selectedCustomer = "null";
+      this.selectedStatus = "null";
+      this.customers = res;
+    })
   }
 
   onFilterSubmitted() {
-    
+
     this.filtersCustomerObject.companyId = this.selectedCustomer == "null" ? null : this.selectedCustomer;
     this.filtersCustomerObject.isActive = this.selectedStatus == "null" ? null : this.selectedStatus;
     this.headerService.updateFilterCustomer(this.filtersCustomerObject);

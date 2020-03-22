@@ -20,7 +20,6 @@ export class CustomersService {
     private fireStore: AngularFirestore,private storage: AngularFireStorage) { }
 
   getFilteredCustomers(customerId: string, statusString:string) {
-// changing status to string , adding statuses string array + changing to string in DB
     let status;
     if(statusString == null){
       status = null;
@@ -74,11 +73,7 @@ export class CustomersService {
           customersArr.push(tempElem);
         })
           return this.allCustomers = customersArr;
-          //. filter(customer => 
-          //   (customer.customer.customerId == customerId || customerId == undefined || customerId == null) &&
-          //   (customer.customer.isActive == status || status == undefined || status == null)
 
-          // )
       }))
     )
     

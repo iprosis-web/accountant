@@ -27,7 +27,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
   loading = false;
   toggleEnabled: boolean = false;
   reportsFilterSubscription: Subscription;
-  displayedColumns: string[] = ['arrivedToOffice','companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
+  displayedColumns: string[] = ['arrivedToOffice', 'companyName', 'dateStr', 'status', 'indicationStr', 'comment'];
   reports;
   dataTableArray: CustomerReportModel[] = [];
   currDate = new Date();
@@ -53,13 +53,14 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.setTableData(this.date, this.customerId, this.statusId);
-    this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe(res=> {
-      let dateFilter: DateFilterModel = { startDate: new Date(res.startDate.getFullYear(), res.startDate.getMonth(), 1)
-        , endDate: new Date(res.endDate.getFullYear(), res.endDate.getMonth()+1, -1)
+    this.reportsFilterSubscription = this.headerService.reportsFilterSubject.subscribe(res => {
+      let dateFilter: DateFilterModel = {
+        startDate: new Date(res.startDate.getFullYear(), res.startDate.getMonth(), 1)
+        , endDate: new Date(res.endDate.getFullYear(), res.endDate.getMonth() + 1, -1)
       };
       this.customerId = res.company;
       this.statusId = res.status;
-      this.setTableData(dateFilter, this.customerId,this.statusId);
+      this.setTableData(dateFilter, this.customerId, this.statusId);
     });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -69,37 +70,37 @@ export class AppTabelComponent implements OnInit, OnDestroy {
     this.reportsFilterSubscription.unsubscribe();
   }
 
-  setTableData(date, customerId, statusId) {    
+  setTableData(date, customerId, statusId) {
     this.dataTableArray = [];
     this.reportsService.getCustomersReports(date, customerId, statusId).subscribe(result => {
-      this.dataTableArray = result;      
+      this.dataTableArray = result;
       this.dataSource.data = this.dataTableArray;
       if (this.dataTableArray.length <= 0) {
-        new Helpers().displaySnackBar(this.snackBar,'לא נמצאו דיווחים לפי הסינון',""  )
+        new Helpers().displaySnackBar(this.snackBar, 'לא נמצאו דיווחים לפי הסינון', "")
         this.dataSource.data = [];
-  
+
       }
       this.loading = false;
     });
 
   }
 
-  getRowData(reportData){
-      let rowData = JSON.stringify(reportData);    
-      this.router.navigate(['/report', reportData.reportID]);
+  getRowData(reportData) {
+    let rowData = JSON.stringify(reportData);
+    this.router.navigate(['/report', reportData.reportID]);
   }
 
-  disablePropagationEvent(event){
-    if(event.source.checked == true)
+  disablePropagationEvent(event) {
+    if (event.source.checked == true)
       event.source.checked = false;
     else
-      event.source.checked = true;  
+      event.source.checked = true;
   }
 
-  arrivedToOfficeChange(event, element){
-    
+  arrivedToOfficeChange(event, element) {
+
     event.stopPropagation();
-    this.dialogRef = this.confirmDialog.open(ToggleDialogComponent,  {
+    this.dialogRef = this.confirmDialog.open(ToggleDialogComponent, {
       direction: 'rtl',
       data: {
         report: element,
@@ -111,7 +112,7 @@ export class AppTabelComponent implements OnInit, OnDestroy {
 
     this.dialogRef.afterClosed().subscribe((res) => {
       this.loading = true;
-        this.setTableData(this.date, this.customerId, this.statusId);
+      this.setTableData(this.date, this.customerId, this.statusId);
     });
   }
 

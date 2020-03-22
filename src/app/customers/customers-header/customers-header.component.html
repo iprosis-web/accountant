@@ -1,6 +1,6 @@
 <div class="customers-navbar" fxFlexFill>
   <form #f="ngForm" class="form-container">
-    <div class="filter-container" >
+    <div class="filter-container">
       <mat-form-field appearance="outline">
         <mat-label>בחר חברה</mat-label>
         <mat-select matNativeControl name="companyNameSelectin" [(ngModel)]="selectedCustomer" class="customer">
@@ -16,10 +16,8 @@
           <mat-option value="null">הכל</mat-option>
           <mat-option [value]=statuses[1]>פעיל</mat-option>
           <mat-option [value]=statuses[2]>לא פעיל</mat-option>
-          <!-- <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.name}} </mat-option> -->
         </mat-select>
       </mat-form-field>
-
 
     </div>
     <div class="buttonTooltipSubmitt" matTooltip="יש למלא את כל השדות" [matTooltipDisabled]="f.valid">
@@ -28,7 +26,7 @@
     </div>
 
     <div class="person_add-icon">
-      <button mat-raised-button (click)="openDialogForNew()" class="add-icon">
+      <button mat-raised-button class="person-add-button" (click)="openDialogForNew()" class="add-icon">
         <mat-icon>person_add</mat-icon>
       </button>
     </div>

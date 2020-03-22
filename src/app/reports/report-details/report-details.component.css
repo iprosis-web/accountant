@@ -6,7 +6,6 @@
     padding: 8px;
 }
 
-
 .customer-data{
     margin-top: 2%;
 }
@@ -15,18 +14,7 @@
     margin: 1%; 
     margin-top: 2%; 
 }
-/*
-.card-title {
-    text-align: right;
-}
-.c-row{
-    display: flex;
-    flex-direction:row;
-    justify-content: center;
-}
 
-
-*/
 .res{
    text-align: right;
 } 
@@ -36,32 +24,10 @@
     text-align: right;
 }
 
-/* .res{
-    padding-right:50px;
-     width: 100px; 
-}  */
-
-
-:host ::ng-deep .mat-form-field-appearance-outline{
+.report-container .mat-form-field-appearance-outline{
     direction: ltr; 
 } 
-/* 
 
-
-
-.panel-title{
-    display: flex;
-    flex-grow: 0 !important;
-} */
-
-/*  6666666666666666666666 */
-
-/* .row{
-    margin:1px;
-     margin-top: 4px; 
-    text-align: right;
-}
-*/
 .c-row{
     display: flex;
     flex-direction:row;
@@ -88,26 +54,6 @@
     font-weight: bold;
 }
 
-.jjj{
-    margin-right:1%;
-}
-
-/* .mat-form-field-appearance-outline {
-    width: 100%;
-    height: 50px;
-    line-height: 1.725;
-    margin: 4px;
-    text-align: right;
-} */
-
- :host ::ng-deep .unedited.mat-form-field-appearance-outline .mat-form-field-outline {
-    background-color: rgba(238, 238, 238, 0.993) !important;
-}
-
-:host ::ng-deep .whiteSpace.mat-form-field-appearance-outline .mat-form-field-outline {
-    color: white !important;
-} 
-
 .saveButton {
      width: 150px;
      background-color:#3f51b5;
@@ -122,12 +68,6 @@
      text-align: left;
  }
 
-:host ::ng-deep .outline-date .mat-form-field-appearance-outline .mat-form-field-flex{
-    padding:0px !important;
-    width:150px !important;
-    margin-right:0;
-}
-
 .outline-date{
     text-align: center;
 }
@@ -135,14 +75,20 @@
 .outline-date-PCN{
     text-align: right;
 }
-:host ::ng-deep .outline-date-PCN .mat-form-field-appearance-outline .mat-form-field-flex{
+
+.outline-date-PCN .mat-form-field-appearance-outline {
     padding:0px !important;
     width:150px !important;
     margin-right:0;
 }
 
 :host ::ng-deep .mat-form-field-infix {
-
    text-align: right;
 } 
+
+:host ::ng-deep .outline-date .mat-form-field-appearance-outline .mat-form-field-flex{
+    padding:0px !important;
+    width:150px !important;
+    margin-right:0;
+}
 

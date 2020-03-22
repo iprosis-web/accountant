@@ -7,7 +7,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
   templateUrl: './tool-bar.component.html',
   styleUrls: ['./tool-bar.component.css']
 })
-export class ToolBarComponent implements OnInit,OnDestroy {
+export class ToolBarComponent implements OnInit, OnDestroy {
   mobileQuery: MediaQueryList;
 
   private _mobileQueryListener: () => void;
@@ -15,15 +15,14 @@ export class ToolBarComponent implements OnInit,OnDestroy {
   constructor(private changeDetectorRef: ChangeDetectorRef, private media: MediaMatcher) { }
 
   ngOnInit() {
-    //match media to max-width of 600
+    //match media to max-width of 1200
     this.mobileQuery = this.media.matchMedia('(max-width: 1200px)');
     //activate litsener to media to be able to listen to media changes
     this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 

@@ -3,12 +3,6 @@
     margin-top: 5px;
   }
 
-  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding: 0.5em 0 0.5em 0 !important;
-  }
-
-
-
   .img-responsive {
     width: 100%;
     max-width: 150px;
@@ -23,3 +17,6 @@
     text-align: left;
   }
 
+  :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+    padding: 0.5em 0 0.5em 0 !important;
+  }
