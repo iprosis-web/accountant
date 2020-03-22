@@ -12,40 +12,43 @@
 				<div class="row">
 					<div class="col-md-6" style="width: 50%;">
 
-						<div class="c-row">
-							<p class="border-title"> לקוח:</p>
-							<p class="res"> {{customerData.customer.companyName}} </p>
-						</div>
-						<div class="c-row">
-							<p class="border-title"> גורם מטפל:</p>
-							<br>
-							<p class="res">{{reportsData.reportHandler}}</p>
-						</div>
-						<div class="c-row">
-							<p class="border-title"> מספר תיק: </p>
-							<br>
-							<p class="res">{{reportsData.reportNumber}}</p>
-						</div>
-						<div class="c-row">
-							<p class="border-title"> חייב PCN:</p>
-							<p class="res">{{reportsData.pcnRequirement}}</p>
-						</div>
+						<mat-form-field appearance="outline">
+							<mat-label>לקוח</mat-label>
+							<input matInput type="string" [(ngModel)]="companyName">
+						</mat-form-field>
+						<mat-form-field appearance="outline">
+							<mat-label>גורם מטפל</mat-label>
+							<input matInput type="string" [(ngModel)]="reportHandler">
+						</mat-form-field>
+						<mat-form-field appearance="outline">
+							<mat-label>מספר תיק</mat-label>
+							<input matInput type="number" [(ngModel)]="reportNumber">
+						</mat-form-field>
+						<mat-form-field appearance="outline">
+							<mat-label>חייב PCN</mat-label>
+							<input matInput type="number" [(ngModel)]="pcnRequirement">
+						</mat-form-field>
 					</div>
+
 					<div class="col-md-6" style="width: 50%;">
-						<div class="c-row">
-							<p class="border-title"> חודש/שנה:</p>
-							<p class="res"> {{reportsData.dateStr}} </p>
-						</div>
-						<div class="c-row">
-							<p class="border-title"> ניכויים:</p>
-							<p class="res">{{reportsData.deductions}}</p>
-						</div>
+						<mat-form-field class="example-full-width" appearance="outline">
+							<mat-label>חודש/שנה</mat-label>
+							<input matInput [matDatepicker]="dateStrPicker"
+							 [formControl]="dateStr">
+							<mat-datepicker-toggle matSuffix [for]="dateStrPicker"></mat-datepicker-toggle>
+							<mat-datepicker #dateStrPicker></mat-datepicker>
+						</mat-form-field>
+						<mat-form-field appearance="outline">
+							<mat-label>ניכויים:</mat-label>
+							<input matInput type="number" [(ngModel)]="deductions">
+						</mat-form-field>
 						<div class="outline-date-PCN">
 							<mat-form-field appearance="outline">
 								<mat-label> PCN דיווח </mat-label>
-								<input matInput [matDatepicker]="picker1" [formControl]="selectePCNReportdDate" readonly>
-								<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-								<mat-datepicker #picker1></mat-datepicker>
+								<input matInput [matDatepicker]="pcnReportDatePicker"
+									[formControl]="selectePCNReportdDate">
+								<mat-datepicker-toggle matSuffix [for]="pcnReportDatePicker"></mat-datepicker-toggle>
+								<mat-datepicker #pcnReportDatePicker></mat-datepicker>
 							</mat-form-field>
 						</div>
 					</div>
@@ -55,28 +58,32 @@
 		<div class="col-md-6">
 			<div class="card h-100">
 				<div class="title primaryTitle2">
-					<span class="res">סטטוס דיווח: {{statusStr.name}} </span>
+					<span class="res">סטטוס דיווח: </span>
 				</div>
 
 				<div class="status">
 					<div class="row">
-						<div class="col-md-6" style="width: 50%;">							
+						<div class="col-md-6" style="width: 50%;">
+							<mat-form-field appearance="outline">
+								<mat-label>סטטוס דיווח</mat-label>
+								<input matInput type="string" [(ngModel)]="statusStr">
+							</mat-form-field>
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label> הגיע למשרד</mat-label>
-									<input matInput [matDatepicker]="picker2" [formControl]="selectedArrivedDate"
-										readonly>
-									<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-									<mat-datepicker #picker2></mat-datepicker>
+									<input matInput [matDatepicker]="arrivedDatePicker"
+										[formControl]="selectedArrivedDate">
+									<mat-datepicker-toggle matSuffix [for]="arrivedDatePicker"></mat-datepicker-toggle>
+									<mat-datepicker #arrivedDatePicker></mat-datepicker>
 								</mat-form-field>
 							</div>
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label>תאריך תחילת דיווח</mat-label>
-									<input matInput [matDatepicker]="picker3" [formControl]="selectedStartJobDate"
-										readonly>
-									<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-									<mat-datepicker #picker3></mat-datepicker>
+									<input matInput [matDatepicker]="startJobDatePicker"
+										[formControl]="selectedStartJobDate">
+									<mat-datepicker-toggle matSuffix [for]="startJobDatePicker"></mat-datepicker-toggle>
+									<mat-datepicker #startJobDatePicker></mat-datepicker>
 								</mat-form-field>
 							</div>
 						</div>
@@ -85,10 +92,10 @@
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label>תאריך שינוי אחרון</mat-label>
-									<input matInput [matDatepicker]="picker4" [formControl]="selectedModifiedDate"
-										readonly>
-									<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-									<mat-datepicker #picker4></mat-datepicker>
+									<input matInput [matDatepicker]="modifiedDatePicker"
+										[formControl]="selectedModifiedDate">
+									<mat-datepicker-toggle matSuffix [for]="modifiedDatePicker"></mat-datepicker-toggle>
+									<mat-datepicker #modifiedDatePicker></mat-datepicker>
 								</mat-form-field>
 							</div>
 
@@ -96,10 +103,11 @@
 							<div class="outline-date">
 								<mat-form-field class="example-full-width" appearance="outline">
 									<mat-label>תאריך סיום הדיווח</mat-label>
-									<input matInput [matDatepicker]="picker5" [formControl]="selectedEndReportDate"
-										readonly>
-									<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
-									<mat-datepicker #picker5></mat-datepicker>
+									<input matInput [matDatepicker]="endReportDatePicker"
+										[formControl]="selectedEndReportDate">
+									<mat-datepicker-toggle matSuffix [for]="endReportDatePicker">
+									</mat-datepicker-toggle>
+									<mat-datepicker #endReportDatePicker></mat-datepicker>
 								</mat-form-field>
 							</div>
 						</div>
@@ -107,7 +115,7 @@
 				</div>
 				<div class="button-row">
 					<div class="col-md-12">
-						<button mat-button class="saveButton" (click)="saveReportData()">שמור</button>
+						<button mat-button class="saveButton" (click)="updateReportsData()">שמור</button>
 					</div>
 				</div>
 			</div>
@@ -126,7 +134,7 @@
 								{{customerData.customer.companyName}}
 							</mat-panel-description>
 						</mat-expansion-panel-header>
-							<app-customer-details [customerModel]="customerData"></app-customer-details>
+						<app-customer-details [customerModel]="customerData"></app-customer-details>
 					</mat-expansion-panel>
 				</mat-accordion>
 			</div>
@@ -142,6 +150,6 @@
 
 </div>
 
-<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true" [positionGloballyCenter]="true"
- [displayProgressSpinner]="loading">
+<app-progress-spinner class="example-margin" [color]="color" [mode]="mode" [value]="value" [backdropEnabled]="true"
+	[positionGloballyCenter]="true" [displayProgressSpinner]="loading">
 </app-progress-spinner>
